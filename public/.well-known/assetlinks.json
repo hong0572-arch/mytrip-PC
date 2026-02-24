@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pro.mytrip2.twa",
+      "sha256_cert_fingerprints": [
+        "04:F2:05:C6:91:8D:04:44:C8:B2:FE:93:84:4B:7F:4B:B5:01:4F:6E:C4:29:AD:B7:A0:D1:2D:E5:A1:B6:6C:FA"
+      ]
+    }
+  }
+]
