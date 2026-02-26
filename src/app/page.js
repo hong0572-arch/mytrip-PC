@@ -156,8 +156,7 @@ export default function PCHome() {
       <header className="h-20 bg-white flex items-center justify-between px-10 max-w-[1400px] w-full mx-auto">
         <div className="flex items-center gap-12">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => setShowAIPlanner(false)}>
-            <div className="w-10 h-10 bg-slate-900 text-white flex items-center justify-center rounded-full font-black text-xl shadow-md">🐾</div>
-            <span className="text-2xl font-black tracking-tight text-slate-900">Trip Maker</span>
+            <img src="/logo.png" alt="Trip Maker Logo" className="h-10 w-auto object-contain" />
           </div>
           <nav className="hidden md:flex gap-8 text-lg font-bold text-gray-700">
             <button className="hover:text-[#4A7DFF] transition-colors">해외 패키지</button>

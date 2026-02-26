@@ -15,7 +15,6 @@ import { ko } from 'date-fns/locale';
 // 🌟 컴포넌트 임포트 (경로를 대표님 프로젝트에 맞게 확인해주세요)
 import CatMascot from '../components/CatMascot';
 import AIResult from '../components/AIResult';
-import { getTranslation } from '../src/lib/translations';
 
 // 🌟 Firebase 임포트
 import { auth, db } from "../lib/firebase";
@@ -75,7 +74,6 @@ export default function PCHome() {
 
   const [user, setUser] = useState(null);
   const [language, setLanguage] = useState('ko');
-  const t = getTranslation(language);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("AI가 완벽한 일정을 짜고 있어요...");
   const [mySchedules, setMySchedules] = useState([]);
@@ -158,26 +156,18 @@ export default function PCHome() {
       <header className="h-20 bg-white flex items-center justify-between px-10 max-w-[1400px] w-full mx-auto">
         <div className="flex items-center gap-12">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => setShowAIPlanner(false)}>
-            <div className="w-10 h-10 bg-slate-900 text-white flex items-center justify-center rounded-full font-black text-xl shadow-md">🐾</div>
-            <span className="text-2xl font-black tracking-tight text-slate-900">Trip Maker</span>
+            <img src="/logo.png" alt="Trip Maker Logo" className="h-10 w-auto object-contain" />
           </div>
           <nav className="hidden md:flex gap-8 text-lg font-bold text-gray-700">
-            <button className="hover:text-[#4A7DFF] transition-colors">{language === 'ko' ? '해외 패키지' : 'Overseas Packages'}</button>
-            <button onClick={() => setShowAIPlanner(true)} className="hover:text-[#4A7DFF] text-[#4A7DFF] transition-colors">{t.hero.title}</button>
-            <button className="hover:text-[#4A7DFF] transition-colors">{language === 'ko' ? '국내/제주' : 'Domestic/Jeju'}</button>
-            <button className="hover:text-[#4A7DFF] transition-colors">{language === 'ko' ? '맞춤견적 문의' : 'Custom Quote'}</button>
+            <button className="hover:text-[#4A7DFF] transition-colors">해외 패키지</button>
+            <button onClick={() => setShowAIPlanner(true)} className="hover:text-[#4A7DFF] text-[#4A7DFF] transition-colors">AI 냥프로 플래너</button>
+            <button className="hover:text-[#4A7DFF] transition-colors">국내/제주</button>
+            <button className="hover:text-[#4A7DFF] transition-colors">맞춤견적 문의</button>
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => {
-              const langs = ['ko', 'en', 'zh'];
-              const nextIdx = (langs.indexOf(language) + 1) % langs.length;
-              setLanguage(langs[nextIdx]);
-            }}
-            className="flex items-center gap-1 text-gray-600 font-bold hover:text-gray-900 transition capitalize"
-          >
-            <Globe size={20} /> {language === 'ko' ? '한국어' : (language === 'en' ? 'English' : '中文')} ∨
+          <button onClick={() => setLanguage(l => l === 'ko' ? 'en' : 'ko')} className="flex items-center gap-1 text-gray-600 font-bold hover:text-gray-900 transition">
+            <Globe size={20} /> {language === 'ko' ? '한국어' : 'English'} ∨
           </button>
           <div className="w-[1px] h-5 bg-gray-200 mx-2"></div>
           {user ? (
@@ -202,12 +192,12 @@ export default function PCHome() {
         <div className="max-w-[1200px] mx-auto px-10 flex flex-col md:flex-row items-center justify-between relative z-10">
           <div className="text-white space-y-6">
             <h1 className="text-5xl lg:text-7xl font-black leading-tight drop-shadow-md tracking-tight">
-              <span className="text-teal-300">{t.hero.title.split(' ')[0]} {t.hero.title.split(' ')[1]}</span> {t.hero.title.split(' ')[2]}<br />
+              <span className="text-teal-300">AI 냥프로</span> 플래너<br />
               <span className="font-light italic font-serif text-4xl lg:text-5xl opacity-90">Planner</span>
             </h1>
-            <p className="text-lg lg:text-xl text-blue-50 font-medium leading-relaxed drop-shadow-sm">{t.hero.subtitle.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)}</p>
+            <p className="text-lg lg:text-xl text-blue-50 font-medium leading-relaxed drop-shadow-sm">당신이 원하는 여행의 시작<br />1분이면 끝! 나만을 위한 완벽한 여행 코스 추천</p>
             <button onClick={() => setShowAIPlanner(true)} className="mt-6 px-8 py-4 bg-blue-800/60 hover:bg-blue-900 backdrop-blur-md rounded-full text-white font-bold text-lg flex items-center gap-2 transition shadow-lg border border-blue-400/50 group">
-              {language === 'ko' ? '무료 코스 만들기' : 'Create Free Course'} <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              무료 코스 만들기 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
@@ -231,15 +221,15 @@ export default function PCHome() {
         <div className="max-w-[1200px] mx-auto">
           <div className="bg-white rounded-3xl shadow-lg border border-gray-200 p-8 flex flex-col md:flex-row gap-4 items-center -mt-28 relative z-30">
             <div className="flex-1 w-full p-2 border-b md:border-b-0 md:border-r border-gray-100">
-              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><MapPin size={16} /> {language === 'ko' ? '여행지' : 'Destination'}</label>
-              <input type="text" placeholder={t.hero.input_placeholder} value={formData.destination} onChange={handleInputChange} name="destination" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" />
+              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><MapPin size={16} /> 여행지</label>
+              <input type="text" placeholder="어디로 떠나시나요?" value={formData.destination} onChange={handleInputChange} name="destination" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" />
             </div>
             <div className="flex-1 w-full p-2 border-b md:border-b-0 md:border-r border-gray-100 relative z-40">
-              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><Calendar size={16} /> {language === 'ko' ? '일정' : 'Schedule'}</label>
-              <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={language === 'ko' ? ko : undefined} dateFormat="yyyy.MM.dd" placeholderText={language === 'ko' ? "날짜 선택" : "Select dates"} className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" wrapperClassName="w-full" />
+              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><Calendar size={16} /> 일정</label>
+              <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={ko} dateFormat="yyyy.MM.dd" placeholderText="날짜 선택" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" wrapperClassName="w-full" />
             </div>
-            <button onClick={() => { if (formData.destination && startDate) setShowAIPlanner(true); else alert(language === 'ko' ? '여행지와 날짜를 입력해주세요.' : 'Please enter destination and dates.'); }} className="w-full md:w-auto mt-4 md:mt-0 px-10 py-5 bg-slate-900 text-white font-bold text-xl rounded-2xl shadow-md hover:bg-slate-800 transition flex items-center justify-center gap-2 whitespace-nowrap">
-              <Sparkles size={24} /> {language === 'ko' ? 'AI 추천받기' : 'AI Recommendation'}
+            <button onClick={() => { if (formData.destination && startDate) setShowAIPlanner(true); else alert('여행지와 날짜를 입력해주세요.'); }} className="w-full md:w-auto mt-4 md:mt-0 px-10 py-5 bg-slate-900 text-white font-bold text-xl rounded-2xl shadow-md hover:bg-slate-800 transition flex items-center justify-center gap-2 whitespace-nowrap">
+              <Sparkles size={24} /> AI 추천받기
             </button>
           </div>
         </div>
@@ -289,7 +279,7 @@ export default function PCHome() {
               <div className="bg-white px-8 py-5 flex justify-between items-center border-b border-gray-200 shrink-0">
                 <div className="flex items-center gap-3">
                   <CatMascot width={45} />
-                  <h2 className="text-2xl font-black text-gray-800 tracking-tight">{t.planner.modal_title}</h2>
+                  <h2 className="text-2xl font-black text-gray-800 tracking-tight">AI 냥프로 맞춤 플래너</h2>
                 </div>
                 <button onClick={() => setShowAIPlanner(false)} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 text-gray-600 transition"><X size={24} /></button>
               </div>
@@ -302,38 +292,38 @@ export default function PCHome() {
                   <div className="space-y-8 max-w-[550px] mx-auto">
 
                     <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-indigo-200 transition">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><MapPin size={18} className="text-[#FF5A5F]" /> {t.planner.where_to}</label>
-                      <input type="text" name="destination" value={formData.destination} onChange={handleInputChange} placeholder={t.planner.city_placeholder} className="w-full text-2xl font-black text-gray-800 outline-none placeholder-gray-300 bg-transparent mb-4" />
+                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><MapPin size={18} className="text-[#FF5A5F]" /> 어디로 떠나시나요?</label>
+                      <input type="text" name="destination" value={formData.destination} onChange={handleInputChange} placeholder="국가 또는 도시명 입력" className="w-full text-2xl font-black text-gray-800 outline-none placeholder-gray-300 bg-transparent mb-4" />
                       <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-50">{themeTags.map(tag => (<button key={tag} onClick={() => addThemeTag(tag)} className="px-3 py-1.5 bg-gray-50 rounded-lg text-sm text-gray-600 hover:bg-rose-50 hover:text-rose-500 transition-colors">{tag}</button>))}</div>
                     </div>
 
                     <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-indigo-200 transition relative z-50">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><Calendar size={18} className="text-[#FF5A5F]" /> {t.planner.select_dates}</label>
-                      <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={language === 'ko' ? ko : undefined} dateFormat="yyyy.MM.dd" placeholderText={t.planner.dates_placeholder} className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300 cursor-pointer" wrapperClassName="w-full" />
+                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><Calendar size={18} className="text-[#FF5A5F]" /> 일정 선택</label>
+                      <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={ko} dateFormat="yyyy.MM.dd" placeholderText="출발일과 도착일을 선택하세요" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300 cursor-pointer" wrapperClassName="w-full" />
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
                       <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-                        <label className="text-sm font-bold text-gray-500 mb-4 block">{t.planner.with_whom}</label>
-                        <div className="grid grid-cols-2 gap-2">{companionOptions.map((opt) => (<button key={opt.id} onClick={() => setFormData({ ...formData, companion: opt.id })} className={`py-3 rounded-xl transition-all text-sm font-bold ${formData.companion === opt.id ? 'bg-[#FF5A5F] text-white shadow-md' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}>{language === 'ko' ? opt.label : opt.id}</button>))}</div>
+                        <label className="text-sm font-bold text-gray-500 mb-4 block">누구와 함께?</label>
+                        <div className="grid grid-cols-2 gap-2">{companionOptions.map((opt) => (<button key={opt.id} onClick={() => setFormData({ ...formData, companion: opt.id })} className={`py-3 rounded-xl transition-all text-sm font-bold ${formData.companion === opt.id ? 'bg-[#FF5A5F] text-white shadow-md' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}>{opt.label}</button>))}</div>
                       </div>
                       <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-center items-center">
-                        <label className="text-sm font-bold text-gray-500 mb-6">{t.planner.people_count}</label>
+                        <label className="text-sm font-bold text-gray-500 mb-6">총 인원 수</label>
                         <div className="flex items-center gap-5"><button onClick={() => updatePeople(-1)} className="w-12 h-12 rounded-full bg-gray-100 text-gray-600 font-bold text-xl hover:bg-gray-200 transition">-</button><span className="font-black text-3xl w-8 text-center text-gray-800">{formData.people}</span><button onClick={() => updatePeople(1)} className="w-12 h-12 rounded-full bg-[#FF5A5F] text-white font-bold text-xl hover:bg-rose-600 shadow-md transition">+</button></div>
                       </div>
                     </div>
 
                     <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
                       <div className="flex justify-between items-center mb-4">
-                        <label className="text-sm font-bold text-gray-500">{t.planner.budget_per_person}</label>
-                        <span className="text-2xl font-black text-[#FF5A5F]">{formData.budget}{language === 'ko' ? '만원' : '0K KRW'}</span>
+                        <label className="text-sm font-bold text-gray-500">1인당 여행 예산</label>
+                        <span className="text-2xl font-black text-[#FF5A5F]">{formData.budget}만원</span>
                       </div>
                       <input type="range" name="budget" min="50" max="1000" step="10" value={formData.budget} onChange={handleInputChange} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5A5F]" />
                     </div>
 
                     <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-                      <label className="text-sm font-bold text-gray-500 mb-4 flex items-center gap-2"><MessageSquare size={16} /> {t.planner.detailed_requests}</label>
-                      <textarea name="request" value={formData.request} onChange={handleInputChange} placeholder={t.planner.requests_placeholder} className="w-full text-base font-medium outline-none text-gray-800 resize-none h-24 bg-transparent custom-scrollbar leading-relaxed" />
+                      <label className="text-sm font-bold text-gray-500 mb-4 flex items-center gap-2"><MessageSquare size={16} /> 상세 요청사항</label>
+                      <textarea name="request" value={formData.request} onChange={handleInputChange} placeholder="예: 니스 IN, 마르세유 OUT으로 짜줘. 부모님을 모시고 가니 많이 걷지 않게 해줘." className="w-full text-base font-medium outline-none text-gray-800 resize-none h-24 bg-transparent custom-scrollbar leading-relaxed" />
                     </div>
 
                   </div>
@@ -342,7 +332,7 @@ export default function PCHome() {
                 {/* 우측 사이드바 (내 기록) */}
                 <div className="w-[400px] bg-slate-50 border-l border-gray-200 p-8 overflow-y-auto custom-scrollbar flex flex-col">
                   <h3 className="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
-                    <Map className="text-indigo-600" /> {t.planner.my_records}
+                    <Map className="text-indigo-600" /> 내 지난 여행 기록
                   </h3>
                   {mySchedules.length > 0 ? (
                     <div className="space-y-4 flex-1">
@@ -353,7 +343,7 @@ export default function PCHome() {
                             <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-xl group-hover:bg-indigo-600 group-hover:text-white transition">✈️</div>
                             <div>
                               <h4 className="font-bold text-gray-900 mb-1 text-base">{trip.tripTitle || trip.destination}</h4>
-                              <p className="text-xs text-gray-500">{trip.startDate} {language === 'ko' ? '출발' : 'Departure'}</p>
+                              <p className="text-xs text-gray-500">{trip.startDate} 출발</p>
                             </div>
                           </div>
                         </div>
@@ -362,7 +352,7 @@ export default function PCHome() {
                   ) : (
                     <div className="flex-1 flex flex-col items-center justify-center text-gray-400 text-center space-y-3 opacity-60">
                       <Plane size={48} strokeWidth={1} />
-                      <p className="text-sm" dangerouslySetInnerHTML={{ __html: t.planner.no_records.replace('\n', '<br/>') }} />
+                      <p className="text-sm">저장된 일정이 없습니다.<br />나만의 첫 번째 여행을 만들어보세요!</p>
                     </div>
                   )}
                 </div>
@@ -371,7 +361,7 @@ export default function PCHome() {
               {/* 생성 버튼 (모달 하단에 고정) */}
               <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-white via-white/95 to-transparent flex justify-center pointer-events-none">
                 <button onClick={generatePlan} disabled={loading} className="pointer-events-auto w-full max-w-[600px] py-5 bg-gradient-to-r from-[#4A7DFF] to-blue-600 text-white font-black text-xl rounded-2xl shadow-[0_10px_20px_rgba(74,125,255,0.3)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(74,125,255,0.4)] transition-all flex justify-center items-center gap-3">
-                  {loading ? <><Loader2 className="animate-spin" size={24} /> {loadingText}</> : <><Sparkles size={24} /> {t.planner.generate_btn}</>}
+                  {loading ? <><Loader2 className="animate-spin" size={24} /> {loadingText}</> : <><Sparkles size={24} /> AI 맞춤 일정 생성하기</>}
                 </button>
               </div>
 

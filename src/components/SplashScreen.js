@@ -50,15 +50,14 @@ export default function SplashScreen({ onFinish }) {
 
                 {/* 텍스트: 밝은 배경 대비 가독성을 위해 그림자 강화 */}
                 <div className="text-center text-white space-y-2">
-                    <motion.h1
+                    <motion.img
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        // ✨ drop-shadow-xl 로 변경하여 그림자 강화
-                        className="text-4xl font-black tracking-tighter drop-shadow-xl"
-                    >
-                        Trip Maker
-                    </motion.h1>
+                        src="/logo.png"
+                        alt="Trip Maker Logo"
+                        className="h-12 w-auto object-contain mx-auto brightness-0 invert"
+                    />
                     <motion.p
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
