@@ -1,380 +1,1006 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import {
-  MapPin, Search, User, Globe, ChevronRight,
-  Calendar, Wallet, Users, MessageSquare, Sparkles,
-  Star, Clock, Plane, Phone, Mail, Map, X, Mic, Crown, LogIn, Trash2, Loader2
-} from 'lucide-react';
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from 'react';
+import { Plane, Zap, MapPin, Calendar as CalendarIcon, Loader2, Sparkles, Navigation, Globe, Clock, ShieldCheck, ArrowRight, Star, CheckCircle, Smartphone, Users, Wallet, Mic, Share2, CreditCard, Ticket, MessageSquare, Save, Search, Bell, BarChart, Info, Home as HomeIcon, Map, Settings, Camera, LayoutDashboard, Compass, HelpCircle, BellRing, Code } from 'lucide-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ko } from 'date-fns/locale';
+import { ko, enUS } from 'date-fns/locale';
+import AIResult from '../src/components/AIResult';
 
-// 🌟 컴포넌트 임포트 (경로를 대표님 프로젝트에 맞게 확인해주세요)
-import CatMascot from '../components/CatMascot';
-import AIResult from '../components/AIResult';
-
-// 🌟 Firebase 임포트
-import { auth, db } from "../lib/firebase";
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { collection, query, orderBy, onSnapshot, deleteDoc, doc } from "firebase/firestore";
-
-// --- 상수 및 데이터 ---
-const packageTours = [
-  { id: 1, title: "오사카/교토/고베 3박 4일 풀패키지", desc: "시내 중심 4성급 호텔 숙박 + 벚꽃 명소 야간 라이트업 투어 포함", price: "499,000", originalPrice: "650,000", img: "https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=600&auto=format&fit=crop", tags: ["🔥마감임박", "출발확정"], rating: 4.8, reviews: 124 },
-  { id: 2, title: "다낭/호이안 4박 5일 럭셔리 힐링", desc: "전 일정 5성급 리조트 (조식 포함) + 1일 1마사지 + 바나힐 케이블카", price: "649,000", originalPrice: "800,000", img: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=600&auto=format&fit=crop", tags: ["가족추천", "노팁/노옵션"], rating: 4.9, reviews: 312 },
-  { id: 3, title: "서유럽 3국 8박 10일 (프/스/이)", desc: "에펠탑 뷰 레스토랑 디너 + 바티칸 하이패스 + 융프라우 산악열차", price: "2,890,000", originalPrice: "", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop", tags: ["프리미엄", "국적기직항"], rating: 4.7, reviews: 89 },
-  { id: 4, title: "제주도 2박 3일 감성 버스투어", desc: "운전 걱정 없는 핫플 투어! 오름 트래킹 + 흑돼지 무제한 파티", price: "199,000", originalPrice: "250,000", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&auto=format&fit=crop", tags: ["국내여행", "2030전용"], rating: 4.9, reviews: 450 }
-];
-
-const companionOptions = [
-  { id: '혼자', label: '나홀로' }, { id: '연인', label: '연인' },
-  { id: '친구', label: '친구' }, { id: '가족', label: '가족' }, { id: '비즈니스', label: '출장' }
-];
-
-const themeTags = ["#힐링🌿", "#먹방🍖", "#호캉스🏨", "#액티비티🏄", "#커플여행💑", "#가성비💰"];
-
-// 공항 주소록 & 안전한 검색기 (AI 환각 방지)
-const CITY_TO_IATA = {
-  "인천": "ICN", "서울": "ICN", "부산": "PUS", "제주": "CJU", "대구": "TAE", "청주": "CJJ",
-  "오사카": "KIX", "도쿄": "NRT", "후쿠오카": "FUK", "삿포로": "CTS", "오키나와": "OKA",
-  "다낭": "DAD", "나트랑": "CXR", "방콕": "BKK", "세부": "CEB", "발리": "DPS", "싱가포르": "SIN", "롬복": "LOP", "길리": "LOP",
-  "파리": "CDG", "로마": "FCO", "런던": "LHR", "뉴욕": "JFK"
-};
-
-const findIataCode = (text) => {
-  if (!text) return null;
-  const lowerText = text.toLowerCase();
-  for (const [city, code] of Object.entries(CITY_TO_IATA)) {
-    const isKorean = /[가-힣]/.test(city);
-    if (isKorean) { if (lowerText.includes(city)) return code; }
-    else { const regex = new RegExp(`\\b${city.toLowerCase()}\\b`); if (regex.test(lowerText)) return code; }
+const LOCALE = {
+  ko: {
+    titleMain: "여행의 모든 순간을 연결하다",
+    titleSub: "트립메이커 AI",
+    subText: "초개인화 AI 안심 일정부터 안전한 동행 매칭, 스마트한 자금 마련까지. 냥프로와 함께 설레는 여행을 시작하세요.",
+    searchPlaceholder: "어디로 떠나시나요?",
+    datePlaceholder: "언제 떠나시나요?",
+    btnPlan: "여행 일정 만들기",
+    btnLearn: "서비스 알아보기",
+    navFeatures: "핵심 기능",
+    navHow: "이용 방법",
+    navCommunity: "커뮤니티",
+    mockTitle: "Service Image / Video Mockup",
+    mockSub: "프로모션 비디오나 서비스 화면 목업 영역",
+    featHeading: "핵심 기능 (Core Features)",
+    featSub: "여행의 시작부터 끝까지, 필요한 모든 것을 스마트하게.",
+    f1Title: "AI Planner",
+    f1Desc: "대한민국, 전세계 어디나 1분 만에 완성되는 나만의 동선. 냥프로가 당신의 취향과 예산을 분석해 최적의 경로를 제안합니다.",
+    f2Title: "Social Network",
+    f2Desc: "신뢰할 수 있는 여행 메이트. 성향 데이터를 통해 나와 70% 이상 일치하는 검증된 동행을 연결해 드립니다.",
+    f3Title: "Travel Fund",
+    f3Desc: "자금 준비부터 정산까지 스마트하게. 여행 전용 적금으로 목돈을 마련하고 1/N 정산까지 한 번에 끝내세요.",
+    howHeading: "작동 원리 (How It Works)",
+    howSub: "단 3단계로 완벽한 여행이 준비됩니다.",
+    how1Title: "취향 저격 AI 일정 체험",
+    how1Desc: "목적지와 취향만 선택하세요. AI가 최적의 이동 동선까지 고려한 완벽한 일정을 생성합니다.",
+    how2Title: "친구 초대 및 실시간 소통",
+    how2Desc: "카카오톡 1초 초대와 팀원 전용 라운지를 통해 따로 톡방을 만들 필요 없이 함께 여행을 준비하세요.",
+    how3Title: "스마트 지출 및 자동 정산",
+    how3Desc: "모임통장과 자동 N빵 알람 기능으로 가장 껄끄러운 정산까지 눈치 보지 않고 스마트하게 해결하세요.",
+    comHeading: "커뮤니티 및 자랑하기",
+    comSub: "실제 유저들이 생성한 베스트 여행 카드 및 실시간 공유 피드",
+    ctaHeading: "새로운 여행을 떠날 준비가 되셨나요?",
+    ctaSub: "초개인화 AI 일정부터 안전한 동행 매칭까지, 냥프로와 함께 시작하세요.",
+    ctaBtn: "여행 일정 만들기",
+    footerContact: "고객센터",
+    footerTerms: "이용약관",
+    footerPrivacy: "개인정보처리방침",
+    footerCopy: "Trip Maker AI (냥프로) All rights reserved."
+  },
+  en: {
+    titleMain: "Connecting every moment of travel",
+    titleSub: "Trip Maker AI",
+    subText: "From hyper-personalized AI secure itineraries to safe companion matching and smart funding. Start your exciting journey with NyangPro.",
+    searchPlaceholder: "Where are you heading?",
+    datePlaceholder: "Select your dates",
+    btnPlan: "Create Itinerary for Free",
+    btnLearn: "Learn More",
+    navFeatures: "Core Features",
+    navHow: "How it Works",
+    navCommunity: "Community",
+    mockTitle: "Service Image / Video Mockup",
+    mockSub: "Promotional video or app UI mockup area.",
+    featHeading: "Core Features",
+    featSub: "Everything you need from the start to the end of your trip.",
+    f1Title: "AI Planner",
+    f1Desc: "Korea and all over the world, Custom route in 1 minute. NyangPro analyzes your taste and budget to suggest optimal paths.",
+    f2Title: "Social Network",
+    f2Desc: "Reliable travel mates. We connect you with verified companions who match your profile by over 70%.",
+    f3Title: "Travel Fund",
+    f3Desc: "Smart funding to settlement. Save up with a travel savings account and easily split bills 1/N.",
+    howHeading: "How It Works",
+    howSub: "Perfect travel prepared in just 3 steps.",
+    how1Title: "Personalized AI Itinerary",
+    how1Desc: "Just select your destination and tastes. Our AI generates the perfect route with optimized paths.",
+    how2Title: "Invite Friends & Chat",
+    how2Desc: "Invite with KakaoTalk in 1 second and plan together in the exclusive lounge without separate chat rooms.",
+    how3Title: "Smart Spending & Settlement",
+    how3Desc: "Solve tricky settlements effortlessly with the trip wallet and automated N-split deposit alerts.",
+    comHeading: "Community & Showcase",
+    comSub: "Best travel cards & real-time shared feeds created by real users",
+    ctaHeading: "Ready to start your new journey?",
+    ctaSub: "From hyper-personalized AI itineraries to companion matching, start with NyangPro.",
+    ctaBtn: "Create Itinerary for Free",
+    footerContact: "Customer Center",
+    footerTerms: "Terms of Service",
+    footerPrivacy: "Privacy Policy",
+    footerCopy: "Trip Maker AI (NyangPro) All rights reserved."
   }
-  return null;
 };
 
-const extractIataFromItinerary = (tripResult) => {
-  let inCode = null; let outCode = null;
-  if (!tripResult || !tripResult.itinerary) return { inCode, outCode };
-  const days = tripResult.itinerary;
-  if (days[0]) inCode = findIataCode(`${days[0].day} ${tripResult.tripTitle} ${days[0].places?.map(p => p.name).join(' ')}`);
-  if (days[days.length - 1]) outCode = findIataCode(`${days[days.length - 1].day} ${tripResult.tripTitle} ${days[days.length - 1].places?.map(p => p.name).join(' ')}`);
-  if (!inCode) { inCode = findIataCode(tripResult.tripTitle || tripResult.destination || ""); if (!outCode) outCode = inCode; }
-  return { inCode, outCode };
-};
+const GUIDE_DATA = [
+  {
+    id: "home",
+    title: "1. 🏠 메인 화면 (Home)",
+    icon: <HomeIcon size={20} />,
+    items: [
+      {
+        subtitle: "1-1. 최상단 영역 및 글로벌 인증",
+        details: [
+          { label: "간편 로그인", desc: "우측 상단 사람 아이콘이나 화면의 로그인 버튼을 눌러 카카오톡 연동으로 빠르게 접속합니다." },
+          { label: "상단 배너 (여행 소식)", desc: "냥 프로의 귀여운 인사 멘트와 최신 여행 소식이 자동 전환되며 표시됩니다." },
+          { label: "앱 설치 및 알림 권한", desc: " 플레이 스토어에서 다운받으세요. 아이폰은 mytrip2.pro에 접속하시어 홈화면에 추가하세요. 설치 완료 후 푸시 알림 권한을 허용하면 D-Day 및 각종 알림을 받습니다." }
+        ]
+      },
+      {
+        subtitle: "1-2. 🗓️ 안심 여행 탭 (AI 플래닝)",
+        details: [
+          { label: "목적지 검색", desc: "텍스트나 마이크(음성 인식)로 입력하며, 하단의 '국내만', '해외로' 버튼으로 빠른 설정이 가능합니다." },
+          { label: "여행 설정", desc: "달력에서 여행일을 지정하고 동행자, 목표 예산, 인원수(VIP 예산 무제한 가능)를 조절합니다." },
+          { label: "일정 생성", desc: "설정을 마치고 붉은 버튼을 누르면 AI가 로딩 멘트와 함께 맞춤형 일정을 즉시 제작합니다." }
+        ]
+      },
+      {
+        subtitle: "1-3. ✈️ 내 일정 항공권 탭",
+        details: [
+          { label: "냥프로 안심 추천!", desc: "'HOT', 'PREMIUM' 딱지가 붙은 고화질 추천 여행지 카드가 가로 슬라이드로 제공됩니다." },
+          { label: "실시간 항공권 (내 일정)", desc: "내가 생성한 일정을 터치하면 항공권 검색 오버레이가 올라오며 최저가 리스트를 매칭해 줍니다." },
+          { label: "즉시 예약 링크", desc: "[Trip.com 최저가] 및 [Aviasales 예약] 버튼을 통해 글로벌 항공권 예약 페이지로 즉시 연결됩니다." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "trip",
+    title: "2. 🗂 여행 일정표 화면 (Result)",
+    icon: <Map size={20} />,
+    items: [
+      {
+        subtitle: "2-1. 하단 내비게이션 툴바",
+        details: [
 
-export default function PCHome() {
-  const router = useRouter();
+          { label: "카카오톡 상담", desc: "카톡 아이콘을 눌러 일정에 대한 상담이 가능합니다." },
+          { label: "친구 초대하기", desc: "고유 접속 URL을 카톡 및 SNS로 공유합니다." },
+          { label: "PDF 저장", desc: "해당 여행일정을 PDF로 다운 받아서 사용 가능합니다." }
+        ]
+      },
+      {
+        subtitle: "2-2. 일자별 타임라인 편집",
+        details: [
+          { label: "동선 뷰 및 편집 ✏️", desc: "장소 간 예상 이동 시간이 표시되며, 위아래로 스크롤하면 여행일정이 표시됩니다. 연필을 누른면 일정이 편집 가능합니다." },
+          { label: "장소 추가 및 편집하기", desc: "타임라인 옆 돋보기 🔎 버튼을 눌러 원하는 관광지나 맛집을 직접 검색하여 삽입 및 편집합니다." }
+        ]
+      },
+      {
+        subtitle: "2-3. 주요 기능",
+        details: [
+          { label: "🗺️ 지도(Map) 보기", desc: "일자별 동선을 지도 핀과 선으로 연결해 보여주어 직관적인 동선(자동차, 도보, 대중교통) 파악이 가능합니다." },
+          { label: "✨ 예상 경비 및 여행 꿀팁", desc: "AI가 예상 경비 및 추천숙소, 팁 & 날씨로 보여줍니다." },
+          { label: "📍 여행 장소 및 액티비티", desc: "하단 버튼을 통해 상세 설명과 투어 예약으로 바로 넘어갑니다." },
+          { label: "💬 라운지", desc: "오른쪽의 말풍선을 누르면 여행 동행 멤버와 대화합니다." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "mypage",
+    title: "3. 👤 마이페이지 대시보드",
+    icon: <LayoutDashboard size={20} />,
+    items: [
+      {
+        subtitle: "3-1. 🗓️ 일정 탭",
+        details: [
+          { label: "일정 보기", desc: "여행 카드 하단의 일정 보기를 누르면 지도를 바탕으로 한 여행일정이 보여집니다." },
+          { label: "친구 초대", desc: "➕ 버튼을 누르면 친구를 검색해서 여행일정에 초대할 수 있습니다." },
+          { label: "D-Day 푸시 알림", desc: "여행 카드 왼측 상단의 🔔 종 아이콘을 눌러 매일 오전 9시 푸시 알림을 설정할 수 있습니다." }
+        ]
+      },
+      {
+        subtitle: "3-2. 👥 동행 탭",
+        details: [
+          { label: "프로필 설정", desc: "상단의 프로필 아이콘을 눌러 닉네임과 7가지 여행 스타일 태그(J형, P형 등)와 프로필을 설정합니다." },
+          { label: "매칭 센터 및 알림함", desc: "유저를 검색해 초대장을 보내고, AI가 추천하는 여행메이트도 만날 수 있습니다." },
+          { label: "트립 피드 (소셜)", desc: "내 갤러리 사진과 소감을 등록하고, 다른 유저의 피드를 보며 하트(❤️) 버튼으로 소통합니다." }
+        ]
+      },
+      {
+        subtitle: "3-3. 💰 트립 머니 탭",
+        details: [
+          { label: "내 지갑 자산 충전", desc: "트립 포인트를 충전하고 입출금 히스토리를 확인합니다." },
+          { label: "모임 통장 정산", desc: "여행 총예산을 입력하고 '정산 요청' 버튼을 눌러 친구들에게 1/N 입금 요청서(푸시)를 보냅니다." },
+          { label: "100% 우대 실시간 환전", desc: "공통 모임 통장의 원화를 현지 통화로 실시간 우대 환전하며 영수증을 자동 발급받습니다.(계좌 연결 예정)" }
+        ]
+      },
+      {
+        subtitle: "3-4. 🗃️ 보관함",
+        details: [
+          { label: "예약/티켓", desc: "항공권, 호텔 예약, 티켓 예약권을 보관합니다." },
+          { label: "쿠폰", desc: "여행에 필요한 각종 할인 쿠폰을 보관합니다." },
+          { label: "사진첩", desc: "여행중 찍었던 사진을 보관하고 공유합니다." }
+        ]
+      }
+    ]
+  },
 
-  // 🌟 AI 플래너 모달 상태
-  const [showAIPlanner, setShowAIPlanner] = useState(false);
-  const [aiResult, setAiResult] = useState(null);
 
-  const [user, setUser] = useState(null);
-  const [language, setLanguage] = useState('ko');
-  const [loading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState("AI가 완벽한 일정을 짜고 있어요...");
-  const [mySchedules, setMySchedules] = useState([]);
+];
 
-  // 폼 데이터
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
-  const [isLuxury, setIsLuxury] = useState(false);
-  const [formData, setFormData] = useState({ destination: "", startDate: "", endDate: "", companion: "연인", people: 2, budget: 100, hotelType: "호텔", tourType: "자유여행", themes: [], request: "" });
+const TECH_STACK_DATA = [
+  {
+    id: "techstack",
+    title: "🚀 혁신적인 기술 스택",
+    icon: <Code size={20} />,
+    items: [
+      {
+        subtitle: "1. 🧠 초거대 AI 엔진 통합",
+        details: [
+          { label: "Gemini 3.ｘ Pro", desc: "사용자의 성향(J/P형, 예산, 동반자)을 분석하여 최적화된 동선을 그려냅니다." },
+          { label: "복합 데이터 처리", desc: "IATA 공항 코드 추출, 실시간 물가 반영 등 고도화된 프롬프트 엔지니어링이 적용되었습니다." }
+        ]
+      },
+      {
+        subtitle: "2. ⚡ 프론트엔드 아키텍처",
+        details: [
+          { label: "Next.js & React 19", desc: "SSR과 SSG를 혼합하여 초기 로딩 속도 극대화와 SEO 완벽 대응을 달성했습니다." },
+          { label: "글래스모피즘 & 모션", desc: "Framer Motion을 활용해 100% 우대 환전, 슬라이딩 탭 등 60fps 마이크로 애니메이션을 구현했습니다." }
+        ]
+      },
+      {
+        subtitle: "3. 🔄 실시간 동기화 (Serverless)",
+        details: [
+          { label: "Firestore 실시간 동기화", desc: "친구 초대 시 아바타 표시, 일정 수정(Drag & Drop) 등 모든 화면이 0.1초 만에 동기화됩니다." },
+          { label: "Cloud Functions", desc: "무거운 백그라운드 작업과 매일 오전 9시에 발송되는 D-Day 푸시 알림 배치를 안전하게 분산 처리합니다." }
+        ]
+      },
+      {
+        subtitle: "4. 📱 네이티브 앱 및 PWA",
+        details: [
+          { label: "TWA 공식 배포", desc: "Android 환경에서 구글 플레이스토어를 통한 공식 배포용 앱을 제작하고 세로 모드(Portrait Lock)를 지원합니다." },
+          { label: "PWA 오프라인 캐싱", desc: "Service Worker를 적용하여 인터넷이 불안정한 비행기나 해외 환경에서도 앱이 부드럽게 작동합니다." },
+          { label: "FCM 푸시 알림", desc: "앱 설치 시 네이티브 단에서 푸시 알림 권한을 요청하고 백그라운드에서도 수신합니다." }
+        ]
+      },
+      {
+        subtitle: "5. 🌍 글로벌 API 파트너십",
+        details: [
+          { label: "항공권 및 액티비티 연동", desc: "실시간 최저가 항공권 정보를 파싱하고, Klook 현지 투어 및 티켓 정보를 다이렉트로 연결합니다." },
+          { label: "다중 인증 시스템", desc: "NextAuth와 Firebase Auth를 이용해 카카오 간편 로그인과 구글 로그인을 결합했습니다." }
+        ]
+      }
+    ]
+  }
+];
 
-  // 로딩 텍스트 변경
-  useEffect(() => {
-    if (!loading) return;
-    const messages = ["한국관광공사 데이터를 뒤지는 중... 🧐", "동선을 최적화하고 있어요... 🗺️", "가성비 좋은 식당을 찾고 있습니다... 🍜", "거의 다 됐습니다! 냥냥! 🐾"];
-    let index = 0; setLoadingText(messages[0]);
-    const interval = setInterval(() => { index = (index + 1) % messages.length; setLoadingText(messages[index]); }, 3000);
-    return () => clearInterval(interval);
-  }, [loading]);
+const FAQ_DATA = [
+  {
+    q: "트립메이커(Trip Maker)는 무엇인가요?",
+    a: "트립메이커는 AI가 사용자의 취향, 예산, 여행 인원에 맞춰 최적화된 맞춤형 여행 일정을 1분 만에 생성해주는 AI 기반 여행 플래너입니다. 일정 생성부터 동행자 매칭, 실시간 소통, 1/N 지출 정산까지 한 번에 해결할 수 있습니다."
+  },
+  {
+    q: "친구들과 함께 여행 일정을 짤 수 있나요?",
+    a: "네! 카카오톡 1초 초대 기능을 통해 친구에게 링크를 공유하면, 실시간으로 동행자 그룹이 생성됩니다. 팀원 전용 라운지에서 대화하며 모두의 기기에서 실시간으로 일정을 확인하고 함께 준비할 수 있습니다."
+  },
+  {
+    q: "여행 경비 정산(N빵)은 어떻게 하나요?",
+    a: "모임 통장 기능을 통해 총예산을 설정할 수 있으며, 일정이 끝난 후 터치 한 번으로 동행자들에게 자동으로 1/N 정산 요청 알림(푸시)을 보냅니다. 눈치 보지 않고 깔끔하게 비용을 정산하세요."
+  },
+  {
+    q: "어떤 기기에서 사용할 수 있나요?",
+    a: "트립메이커는 웹(mytrip2.pro)에서 바로 접속할 수 있을 뿐만 아니라, 안드로이드 구글 플레이 스토어(pro.mytrip2.twa)에서 정식 앱을 다운받아 사용할 수도 있습니다. 모바일에 완벽하게 최적화된 세로 모드 UI를 제공합니다."
+  }
+];
 
-  // 로그인 및 DB 연동
-  useEffect(() => {
-    let unsubscribeTrips = null;
-    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (unsubscribeTrips) { unsubscribeTrips(); unsubscribeTrips = null; }
-      if (currentUser) {
-        const tripsRef = collection(db, "users", currentUser.uid, "itineraries");
-        unsubscribeTrips = onSnapshot(query(tripsRef, orderBy("createdAt", "desc")), (snapshot) => {
-          setMySchedules(snapshot.docs.map(doc => ({ id: doc.id, iata: findIataCode(doc.data().destination || ""), ...doc.data() })));
-        });
-      } else { setMySchedules([]); }
-    });
-    return () => { unsubscribeAuth(); if (unsubscribeTrips) unsubscribeTrips(); };
-  }, []);
+const GuideItem = ({ item, sectionId, dIdx, reverse }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [imgError, setImgError] = useState(false);
 
-  const handleLogin = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch (error) { alert("로그인 에러"); } };
-  const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-  const handleDateChange = (update) => { setDateRange(update); if (update[0] && update[1]) setFormData(prev => ({ ...prev, startDate: update[0].toISOString().split('T')[0], endDate: update[1].toISOString().split('T')[0] })); };
-  const addThemeTag = (tag) => { if (!formData.destination.includes(tag)) setFormData(prev => ({ ...prev, destination: prev.destination ? `${prev.destination} ${tag}` : tag })); };
-  const toggleLuxuryMode = () => { setIsLuxury(!isLuxury); setFormData(prev => ({ ...prev, hotelType: !isLuxury ? "5성급 스위트룸/풀빌라" : "호텔" })); };
-  const updatePeople = (delta) => setFormData(prev => ({ ...prev, people: Math.max(1, Math.min(20, prev.people + delta)) }));
+  // Reset image error state when activeIndex changes to attempt loading the new image
+  React.useEffect(() => {
+    setImgError(false);
+  }, [activeIndex]);
 
-  // ✨ 통합된 AI 생성 로직 (TourAPI 지원)
-  const generatePlan = async () => {
-    if (!formData.destination) { alert("여행지를 입력해주세요!"); return; }
-    if (!formData.startDate || !formData.endDate) { alert("날짜를 선택해주세요!"); return; }
-
-    setLoading(true);
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, isLuxury, language })
-      });
-      const data = await response.json();
-
-      if (data.result) {
-        const { inCode, outCode } = extractIataFromItinerary(data.result);
-        data.result.arrivalIata = inCode || data.result.arrivalIata;
-        data.result.departureIata = outCode || data.result.departureIata;
-        setAiResult(data.result); // 결과 화면으로 데이터 전달
-      } else { alert("오류: 생성 실패"); }
-    } catch (error) { alert("서버 오류 발생"); }
-    finally { setLoading(false); }
+  const prefixMap = {
+    home: 'gh',
+    trip: 'gt',
+    mypage: 'gm',
+    system: 'gs'
   };
-
-  const handleDeleteTrip = async (e, tripId) => {
-    e.stopPropagation();
-    if (!confirm(`일정을 삭제하시겠습니까?`)) return;
-    try { if (user) { await deleteDoc(doc(db, "users", user.uid, "itineraries", tripId)); } } catch (error) { alert("삭제 실패"); }
-  };
-
-  // 결과 화면이 렌더링될 때 (AIResult 컴포넌트로 이동)
-  if (aiResult) return <AIResult data={aiResult} userInfo={formData} language={language} onReset={() => { setAiResult(null); setShowAIPlanner(false); }} />;
+  const prefix = prefixMap[sectionId] || sectionId;
+  const imgSrc = `/${prefix}_${dIdx + 1}_${activeIndex + 1}.png`;
 
   return (
-    <div className="min-h-screen bg-white font-sans flex flex-col relative overflow-x-hidden">
+    <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
 
-      {/* 🌟 1. 네비게이션 바 (유지) */}
-      <header className="h-20 bg-white flex items-center justify-between px-10 max-w-[1400px] w-full mx-auto">
-        <div className="flex items-center gap-12">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => setShowAIPlanner(false)}>
-            <img src="/logo.png" alt="Trip Maker Logo" className="h-10 w-auto object-contain" />
-          </div>
-          <nav className="hidden md:flex gap-8 text-lg font-bold text-gray-700">
-            <button className="hover:text-[#4A7DFF] transition-colors">해외 패키지</button>
-            <button onClick={() => setShowAIPlanner(true)} className="hover:text-[#4A7DFF] text-[#4A7DFF] transition-colors">AI 냥프로 플래너</button>
-            <button className="hover:text-[#4A7DFF] transition-colors">국내/제주</button>
-            <button className="hover:text-[#4A7DFF] transition-colors">맞춤견적 문의</button>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4">
-          <button onClick={() => setLanguage(l => l === 'ko' ? 'en' : 'ko')} className="flex items-center gap-1 text-gray-600 font-bold hover:text-gray-900 transition">
-            <Globe size={20} /> {language === 'ko' ? '한국어' : 'English'} ∨
-          </button>
-          <div className="w-[1px] h-5 bg-gray-200 mx-2"></div>
-          {user ? (
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#4A7DFF] to-blue-500 overflow-hidden shadow-sm flex items-center justify-center text-white font-bold">
-                {user.photoURL ? <img src={user.photoURL} alt="profile" /> : user.displayName?.[0]}
+      {/* Text Content */}
+      <div className="lg:w-1/2 space-y-6">
+        <h4 className="text-3xl font-black text-slate-800 mb-6">{item.subtitle}</h4>
+        <ul className="space-y-4">
+          {item.details.map((detail, cIdx) => (
+            <li
+              key={cIdx}
+              onClick={() => setActiveIndex(cIdx)}
+              className={`flex gap-4 p-6 rounded-3xl border shadow-sm transition-all cursor-pointer ${activeIndex === cIdx
+                ? 'bg-blue-50 border-blue-200 ring-2 ring-blue-500 scale-105'
+                : 'bg-white border-slate-100 hover:shadow-md hover:border-blue-100'
+                }`}
+            >
+              <CheckCircle className={`shrink-0 mt-1 transition-colors ${activeIndex === cIdx ? 'text-blue-600' : 'text-slate-300'}`} size={24} />
+              <div>
+                <strong className={`font-bold block mb-2 text-xl transition-colors ${activeIndex === cIdx ? 'text-blue-900' : 'text-slate-700'}`}>{detail.label}</strong>
+                <span className={`font-medium leading-relaxed text-lg transition-colors ${activeIndex === cIdx ? 'text-blue-800' : 'text-slate-500'}`}>{detail.desc}</span>
               </div>
-              <button onClick={() => router.push('/mypage')} className="text-sm font-bold text-gray-700 bg-gray-50 px-3 py-1.5 rounded-full shadow-sm hover:bg-gray-100">MY</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Screenshot Placeholder */}
+      <div className="lg:w-1/2 w-full">
+        <div className="w-full max-w-[350px] mx-auto aspect-[9/19.5] bg-gradient-to-br from-slate-100 to-slate-200 rounded-[35px] border-[10px] border-white shadow-2xl flex items-center justify-center relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+          <div className="absolute inset-0 bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors"></div>
+
+          {!imgError ? (
+            <img
+              key={activeIndex}
+              src={imgSrc}
+              alt={item.details[activeIndex].label}
+              onError={() => setImgError(true)}
+              className="absolute inset-0 w-full h-full object-cover z-20 animate-in fade-in zoom-in-95 duration-500"
+            />
+          ) : (
+            <div className="text-center p-6 relative z-10 transition-all duration-300">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-blue-400 shadow-sm">
+                <Camera size={32} />
+              </div>
+              <p className="font-black text-lg text-slate-700 mb-2 px-2 break-keep">{item.details[activeIndex].label}</p>
+              <p className="text-slate-400 text-xs font-medium px-4 leading-relaxed">
+                스크린샷 이미지 준비 중<br />
+                <span className="text-[10px] text-blue-500 font-bold opacity-80 mt-1 block">파일명: {`${prefix}_${dIdx + 1}_${activeIndex + 1}.png`}</span>
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TechCard = ({ item, index }) => {
+  const [showTerminal, setShowTerminal] = useState(false);
+
+  const config = [
+    {
+      icon: <Sparkles className="text-rose-500" size={28} />,
+      color: "from-rose-500 to-pink-500",
+      bgLight: "bg-rose-50",
+      border: "border-rose-100",
+      completion: 95,
+      terminal: {
+        engine: "Gemini 3.x Pro & GPT-5x",
+        contextWindow: "2M tokens supported",
+        features: ["Hyper-personalized itineraries", "Natural voice search parsing", "IATA geo-coding", "Budget categorization"],
+        latency: "1.2s avg"
+      }
+    },
+    {
+      icon: <Code className="text-indigo-500" size={28} />,
+      color: "from-indigo-500 to-blue-500",
+      bgLight: "bg-indigo-50",
+      border: "border-indigo-100",
+      completion: 98,
+      terminal: {
+        framework: "Next.js 15 (React 19 RC)",
+        css: "Tailwind CSS & Global JSS",
+        rendering: "Hybrid (SSR for SEO + CSR for Result)",
+        lighthouse: { performance: 99, accessibility: 100, bestPractices: 100, seo: 100 }
+      }
+    },
+    {
+      icon: <Zap className="text-amber-500" size={28} />,
+      color: "from-amber-500 to-orange-500",
+      bgLight: "bg-amber-50",
+      border: "border-amber-100",
+      completion: 90,
+      terminal: {
+        database: "Google Cloud Firestore",
+        syncSpeed: "120ms (Real-time snapshots)",
+        auth: "Firebase Auth & NextAuth.js",
+        cronJobs: ["Daily D-Day alerts at 09:00", "Weekly backup dump"]
+      }
+    },
+    {
+      icon: <Smartphone className="text-teal-500" size={28} />,
+      color: "from-teal-500 to-emerald-500",
+      bgLight: "bg-teal-50",
+      border: "border-teal-100",
+      completion: 92,
+      terminal: {
+        wrapper: "Android Trusted Web Activity (TWA)",
+        storeAppId: "pro.mytrip2.twa",
+        pwaOffline: "Workbox Service Worker caching",
+        pushGateway: "FCM (Firebase Cloud Messaging)"
+      }
+    },
+    {
+      icon: <Globe className="text-sky-500" size={28} />,
+      color: "from-sky-500 to-cyan-500",
+      bgLight: "bg-sky-50",
+      border: "border-sky-100",
+      completion: 88,
+      terminal: {
+        integrations: ["Klook Activity Deep Link API", "Trip.com Flight Search Engine"],
+        currencies: ["KRW", "USD", "JPY", "EUR", "VND"],
+        exchanges: "Real-time 100% FX discount gateway"
+      }
+    }
+  ];
+
+  const current = config[index] || config[0];
+
+  return (
+    <div className={`relative bg-white rounded-[32px] p-8 border ${current.border} shadow-xl hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between overflow-hidden min-h-[460px] hover:-translate-y-2`}>
+      {/* Background Gradient Line glow on Hover */}
+      <div className={`absolute top-0 left-0 w-full h-[6px] bg-gradient-to-r ${current.color} opacity-80`} />
+
+      <div>
+        {/* Card Header */}
+        <div className="flex justify-between items-start mb-6">
+          <div className={`w-14 h-14 ${current.bgLight} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+            {current.icon}
+          </div>
+
+          {/* Radial Completion Percentage */}
+          <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
+            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+              <path
+                className="text-slate-100"
+                strokeWidth="3.5"
+                stroke="currentColor"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <path
+                className="text-indigo-500"
+                strokeWidth="3.5"
+                strokeDasharray={`${current.completion}, 100`}
+                strokeLinecap="round"
+                stroke="currentColor"
+                fill="none"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                style={{ stroke: index === 0 ? '#f43f5e' : index === 1 ? '#6366f1' : index === 2 ? '#f59e0b' : index === 3 ? '#14b8a6' : '#06b6d4' }}
+              />
+            </svg>
+            <div className="absolute font-black text-xs text-slate-800">{current.completion}%</div>
+          </div>
+        </div>
+
+        {/* Content Title */}
+        <h3 className="text-2xl font-black text-slate-900 mb-4">{item.subtitle}</h3>
+
+        {/* Switch View button */}
+        <div className="flex items-center gap-2 mb-6">
+          <button
+            onClick={() => setShowTerminal(false)}
+            className={`px-3 py-1.5 rounded-full text-xs font-black transition-all ${!showTerminal ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-500 hover:text-slate-700'}`}
+          >
+            기능 명세
+          </button>
+          <button
+            onClick={() => setShowTerminal(true)}
+            className={`px-3 py-1.5 rounded-full text-xs font-black transition-all flex items-center gap-1 ${showTerminal ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-500 hover:text-slate-700'}`}
+          >
+            <Code size={12} /> 시스템 구조
+          </button>
+        </div>
+
+        {/* Dynamic Display Area */}
+        <div className="relative min-h-[220px]">
+          {!showTerminal ? (
+            <div className="space-y-4 animate-in fade-in duration-300">
+              {item.details.map((detail, dIdx) => (
+                <div key={dIdx} className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100 hover:bg-slate-50 transition-colors">
+                  <strong className="font-bold text-slate-800 block mb-1 text-base">🔹 {detail.label}</strong>
+                  <span className="text-sm text-slate-500 leading-relaxed font-medium block break-keep">{detail.desc}</span>
+                </div>
+              ))}
             </div>
           ) : (
-            <button onClick={handleLogin} className="px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-sm shadow-md flex items-center gap-2 hover:bg-slate-800"><LogIn size={16} />로그인</button>
+            <div className="bg-slate-950 text-emerald-400 p-5 rounded-2xl font-mono text-[11px] leading-relaxed overflow-y-auto shadow-inner border border-slate-800 select-all animate-in zoom-in-95 duration-300 max-h-[230px] custom-scrollbar relative text-left">
+              <div className="absolute top-2 right-2 text-[9px] text-slate-600 font-bold uppercase select-none tracking-widest">LIVE CONFIG</div>
+              <span className="text-slate-500">// system_config_log.json</span>
+              <pre className="mt-2 text-emerald-300 whitespace-pre-wrap">{JSON.stringify(current.terminal, null, 2)}</pre>
+            </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function Home() {
+  const [lang, setLang] = useState('ko');
+  const t = LOCALE[lang];
+  const [activeGuideTab, setActiveGuideTab] = useState(0);
+
+  const [destination, setDestination] = useState("");
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const handleDateChange = (update) => {
+    setDateRange(update);
+  };
+
+  const toggleLanguage = () => {
+    setLang(prev => prev === 'ko' ? 'en' : 'ko');
+  };
+
+  const generatePlan = async () => {
+    if (!destination.trim()) {
+      alert(lang === 'ko' ? "어디로 여행을 떠나고 싶으신가요?" : "Where do you want to go?");
+      return;
+    }
+    if (!startDate || !endDate) {
+      alert(lang === 'ko' ? "여행 날짜를 선택해주세요." : "Please select your travel dates.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/generate/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          destination,
+          startDate: startDate.toISOString().split('T')[0],
+          endDate: endDate.toISOString().split('T')[0],
+          companion: "초보",
+          people: 2,
+          budget: 50,
+          hotelType: "가성비",
+          tourType: "자유여행",
+          themes: ["관광"],
+          request: "가장 완벽한 코스로",
+          language: lang
+        })
+      });
+      const data = await response.json();
+      if (data.result) {
+        setResult(data.result);
+      } else {
+        alert("생성 실패: " + data.error);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("서버 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (result) {
+    return <AIResult
+      data={result}
+      userInfo={{ destination, startDate: startDate.toISOString().split('T')[0], endDate: endDate.toISOString().split('T')[0] }}
+      onReset={() => setResult(null)}
+    />;
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col font-sans relative selection:bg-blue-100 break-keep overflow-x-hidden">
+
+      {/* 🌌 Ultra-Premium Floating Liquid Auras & Dot-Mesh Backdrop */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[800px] left-[-15%] w-[60%] aspect-square bg-rose-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[1600px] right-[-15%] w-[60%] aspect-square bg-indigo-200/30 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
+        <div className="absolute top-[2600px] left-[-20%] w-[65%] aspect-square bg-teal-100/30 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '11s' }} />
+        <div className="absolute top-[3500px] right-[-10%] w-[55%] aspect-square bg-amber-100/25 blur-[110px] rounded-full animate-pulse" style={{ animationDuration: '9s' }} />
+        <div className="absolute top-[4400px] left-[10%] w-[50%] aspect-square bg-rose-100/20 blur-[100px] rounded-full animate-pulse" style={{ animationDuration: '12s' }} />
+        
+        {/* Global Technical Map Grid */}
+        <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
+          backgroundImage: 'radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px)',
+          backgroundSize: '32px 32px'
+        }} />
+      </div>
+
+      {/* 🔴 Header Background (Video + Fallback Image) */}
+      <div className="absolute top-0 w-full h-[800px] z-0 overflow-hidden">
+        {/* Soft overlay to ensure high text contrast and seamless fade into content */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/35 to-white/95 z-10 pointer-events-none" />
+
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-88 transition-opacity duration-1000"
+          style={{ filter: "brightness(1.0) saturate(1.1)" }}
+          poster="/hero_background.png"
+        >
+          {/* We support a local high-quality MP4 file, and fall back to a premium royalty-free travel video */}
+          <source src="/hero_background.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-by-the-sea-during-sunset-34283-large.mp4" type="video/mp4" />
+          {/* Static image fallback if video tags are not supported */}
+          <img src="/hero_background.png" alt="Hero Background Fallback" className="w-full h-full object-cover" />
+        </video>
+      </div>
+      <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative">
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="Logo" className="h-[28px] md:h-8 object-contain" />
+          <span className="font-extrabold text-2xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
+        </div>
+        <div className="hidden md:flex items-center gap-8 text-slate-800 font-bold text-sm drop-shadow-[0_2px_6px_rgba(255,255,255,0.95)]">
+          <a href="#onboarding" className="hover:text-blue-600 transition">시작 가이드</a>
+          <a href="#features" className="hover:text-rose-500 transition">{t.navFeatures}</a>
+          <a href="#how" className="hover:text-rose-500 transition">{t.navHow}</a>
+          <a href="#community" className="hover:text-rose-500 transition">{t.navCommunity}</a>
+        </div>
+        <div className="flex items-center gap-2 md:gap-4">
+          <div className="flex bg-white/90 p-1 rounded-full text-sm font-bold shadow-md border border-slate-200/80 backdrop-blur-sm">
+            <button
+              onClick={() => setLang('ko')}
+              className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'ko' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            >
+              한국어
+            </button>
+            <button
+              onClick={() => setLang('en')}
+              className={`px-3 py-1.5 rounded-full transition-all duration-300 ${lang === 'en' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+            >
+              English
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* 🌟 2. 메인 히어로 배너 (유지) */}
-      <section className="w-full bg-[#4A7DFF] relative overflow-hidden py-24 shadow-inner">
-        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-10 w-64 h-64 bg-teal-400/20 rounded-full blur-3xl"></div>
+      {/* 🔴 Hero Section */}
+      <main className="flex flex-col items-center justify-center px-4 relative z-10 pt-12 pb-12 w-full">
+        <div className="w-full max-w-5xl mx-auto text-center flex flex-col items-center">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)]">
+            {t.titleMain}
+          </h2>
+          <h1 className="text-5xl md:text-[80px] lg:text-[100px] font-black tracking-tighter mb-8 leading-none text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600 drop-shadow-[0_4px_16px_rgba(255,255,255,0.95)]">
+            {t.titleSub}
+          </h1>
 
-        <div className="max-w-[1200px] mx-auto px-10 flex flex-col md:flex-row items-center justify-between relative z-10">
-          <div className="text-white space-y-6">
-            <h1 className="text-5xl lg:text-7xl font-black leading-tight drop-shadow-md tracking-tight">
-              <span className="text-teal-300">AI 냥프로</span> 플래너<br />
-              <span className="font-light italic font-serif text-4xl lg:text-5xl opacity-90">Planner</span>
-            </h1>
-            <p className="text-lg lg:text-xl text-blue-50 font-medium leading-relaxed drop-shadow-sm">당신이 원하는 여행의 시작<br />1분이면 끝! 나만을 위한 완벽한 여행 코스 추천</p>
-            <button onClick={() => setShowAIPlanner(true)} className="mt-6 px-8 py-4 bg-blue-800/60 hover:bg-blue-900 backdrop-blur-md rounded-full text-white font-bold text-lg flex items-center gap-2 transition shadow-lg border border-blue-400/50 group">
-              무료 코스 만들기 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+          <div className="flex items-center w-full max-w-[280px] mb-8">
+            <img src="/cat.png" alt="NyangPro" className="h-38 mx-4 drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]" />
           </div>
 
-          <div className="relative mt-16 md:mt-0 w-full max-w-[500px] h-[400px]">
-            <div className="absolute inset-0 bg-green-50 rounded-xl shadow-2xl transform rotate-3 overflow-hidden border-[6px] border-white flex">
-              <div className="w-1/2 bg-emerald-100 h-full relative"><div className="absolute top-0 left-1/4 w-12 h-full bg-blue-200 transform -skew-x-12"></div></div>
-              <div className="w-1/2 bg-blue-50 h-full relative"><div className="absolute bottom-10 right-10 w-20 h-20 bg-emerald-200 rounded-full opacity-50"></div></div>
-              <div className="absolute top-1/3 left-1/4 w-10 h-10 bg-[#4A7DFF] rounded-full text-white flex items-center justify-center font-bold border-4 border-white shadow-lg z-10">1</div>
-              <div className="absolute top-1/2 right-1/4 w-10 h-10 bg-[#4A7DFF] rounded-full text-white flex items-center justify-center font-bold border-4 border-white shadow-lg z-10">2</div>
-              <svg className="absolute top-0 left-0 w-full h-full z-0" style={{ pointerEvents: 'none' }}><path d="M 140 140 Q 250 250 350 200" stroke="#4A7DFF" strokeWidth="4" strokeDasharray="8 8" fill="transparent" /></svg>
+          <p className="text-lg md:text-2xl font-bold leading-relaxed mb-12 max-w-3xl px-4 tracking-tight break-keep text-slate-800 drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)]">
+            {t.subText}
+          </p>
+
+          <div className="flex flex-col md:flex-row gap-4 mb-16 px-4 w-full justify-center">
+            <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} className="bg-rose-400 hover:bg-rose-500 text-white rounded-full px-8 py-4 font-bold text-lg transition-all active:scale-95 shadow-xl flex justify-center items-center gap-2">
+              <Navigation size={20} fill="currentColor" /> {t.btnPlan}
+            </button>
+            <button onClick={() => document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' })} className="bg-white hover:bg-blue-50 border border-slate-200 text-slate-800 rounded-full px-8 py-4 font-bold text-lg transition-all active:scale-95 shadow-md flex justify-center items-center gap-2">
+              {t.btnLearn}
+            </button>
+          </div>
+        </div>
+      </main>
+      {/* 🔴 Core Features Section (3 columns) */}
+      <section id="features" className="py-24 bg-white/30 backdrop-blur-[2px] relative w-full border-t border-slate-100 overflow-hidden">
+        {/* Background Decorative Auras */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-rose-300/30 blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-[5%] right-[-10%] w-[45%] h-[45%] bg-pink-300/30 blur-[130px] rounded-full"></div>
+          <div className="absolute top-[20%] right-[5%] w-[30%] h-[30%] bg-amber-200/40 blur-[100px] rounded-full"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-700 tracking-tight mb-4">{t.featHeading}</h2>
+            <p className="text-lg md:text-xl text-slate-500 font-medium">{t.featSub}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            {/* Feature 1 */}
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-rose-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Globe size={28} />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f1Title}</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">{t.f1Desc}</p>
+              <div className="mt-8 w-full h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <img src="/feature1.png" alt="AI Planner" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
             </div>
-            <div className="absolute -top-6 -right-4 lg:-right-12 bg-blue-900/90 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-xl border border-blue-500/50 backdrop-blur-sm transform hover:scale-105 transition">#무료 맞춤 코스</div>
-            <div className="absolute top-12 -right-2 lg:-right-8 bg-blue-900/90 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-xl border border-blue-500/50 backdrop-blur-sm transform hover:scale-105 transition">#견적도 한 번에!</div>
-            <div onClick={() => setShowAIPlanner(true)} className="absolute -bottom-8 right-8 w-28 h-28 bg-white rounded-full shadow-2xl flex items-center justify-center border-[5px] border-[#4A7DFF] text-5xl z-20 hover:animate-bounce cursor-pointer">🐱</div>
+            {/* Feature 2 */}
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-pink-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Users size={28} />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f2Title}</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">{t.f2Desc}</p>
+              <div className="mt-8 w-full h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <img src="/feature2.png" alt="Social Network" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            </div>
+            {/* Feature 3 */}
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-fuchsia-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Wallet size={28} />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f3Title}</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">{t.f3Desc}</p>
+              <div className="mt-8 w-full h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <img src="/feature3.png" alt="Travel Fund" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 🌟 3. 검색 폼 (유지) */}
-      <section className="bg-gray-50 pt-16 pb-10 px-10 border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="bg-white rounded-3xl shadow-lg border border-gray-200 p-8 flex flex-col md:flex-row gap-4 items-center -mt-28 relative z-30">
-            <div className="flex-1 w-full p-2 border-b md:border-b-0 md:border-r border-gray-100">
-              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><MapPin size={16} /> 여행지</label>
-              <input type="text" placeholder="어디로 떠나시나요?" value={formData.destination} onChange={handleInputChange} name="destination" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" />
-            </div>
-            <div className="flex-1 w-full p-2 border-b md:border-b-0 md:border-r border-gray-100 relative z-40">
-              <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-2"><Calendar size={16} /> 일정</label>
-              <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={ko} dateFormat="yyyy.MM.dd" placeholderText="날짜 선택" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300" wrapperClassName="w-full" />
-            </div>
-            <button onClick={() => { if (formData.destination && startDate) setShowAIPlanner(true); else alert('여행지와 날짜를 입력해주세요.'); }} className="w-full md:w-auto mt-4 md:mt-0 px-10 py-5 bg-slate-900 text-white font-bold text-xl rounded-2xl shadow-md hover:bg-slate-800 transition flex items-center justify-center gap-2 whitespace-nowrap">
-              <Sparkles size={24} /> AI 추천받기
-            </button>
-          </div>
+      {/* 🔴 Onboarding School (Welcome Guide) */}
+      <section id="onboarding" className="py-32 bg-gradient-to-b from-blue-50/30 to-white/40 w-full overflow-hidden relative backdrop-blur-[2px]">
+        {/* Sky Theme Decorative Elements */}
+        <div className="absolute top-0 right-0 w-full h-full pointer-events-none z-0">
+          <div className="absolute top-[5%] right-[10%] w-[300px] h-[300px] bg-blue-100/50 blur-[100px] rounded-full"></div>
+          <div className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-sky-100/40 blur-[120px] rounded-full"></div>
         </div>
-      </section>
 
-      {/* 🌟 4. 여행사 상품 진열 영역 (유지) */}
-      <section className="bg-white py-20 px-10">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex justify-between items-end mb-10">
-            <div>
-              <h2 className="text-3xl font-black text-gray-900 tracking-tight mb-2">🔥 트립메이커 단독 특가 패키지</h2>
-              <p className="text-gray-500 font-medium">전문 가이드와 함께하는 안전하고 편안한 여행을 만나보세요.</p>
-            </div>
-            <button className="text-[#4A7DFF] font-bold hover:underline flex items-center gap-1">전체 상품 보기 <ChevronRight size={16} /></button>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-20">
+            <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-black mb-4 uppercase tracking-widest animate-pulse">Onboarding</span>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight text-slate-900">
+              ✈️ <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-800">트립메이커 완벽 가이드</span>
+            </h2>
+            <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto px-4">
+              나만의 여행 AI, <strong className="text-blue-500">Trip Maker AI(트립메이커 AI)</strong>에 오신 것을 환영합니다! <br />
+              막막했던 계획부터 실시간 소통까지—이제 트립메이커 하나로 완벽해집니다.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {packageTours.map((tour) => (
-              <div key={tour.id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow cursor-pointer group">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={tour.img} alt={tour.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-3 left-3 flex gap-1.5">{tour.tags.map((tag, idx) => <span key={idx} className={`px-2.5 py-1 text-xs font-bold rounded-sm text-white shadow-sm ${idx === 0 ? 'bg-rose-500' : 'bg-slate-900/80 backdrop-blur-sm'}`}>{tag}</span>)}</div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-1 text-xs font-bold text-amber-500 mb-2"><Star size={14} fill="currentColor" /> {tour.rating} <span className="text-gray-400 font-normal">({tour.reviews})</span></div>
-                  <h3 className="font-bold text-lg text-gray-900 leading-tight mb-2 line-clamp-2">{tour.title}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-2 mb-4 h-10">{tour.desc}</p>
-                  <div className="flex items-end justify-between mt-4 pt-4 border-t border-gray-100">
-                    <div>{tour.originalPrice && <span className="text-xs text-gray-400 line-through block mb-0.5">{tour.originalPrice}원</span>}<span className="text-xl font-black text-rose-500">{tour.price}<span className="text-sm font-bold text-gray-800 ml-0.5">원~</span></span></div>
-                    <button className="px-4 py-2 bg-gray-50 text-gray-700 text-sm font-bold rounded-lg hover:bg-[#4A7DFF] hover:text-white transition-colors">자세히</button>
+
+          {/* Why Trip Maker? (Floating Bubbles) */}
+          <div className="grid md:grid-cols-3 gap-6 mb-32">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
+              <div className="text-3xl mb-4">🌟</div>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"고민은 AI에게"</h3>
+              <p className="text-slate-500 text-lg font-medium">취향만 말하면 동선까지 완벽한 일정을 짜줍니다.</p>
+            </div>
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
+              <div className="text-3xl mb-4">💰</div>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"총무의 구원자"</h3>
+              <p className="text-slate-500 text-lg font-medium">버튼 하나로 보내는 N빵 입금 알림.</p>
+            </div>
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
+              <div className="text-3xl mb-4">🏠</div>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"우리만의 아지트"</h3>
+              <p className="text-slate-500 text-lg font-medium">일정표 안에서 바로 대화하는 동행자 라운지.</p>
+            </div>
+          </div>
+
+          {/* Vertical List Content */}
+          <div className="space-y-40">
+            {GUIDE_DATA.map((section, sIdx) => (
+              <div key={section.id} className="relative">
+                {/* Section Header */}
+                <div className="flex items-center gap-4 mb-16 pb-6 border-b-2 border-slate-200">
+                  <div className="w-16 h-16 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-xl shadow-slate-900/20">
+                    {section.icon}
                   </div>
+                  <h3 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+                    {(() => {
+                      const parts = section.title.split(' ');
+                      const isNumbered = parts[0].includes('.');
+                      const emoji = isNumbered ? parts[1] : parts[0];
+                      const restTitle = parts.slice(isNumbered ? 2 : 1).join(' ');
+                      return (
+                        <>
+                          <span className="mr-2">{isNumbered ? parts[0] + ' ' + emoji : emoji}</span>
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-800">{restTitle}</span>
+                        </>
+                      );
+                    })()}
+                  </h3>
+                </div>
+
+                {/* Section Items */}
+                <div className="space-y-32">
+                  {section.items.map((item, dIdx) => (
+                    <GuideItem
+                      key={dIdx}
+                      item={item}
+                      sectionId={section.id}
+                      dIdx={dIdx}
+                      reverse={dIdx % 2 === 1}
+                    />
+                  ))}
                 </div>
               </div>
             ))}
           </div>
+
+
+          {/* Quick Icon Dictionary */}
+          <div className="mt-40 bg-white rounded-[60px] p-12 border border-slate-100 shadow-2xl">
+            <h3 className="text-3xl font-black text-center text-slate-900 mb-12">🔍 핵심 아이콘 사전 (Icon Dictionary)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {[
+                { i: '⚙️/💳', n: '설정/지갑', d: '예산 세팅, 환전, 입금 관리' },
+                { i: '➕', n: '동행자 추가', d: '친구 검색 및 초대 링크 생성' },
+                { i: '🔔', n: 'N빵 알림', d: '자동 계산된 입금 요청 푸시' },
+                { i: '📊', n: '상세 지출', d: '예상 경비 vs 실제 지출 가계부' },
+                { i: '💬', n: '라운지', d: '팀 전용 실시간 소통 공간' },
+              ].map((item, idx) => (
+                <div key={idx} className="p-6 rounded-[32px] bg-slate-50 text-center border border-transparent hover:border-blue-200 transition-colors">
+                  <div className="text-3xl mb-3">{item.i}</div>
+                  <div className="font-black text-slate-900 text-lg mb-1">{item.n}</div>
+                  <p className="text-sm text-slate-400 font-medium leading-tight">{item.d}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-12 text-center text-sm font-bold text-slate-400 italic">
+              ✨ Tip: 여행 중 예상치 못한 지출이 생기면 즉시 [상세 지출 보기]에서 기록하세요. 실시간 잔액을 보여줍니다.
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+
+          <div className="mt-40 grid md:grid-cols-2 gap-8">
+            <div className="bg-rose-500 text-white p-10 rounded-[50px] shadow-2xl">
+              <h4 className="text-3xl font-black italic mb-8">👑 방장 (Host)</h4>
+              <ul className="space-y-4 text-lg font-bold opacity-90">
+                <li>✅ 여행 코스 생성 및 삭제 관리</li>
+                <li>✅ 모임통장 예산 설정 / N빵 푸시 알림</li>
+                <li>✅ 실시간 외화 환전 기록 실행</li>
+                <li>✅ 일정 수정 및 동행 소통 가능</li>
+              </ul>
+            </div>
+            <div className="bg-white border-4 border-slate-50 p-10 rounded-[50px] shadow-lg">
+              <h4 className="text-3xl font-black italic mb-8 text-slate-900">🙋 멤버 (Member)</h4>
+              <ul className="space-y-4 text-lg font-bold text-slate-500">
+                <li>✅ 일정 확인 및 함께 수정 편집</li>
+                <li>✅ 내 몫의 여행 경비(N빵) 입금하기</li>
+                <li>✅ 팀원 전용 라운지 실시간 참여</li>
+                <li className="opacity-30 italic">❌ 여행 삭제 / 예산 설정 등 불가</li>
+              </ul>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+
+      {/* 🔴 Bottom CTA */}
+      <section id="cta" className="py-24 bg-rose-50 w-full relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-rose-700 tracking-tight mb-6">{t.ctaHeading}</h2>
+          <p className="text-lg md:text-xl text-slate-500 font-medium mb-12">{t.ctaSub}</p>
+          <div className="bg-white p-2 rounded-full shadow-2xl shadow-rose-900/10 border border-slate-200 max-w-4xl w-full flex flex-col md:flex-row gap-2">
+            <div className="flex-1 flex items-center px-6 py-4 md:py-2 gap-3 group">
+              <MapPin className="text-gray-400" size={24} />
+              <input type="text" placeholder={t.searchPlaceholder} value={destination} onChange={(e) => setDestination(e.target.value)} className="bg-transparent w-full outline-none text-slate-800 font-semibold text-lg" />
+            </div>
+            <div className="hidden md:block w-px h-12 bg-gray-200 self-center" />
+            <div className="flex-[0.8] flex items-center px-6 py-4 md:py-2 gap-3 group">
+              <CalendarIcon className="text-gray-400" size={24} />
+              <DatePicker selectsRange startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={lang === 'ko' ? ko : enUS} dateFormat="yyyy.MM.dd" placeholderText={t.datePlaceholder} className="bg-transparent w-full outline-none text-slate-800 font-semibold text-lg cursor-pointer" />
+            </div>
+            <button onClick={generatePlan} disabled={loading} className="bg-rose-400 hover:bg-rose-500 text-white rounded-full px-8 py-4 font-bold text-lg shadow-xl flex justify-center items-center gap-2 shrink-0 md:w-auto w-full mt-2 md:mt-0">
+              {loading ? <Loader2 size={24} className="animate-spin text-white" /> : <><Navigation size={20} fill="currentColor" /> {t.ctaBtn}</>}
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* 푸터 영역 생략 (기존과 동일하게 유지) */}
 
-      {/* 🔥 [핵심] AI 플래너 모달 (PC 화면에 띄워지는 2단 레이아웃) */}
-      <AnimatePresence>
-        {showAIPlanner && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex justify-center items-center p-4 md:p-10">
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className="bg-gray-100 w-full max-w-[1200px] h-[90vh] rounded-[30px] shadow-2xl overflow-hidden flex flex-col relative border border-gray-300">
+      {/* Tech Stack Content */}
+      <section id="guide" className="py-32 bg-slate-50/30 backdrop-blur-[2px] relative w-full overflow-hidden border-t border-slate-200/50">
 
-              {/* 모달 헤더 */}
-              <div className="bg-white px-8 py-5 flex justify-between items-center border-b border-gray-200 shrink-0">
-                <div className="flex items-center gap-3">
-                  <CatMascot width={45} />
-                  <h2 className="text-2xl font-black text-gray-800 tracking-tight">AI 냥프로 맞춤 플래너</h2>
-                </div>
-                <button onClick={() => setShowAIPlanner(false)} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 text-gray-600 transition"><X size={24} /></button>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+          <div className="text-center mb-10">
+            <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">Tech Stack</span>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-900">
+              💻 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-700">트립메이커 기술 스택 및 완성도</span>
+            </h2>
+            <p className="text-lg md:text-xl text-slate-500 font-medium">단순한 여행 플래너를 넘어, 최신 웹 기술과 인공지능이 결합된 혁신적 플랫폼입니다.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+            {TECH_STACK_DATA[0].items.map((item, dIdx) => (
+              <TechCard key={dIdx} item={item} index={dIdx} />
+            ))}
+          </div>
+
+          {/* PWA Tip */}
+          <div className="mt-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-[32px] p-8 md:p-12 text-white shadow-xl flex flex-col md:flex-row items-center gap-8 justify-between">
+            <div className="flex items-center gap-6">
+              <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <Smartphone size={32} />
               </div>
-
-              {/* 2단 스플릿 뷰 컨테이너 */}
-              <div className="flex flex-1 overflow-hidden">
-
-                {/* 좌측 폼 영역 (입력) */}
-                <div className="flex-1 overflow-y-auto bg-white p-10 custom-scrollbar pb-32 relative">
-                  <div className="space-y-8 max-w-[550px] mx-auto">
-
-                    <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-indigo-200 transition">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><MapPin size={18} className="text-[#FF5A5F]" /> 어디로 떠나시나요?</label>
-                      <input type="text" name="destination" value={formData.destination} onChange={handleInputChange} placeholder="국가 또는 도시명 입력" className="w-full text-2xl font-black text-gray-800 outline-none placeholder-gray-300 bg-transparent mb-4" />
-                      <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-50">{themeTags.map(tag => (<button key={tag} onClick={() => addThemeTag(tag)} className="px-3 py-1.5 bg-gray-50 rounded-lg text-sm text-gray-600 hover:bg-rose-50 hover:text-rose-500 transition-colors">{tag}</button>))}</div>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-indigo-200 transition relative z-50">
-                      <label className="flex items-center gap-2 text-sm font-bold text-gray-500 mb-3"><Calendar size={18} className="text-[#FF5A5F]" /> 일정 선택</label>
-                      <DatePicker selectsRange={true} startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={ko} dateFormat="yyyy.MM.dd" placeholderText="출발일과 도착일을 선택하세요" className="w-full text-xl font-bold text-gray-800 outline-none placeholder-gray-300 cursor-pointer" wrapperClassName="w-full" />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-6">
-                      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-                        <label className="text-sm font-bold text-gray-500 mb-4 block">누구와 함께?</label>
-                        <div className="grid grid-cols-2 gap-2">{companionOptions.map((opt) => (<button key={opt.id} onClick={() => setFormData({ ...formData, companion: opt.id })} className={`py-3 rounded-xl transition-all text-sm font-bold ${formData.companion === opt.id ? 'bg-[#FF5A5F] text-white shadow-md' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}>{opt.label}</button>))}</div>
-                      </div>
-                      <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-center items-center">
-                        <label className="text-sm font-bold text-gray-500 mb-6">총 인원 수</label>
-                        <div className="flex items-center gap-5"><button onClick={() => updatePeople(-1)} className="w-12 h-12 rounded-full bg-gray-100 text-gray-600 font-bold text-xl hover:bg-gray-200 transition">-</button><span className="font-black text-3xl w-8 text-center text-gray-800">{formData.people}</span><button onClick={() => updatePeople(1)} className="w-12 h-12 rounded-full bg-[#FF5A5F] text-white font-bold text-xl hover:bg-rose-600 shadow-md transition">+</button></div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-                      <div className="flex justify-between items-center mb-4">
-                        <label className="text-sm font-bold text-gray-500">1인당 여행 예산</label>
-                        <span className="text-2xl font-black text-[#FF5A5F]">{formData.budget}만원</span>
-                      </div>
-                      <input type="range" name="budget" min="50" max="1000" step="10" value={formData.budget} onChange={handleInputChange} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5A5F]" />
-                    </div>
-
-                    <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
-                      <label className="text-sm font-bold text-gray-500 mb-4 flex items-center gap-2"><MessageSquare size={16} /> 상세 요청사항</label>
-                      <textarea name="request" value={formData.request} onChange={handleInputChange} placeholder="예: 니스 IN, 마르세유 OUT으로 짜줘. 부모님을 모시고 가니 많이 걷지 않게 해줘." className="w-full text-base font-medium outline-none text-gray-800 resize-none h-24 bg-transparent custom-scrollbar leading-relaxed" />
-                    </div>
-
-                  </div>
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-black uppercase tracking-widest">Tip</span>
+                  <h4 className="text-2xl font-black">아이폰에서 트립메이커 앱 설치 방법</h4>
                 </div>
-
-                {/* 우측 사이드바 (내 기록) */}
-                <div className="w-[400px] bg-slate-50 border-l border-gray-200 p-8 overflow-y-auto custom-scrollbar flex flex-col">
-                  <h3 className="font-bold text-gray-800 text-lg mb-6 flex items-center gap-2">
-                    <Map className="text-indigo-600" /> 내 지난 여행 기록
-                  </h3>
-                  {mySchedules.length > 0 ? (
-                    <div className="space-y-4 flex-1">
-                      {mySchedules.map(trip => (
-                        <div key={trip.id} onClick={() => { setAiResult(trip); setShowAIPlanner(false); }} className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm cursor-pointer hover:border-indigo-400 hover:shadow-md transition group relative overflow-hidden">
-                          <button onClick={(e) => handleDeleteTrip(e, trip.id)} className="absolute top-4 right-4 text-gray-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition"><Trash2 size={16} /></button>
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-xl group-hover:bg-indigo-600 group-hover:text-white transition">✈️</div>
-                            <div>
-                              <h4 className="font-bold text-gray-900 mb-1 text-base">{trip.tripTitle || trip.destination}</h4>
-                              <p className="text-xs text-gray-500">{trip.startDate} 출발</p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center text-gray-400 text-center space-y-3 opacity-60">
-                      <Plane size={48} strokeWidth={1} />
-                      <p className="text-sm">저장된 일정이 없습니다.<br />나만의 첫 번째 여행을 만들어보세요!</p>
-                    </div>
-                  )}
+                <div className="text-blue-100 font-medium text-lg leading-relaxed">
+                  모바일 브라우저(크롬, 사파리) 메뉴에서 <strong>'홈 화면에 추가(Add to Home Screen)'</strong>를 선택하면 <br className="hidden md:block" />
+                  일반 앱처럼 빠르고 쾌적하게 전체 화면으로 이용할 수 있습니다.
+                  <p className="mt-2 text-blue-50/90 font-bold">빠른시일 내에 <strong>앱 스토어에</strong> 등록하겠습니다.</p>
                 </div>
               </div>
+            </div>
+            <a href="https://play.google.com/store/apps/details?id=pro.mytrip2.twa" target="_blank" rel="noopener noreferrer" className="bg-white text-indigo-600 px-8 py-4 rounded-full font-black text-lg hover:bg-blue-50 transition-colors shrink-0 whitespace-nowrap">
+              플레이 스토어
+            </a>
+          </div>
+        </div>
+      </section>
 
-              {/* 생성 버튼 (모달 하단에 고정) */}
-              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-white via-white/95 to-transparent flex justify-center pointer-events-none">
-                <button onClick={generatePlan} disabled={loading} className="pointer-events-auto w-full max-w-[600px] py-5 bg-gradient-to-r from-[#4A7DFF] to-blue-600 text-white font-black text-xl rounded-2xl shadow-[0_10px_20px_rgba(74,125,255,0.3)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(74,125,255,0.4)] transition-all flex justify-center items-center gap-3">
-                  {loading ? <><Loader2 className="animate-spin" size={24} /> {loadingText}</> : <><Sparkles size={24} /> AI 맞춤 일정 생성하기</>}
-                </button>
+      {/* 🔴 FAQ Section (AEO / GEO Optimization) */}
+      <section id="faq" className="py-24 bg-white/40 backdrop-blur-[2px] relative w-full overflow-hidden border-t border-slate-100">
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">FAQ</span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+              자주 묻는 질문
+            </h2>
+            <p className="text-lg text-slate-500 font-medium">서비스 이용에 대해 궁금한 점을 확인해보세요.</p>
+          </div>
+
+          <div className="space-y-4">
+            {FAQ_DATA.map((faq, idx) => (
+              <div key={idx} className="bg-slate-50 border border-slate-100 rounded-[24px] p-6 hover:border-rose-200 transition-colors">
+                <h3 className="text-xl font-bold text-slate-900 mb-3 flex gap-3">
+                  <span className="text-rose-400">Q.</span> {faq.q}
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-medium flex gap-3">
+                  <span className="text-slate-300 font-bold">A.</span> {faq.a}
+                </p>
               </div>
+            ))}
+          </div>
+        </div>
 
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* AEO/GEO FAQ Schema JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": FAQ_DATA.map(item => ({
+                "@type": "Question",
+                "name": item.q,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": item.a
+                }
+              }))
+            })
+          }}
+        />
+      </section>
+
+      {/* 🔴 Footer */}
+      <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8 w-full">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Logo" className="h-6 object-contain grayscale opacity-60" />
+              <span className="font-extrabold text-xl text-slate-500 tracking-tighter">AI</span>
+            </div>
+            <div className="flex gap-6 text-sm font-bold text-slate-500">
+              <a href="/support" className="hover:text-rose-500 transition">{t.footerContact}</a>
+              <a href="/terms" className="hover:text-rose-500 transition">{t.footerTerms}</a>
+              <a href="/privacy" className="hover:text-rose-500 transition">{t.footerPrivacy}</a>
+            </div>
+          </div>
+          <div className="border-t border-slate-200 mt-8 pt-8 text-slate-400 font-medium text-xs text-center md:text-left">
+            <p>{t.footerCopy}</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Floating App Button */}
+      <div className="hidden lg:flex fixed right-8 bottom-8 z-50">
+        <a href="https://play.google.com/store/apps/details?id=pro.mytrip2.twa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-950 border border-slate-900 text-white px-6 py-3 rounded-2xl transition-all hover:-translate-y-1 shadow-2xl hover:shadow-rose-500/20 group">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+            {/* Left Blue Quadrant */}
+            <path d="M3.2 2.2C3.1 2.4 3 2.7 3 3.1V20.9C3 21.3 3.1 21.6 3.2 21.8L12.7 12.3L3.2 2.2Z" fill="#00D7FF" />
+            {/* Right Pink/Red Quadrant */}
+            <path d="M16.2 8.8L12.7 12.3L16.2 15.8L20.8 13.2C22.1 12.5 22.1 11.5 20.8 10.8L16.2 8.8Z" fill="#FF3A44" />
+            {/* Top Green Quadrant */}
+            <path d="M12.7 12.3L16.2 8.8L3.2 1.3C3.6 1.1 4.2 1.1 4.8 1.4L16.2 8.8L12.7 12.3Z" fill="#00F076" />
+            {/* Bottom Yellow Quadrant */}
+            <path d="M12.7 12.3L3.2 21.8C3.8 22.1 4.4 22.1 4.8 21.8L16.2 15.8L12.7 12.3Z" fill="#FFC107" />
+          </svg>
+          <div className="flex flex-col leading-tight">
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{lang === 'ko' ? '모바일 전용 앱' : 'GET IT ON'}</span>
+            <span className="text-base font-black tracking-tight text-white">Google Play</span>
+          </div>
+        </a>
+      </div>
 
       <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; border: 2px solid transparent; background-clip: content-box; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+        .react-datepicker-wrapper { width: 100%; }
+        .react-datepicker__input-container input { width: 100%; border: none; outline: none; background: transparent; }
+        html { scroll-behavior: smooth; }
       `}</style>
     </div>
   );

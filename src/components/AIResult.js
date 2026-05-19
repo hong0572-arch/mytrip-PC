@@ -283,13 +283,13 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
 
                     {/* 타이틀 및 예산 요약 */}
                     <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                        <h1 className="text-3xl font-black text-gray-900 mb-2">{tripPlan.tripTitle}</h1>
+                        <h1 className="text-5xl font-black text-gray-900 mb-2">{tripPlan.tripTitle}</h1>
                         <div className="flex flex-wrap gap-2 mb-6">
-                            <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><MapPin size={14} /> {userInfo?.destination}</span>
-                            <span className="bg-rose-50 text-rose-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><Calendar size={14} /> {userInfo?.startDate}</span>
+                            <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-lg font-bold flex items-center gap-1"><MapPin size={18} /> {userInfo?.destination}</span>
+                            <span className="bg-rose-50 text-rose-600 px-3 py-1 rounded-full text-lg font-bold flex items-center gap-1"><Calendar size={18} /> {userInfo?.startDate}</span>
                         </div>
-                        <h3 className="font-bold text-gray-700 mb-2 border-b pb-2">💰 {t.result.budget_summary}: <span className="text-rose-500">{tripPlan.estimatedCost}</span></h3>
-                        <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                        <h3 className="font-black text-gray-800 text-2xl mb-2 border-b pb-2">💰 {t.result.budget_summary}: <span className="text-rose-500">{tripPlan.estimatedCost}</span></h3>
+                        <ul className="text-lg text-gray-600 space-y-1 list-disc list-inside">
                             {tripPlan.budgetBreakdown?.map((item, idx) => <li key={idx}>{item}</li>)}
                         </ul>
                     </div>
@@ -297,17 +297,17 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
                     {/* 추천 숙소 */}
                     {tripPlan.recommendedHotels && tripPlan.recommendedHotels.length > 0 && (
                         <div>
-                            <h3 className="font-bold text-lg text-gray-800 mb-3 flex items-center gap-2"><BedDouble className="text-indigo-500" /> {t.result.recommended_hotels}</h3>
+                            <h3 className="font-black text-2xl text-gray-800 mb-3 flex items-center gap-2"><BedDouble className="text-indigo-500" /> {t.result.recommended_hotels}</h3>
                             <div className="grid grid-cols-1 gap-3">
                                 {tripPlan.recommendedHotels.map((hotel, idx) => (
                                     <div key={idx} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center group cursor-pointer hover:border-indigo-400 transition" onClick={() => window.open(`https://www.google.com/search?q=${hotel.name}`, '_blank')}>
                                         <div>
-                                            <h4 className="font-bold text-gray-900 group-hover:text-indigo-600 transition">{hotel.name}</h4>
-                                            <p className="text-xs text-gray-500">{hotel.description}</p>
+                                            <h4 className="font-black text-xl text-gray-900 group-hover:text-indigo-600 transition">{hotel.name}</h4>
+                                            <p className="text-base text-gray-500">{hotel.description}</p>
                                         </div>
                                         <div className="text-right">
-                                            <span className="text-rose-500 font-bold text-sm block">{hotel.priceRange}</span>
-                                            <Search size={14} className="inline text-gray-400" />
+                                            <span className="text-rose-500 font-bold text-lg block">{hotel.priceRange}</span>
+                                            <Search size={18} className="inline text-gray-400" />
                                         </div>
                                     </div>
                                 ))}
@@ -317,24 +317,24 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
 
                     {/* 데일리 일정 */}
                     <div>
-                        <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2"><Compass className="text-indigo-500" /> {t.result.itinerary_detail}</h3>
+                        <h3 className="font-black text-2xl text-gray-800 mb-4 flex items-center gap-2"><Compass className="text-indigo-500" /> {t.result.itinerary_detail}</h3>
                         {tripPlan.itinerary?.map((day, dIdx) => (
                             <div key={dIdx} className="mb-8">
-                                <div className="inline-block bg-slate-800 text-white px-4 py-1.5 rounded-lg font-bold text-sm mb-4 shadow-sm">
+                                <div className="inline-block bg-slate-800 text-white px-4 py-1.5 rounded-lg font-bold text-lg mb-4 shadow-sm">
                                     {t.result.day} {day.day} <span className="font-normal opacity-70 ml-2">{day.date}</span>
                                 </div>
                                 <div className="pl-4 border-l-2 border-slate-200 ml-2 space-y-4">
                                     {day.places.map((place, pIdx) => (
                                         <div key={pIdx} className="relative pl-6 bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer" onClick={() => { if (place.coordinates) { googleMapRef.current?.panTo(place.coordinates); googleMapRef.current?.setZoom(16); } }}>
-                                            <div className="absolute -left-[29px] top-4 w-7 h-7 bg-white border-2 border-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-slate-800 z-10">{pIdx + 1}</div>
-                                            <h4 className="font-bold text-lg text-gray-900 mb-1">{place.name}</h4>
-                                            <span className="inline-block bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded mb-2">{place.category}</span>
-                                            <p className="text-sm text-gray-600 leading-relaxed mb-3">{place.description}</p>
+                                            <div className="absolute -left-[29px] top-4 w-7 h-7 bg-white border-2 border-slate-800 rounded-full flex items-center justify-center text-base font-bold text-slate-800 z-10">{pIdx + 1}</div>
+                                            <h4 className="font-black text-2xl text-gray-900 mb-1">{place.name}</h4>
+                                            <span className="inline-block bg-gray-100 text-gray-500 text-sm px-2 py-0.5 rounded mb-2">{place.category}</span>
+                                            <p className="text-lg text-gray-600 leading-relaxed mb-3">{place.description}</p>
 
                                             <div className="flex gap-2">
-                                                <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-blue-100 transition"><ExternalLink size={12} /> {t.result.google_maps}</button>
+                                                <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-base font-bold flex items-center gap-1 hover:bg-blue-100 transition"><ExternalLink size={16} /> {t.result.google_maps}</button>
                                                 {!place.category?.includes("Restaurant") && !place.category?.includes("음식점") && (
-                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-rose-50 text-rose-500 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-rose-100 transition">🎟️ {t.result.tickets}</button>
+                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-rose-50 text-rose-500 rounded-lg text-base font-bold flex items-center gap-1 hover:bg-rose-100 transition">🎟️ {t.result.tickets}</button>
                                                 )}
                                             </div>
                                         </div>

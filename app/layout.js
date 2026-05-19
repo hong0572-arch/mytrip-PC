@@ -13,8 +13,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Trip Maker PC",
-  description: "나만의 여행 플래너",
+  metadataBase: new URL('https://mytrip2.pro'),
+  title: {
+    default: "Trip Maker - 내 손안의 AI 여행 가이드",
+    template: `%s | Trip Maker`
+  },
+  description: "일본, 유럽, 동남아 어디든! AI가 즉시 짜주는 맞춤형 여행 일정. Trip Maker와 함께 가장 안전하고 스마트한 여행을 계획하세요.",
+  keywords: ["AI 여행 계획", "트립메이커", "Trip Maker", "여행 일정 짜기", "AI 플래너", "해외여행 코스", "나홀로 여행", "가족여행 계획"],
+  alternates: {
+    canonical: 'https://mytrip2.pro',
+    languages: {
+      'ko-KR': 'https://mytrip2.pro',
+      'en-US': 'https://mytrip2.pro/?lang=en',
+    },
+  },
+  openGraph: {
+    title: "Trip Maker - 내 손안의 AI 여행 가이드",
+    description: "AI가 제안하는 최적의 여행 코스! 지금 바로 나만의 여행을 만들어보세요.",
+    url: "https://mytrip2.pro",
+    siteName: "Trip Maker",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Trip Maker AI Travel Guide",
+    description: "AI가 즉시 짜주는 맞춤형 여행 일정",
+    images: ["/og-image.jpg"],
+  },
+  other: {
+    "geo.region": "KR",
+    "geo.placename": "Seoul",
+    "geo.position": "37.5665;126.9780",
+    "ICBM": "37.5665, 126.9780",
+  }
 };
 
 export default function RootLayout({ children }) {
@@ -22,6 +55,25 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Trip Maker",
+              "operatingSystem": "Web, Android, iOS",
+              "applicationCategory": "TravelApplication",
+              "description": "AI-powered travel planner for personalized itineraries.",
+              "url": "https://mytrip2.pro",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "KRW"
+              }
+            })
+          }}
+        />
       </body>
     </html>
   );
