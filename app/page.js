@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Plane, Zap, MapPin, Calendar as CalendarIcon, Loader2, Sparkles, Navigation, Globe, Clock, ShieldCheck, ArrowRight, Star, CheckCircle, Smartphone, Users, Wallet, Mic, Share2, CreditCard, Ticket, MessageSquare, Save, Search, Bell, BarChart, Info, Home as HomeIcon, Map, Settings, Camera, LayoutDashboard, Compass, HelpCircle, BellRing, Code } from 'lucide-react';
+import { Plane, Zap, MapPin, Calendar as CalendarIcon, Loader2, Sparkles, Navigation, Globe, Clock, ShieldCheck, ArrowRight, Star, CheckCircle, Smartphone, Users, Wallet, Mic, Share2, CreditCard, Ticket, MessageSquare, Save, Search, Bell, BarChart, Info, Home as HomeIcon, Map, Settings, Camera, LayoutDashboard, Compass, HelpCircle, BellRing, Code, Car, Bus, Train } from 'lucide-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko, enUS } from 'date-fns/locale';
@@ -575,6 +575,68 @@ export default function Home() {
           backgroundImage: 'radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px)',
           backgroundSize: '32px 32px'
         }} />
+
+        {/* ✈️ Diagonal Flight Path (Airplane) */}
+        <div className="absolute top-[300px] left-0 w-full h-[500px] z-0 overflow-hidden">
+          <svg className="absolute w-full h-full opacity-[0.12]" xmlns="http://www.w3.org/2000/svg">
+            <path d="M -100 400 C 250 300, 500 150, 1200 -50" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="8 8" />
+          </svg>
+          <div className="absolute top-0 left-0 w-full h-full animate-fly-diagonal">
+            <div className="flex flex-col items-center justify-center text-indigo-500 bg-white/75 backdrop-blur-sm p-3 rounded-2xl shadow-lg border border-indigo-100 w-12 h-12">
+              <Plane size={24} className="rotate-45" />
+            </div>
+          </div>
+        </div>
+
+        {/* 🚗 Horizontal Road Path (Car) */}
+        <div className="absolute top-[1350px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-rose-300/30" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal">
+            <div className="flex items-center justify-center text-rose-500 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-rose-100 w-10 h-10">
+              <Car size={20} />
+            </div>
+          </div>
+        </div>
+
+        {/* 🚆 Straight Rail Track (Train) */}
+        <div className="absolute top-[2150px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-teal-300/25" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-train-glide">
+            <div className="flex items-center justify-center text-teal-600 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-teal-100 w-10 h-10">
+              <Train size={20} />
+            </div>
+          </div>
+        </div>
+
+        {/* 🚌 Technical Travel Path (Bus) */}
+        <div className="absolute top-[3100px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-amber-300/30" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-7s', animationDuration: '24s' }}>
+            <div className="flex items-center justify-center text-amber-500 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-amber-100 w-10 h-10">
+              <Bus size={20} />
+            </div>
+          </div>
+        </div>
+
+        {/* ⚓ Floating Swaying Anchored Visual Nodes (Swaying compasses / location pins in margins) */}
+        <div className="absolute top-[900px] left-[6%] z-10 animate-sway opacity-[0.7]" style={{ animationDelay: '0s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
+            <span className="text-xl">📍</span>
+            <span className="text-[10px] font-black text-slate-400">SEOUL</span>
+          </div>
+        </div>
+        <div className="absolute top-[1750px] right-[5%] z-10 animate-sway opacity-[0.75]" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
+            <span className="text-xl">🧭</span>
+            <span className="text-[10px] font-black text-indigo-400">ROUTE</span>
+          </div>
+        </div>
+        <div className="absolute top-[2800px] left-[4%] z-10 animate-sway opacity-[0.7]" style={{ animationDelay: '-4s', animationDuration: '8s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
+            <span className="text-xl">🎫</span>
+            <span className="text-[10px] font-black text-rose-400">PASS</span>
+          </div>
+        </div>
       </div>
 
       {/* 🔴 Header Background (Video + Fallback Image) */}
