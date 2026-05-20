@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@tailwindcss/typography": "^0.5.19",
     "amadeus": "^11.0.0",
     "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
+    "date-fns": "^4.2.1",
     "date-fns-tz": "^3.2.0",
+    "dotenv": "^17.4.2",
     "firebase": "^12.9.0",
     "firebase-admin": "^13.8.0",
     "framer-motion": "^12.34.2",
+    "gray-matter": "^4.0.3",
     "html-to-image": "^1.11.13",
     "jspdf": "^4.2.0",
     "lottie-react": "^2.4.1",
@@ -30,7 +33,9 @@
     "react-dom": "19.2.3",
     "react-hook-form": "^7.72.1",
     "react-markdown": "^10.1.0",
+    "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
+    "remark-html": "^16.0.1",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {

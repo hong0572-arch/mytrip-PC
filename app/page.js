@@ -713,6 +713,7 @@ export default function Home() {
           <a href="#features" className="hover:text-rose-500 transition">{t.navFeatures}</a>
           <a href="#how" className="hover:text-rose-500 transition">{t.navHow}</a>
           <a href="#community" className="hover:text-rose-500 transition">{t.navCommunity}</a>
+          <a href="/blog" className="text-rose-600 hover:text-rose-500 transition">블로그</a>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <div className="flex bg-white/90 p-1 rounded-full text-sm font-bold shadow-md border border-slate-200/80 backdrop-blur-sm">
@@ -1071,6 +1072,7 @@ export default function Home() {
               <span className="font-extrabold text-xl text-slate-500 tracking-tighter">AI</span>
             </div>
             <div className="flex gap-6 text-sm font-bold text-slate-500">
+              <a href="/blog" className="text-rose-500 hover:text-rose-600 transition">블로그</a>
               <a href="/support" className="hover:text-rose-500 transition">{t.footerContact}</a>
               <a href="/terms" className="hover:text-rose-500 transition">{t.footerTerms}</a>
               <a href="/privacy" className="hover:text-rose-500 transition">{t.footerPrivacy}</a>
