@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Plane, Zap, MapPin, Calendar as CalendarIcon, Loader2, Sparkles, Navigation, Globe, Clock, ShieldCheck, ArrowRight, Star, CheckCircle, Smartphone, Users, Wallet, Mic, Share2, CreditCard, Ticket, MessageSquare, Save, Search, Bell, BarChart, Info, Home as HomeIcon, Map, Settings, Camera, LayoutDashboard, Compass, HelpCircle, BellRing, Code, Car, Bus, Train } from 'lucide-react';
+import { Plane, Zap, MapPin, Calendar as CalendarIcon, Loader2, Sparkles, Navigation, Globe, Clock, ShieldCheck, ArrowRight, Star, CheckCircle, Smartphone, Users, Wallet, Mic, Share2, CreditCard, Ticket, MessageSquare, Save, Search, Bell, BarChart, Info, Home as HomeIcon, Map, Settings, Camera, LayoutDashboard, Compass, HelpCircle, BellRing, Code, Car, Bus, Train, Ship, Luggage, Bike } from 'lucide-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko, enUS } from 'date-fns/locale';
@@ -576,65 +576,135 @@ export default function Home() {
           backgroundSize: '32px 32px'
         }} />
 
-        {/* ✈️ Diagonal Flight Path (Airplane) */}
+        {/* ✈️ [Y=300px] Diagonal Flight Path (Airplane) */}
         <div className="absolute top-[300px] left-0 w-full h-[500px] z-0 overflow-hidden">
-          <svg className="absolute w-full h-full opacity-[0.12]" xmlns="http://www.w3.org/2000/svg">
+          <svg className="absolute w-full h-full opacity-[0.26]" xmlns="http://www.w3.org/2000/svg">
             <path d="M -100 400 C 250 300, 500 150, 1200 -50" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="8 8" />
           </svg>
           <div className="absolute top-0 left-0 w-full h-full animate-fly-diagonal">
-            <div className="flex flex-col items-center justify-center text-indigo-500 bg-white/75 backdrop-blur-sm p-3 rounded-2xl shadow-lg border border-indigo-100 w-12 h-12">
-              <Plane size={24} className="rotate-45" />
+            <div className="flex flex-col items-center justify-center text-indigo-600 bg-white p-3 rounded-2xl shadow-xl border-2 border-indigo-500 w-14 h-14 relative">
+              <Plane size={28} className="rotate-45" />
+              <span className="absolute -top-3 -right-3 px-1.5 py-0.5 bg-indigo-500 text-white font-bold text-[8px] rounded-full shadow-sm">DEPARTING</span>
             </div>
           </div>
         </div>
 
-        {/* 🚗 Horizontal Road Path (Car) */}
+        {/* ⚓ [Y=900px] Floating Swaying Anchored Visual Nodes (Seoul MapPin & Route Compass) */}
+        <div className="absolute top-[900px] left-[6%] z-10 animate-sway opacity-100" style={{ animationDelay: '0s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-rose-400 shadow-xl">
+            <span className="text-2xl">📍</span>
+            <span className="text-[10px] font-black text-rose-600">SEOUL</span>
+          </div>
+        </div>
+        <div className="absolute top-[950px] right-[5%] z-10 animate-sway opacity-100" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-indigo-400 shadow-xl">
+            <span className="text-2xl">🧭</span>
+            <span className="text-[10px] font-black text-indigo-600">ROUTE</span>
+          </div>
+        </div>
+
+        {/* 🚗 [Y=1350px] Horizontal Road Path (Car) */}
         <div className="absolute top-[1350px] left-0 w-full h-[100px] z-0 overflow-hidden">
-          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-rose-300/30" style={{ top: '50%' }} />
-          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal">
-            <div className="flex items-center justify-center text-rose-500 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-rose-100 w-10 h-10">
-              <Car size={20} />
+          <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-rose-400/40" style={{ top: '50%' }} />
+          <div className="absolute top-[10px] left-0 w-full h-full animate-drive-horizontal">
+            <div className="flex items-center justify-center text-rose-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-rose-500 w-12 h-12 relative">
+              <Car size={26} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-rose-500 text-white font-bold text-[7px] rounded-full shadow-sm">ROADTRIP</span>
             </div>
           </div>
         </div>
 
-        {/* 🚆 Straight Rail Track (Train) */}
+        {/* ⚓ [Y=1750px] Floating Swaying Visual Nodes (Pass Ticket & Bicycle) */}
+        <div className="absolute top-[1750px] left-[4%] z-10 animate-sway opacity-100" style={{ animationDelay: '-4s', animationDuration: '8s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-amber-400 shadow-xl">
+            <span className="text-2xl">🎫</span>
+            <span className="text-[10px] font-black text-amber-600">PASS</span>
+          </div>
+        </div>
+        <div className="absolute top-[1800px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-emerald-400/30" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-5s', animationDuration: '28s' }}>
+            <div className="flex items-center justify-center text-emerald-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-emerald-500 w-12 h-12 relative">
+              <Bike size={24} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-emerald-500 text-white font-bold text-[7px] rounded-full shadow-sm">CYCLING</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 🚆 [Y=2150px] Straight Rail Track (Train) */}
         <div className="absolute top-[2150px] left-0 w-full h-[100px] z-0 overflow-hidden">
-          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-teal-300/25" style={{ top: '50%' }} />
-          <div className="absolute top-[15px] left-0 w-full h-full animate-train-glide">
-            <div className="flex items-center justify-center text-teal-600 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-teal-100 w-10 h-10">
-              <Train size={20} />
+          <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-teal-400/40" style={{ top: '50%' }} />
+          <div className="absolute top-[10px] left-0 w-full h-full animate-train-glide">
+            <div className="flex items-center justify-center text-teal-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-teal-500 w-12 h-12 relative">
+              <Train size={26} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-teal-500 text-white font-bold text-[7px] rounded-full shadow-sm">EXPRESS</span>
             </div>
           </div>
         </div>
 
-        {/* 🚌 Technical Travel Path (Bus) */}
+        {/* ⚓ [Y=2650px] Floating Swaying Visual Nodes (Luggage & Ocean Cruise Ship) */}
+        <div className="absolute top-[2650px] left-[5%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '9s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-orange-400 shadow-xl">
+            <span className="text-2xl">🧳</span>
+            <span className="text-[10px] font-black text-orange-600">LUGGAGE</span>
+          </div>
+        </div>
+        <div className="absolute top-[2700px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-sky-400/40" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-10s', animationDuration: '26s' }}>
+            <div className="flex items-center justify-center text-sky-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-sky-500 w-12 h-12 relative">
+              <Ship size={24} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-sky-500 text-white font-bold text-[7px] rounded-full shadow-sm">CRUISE</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 🚌 [Y=3100px] Technical Travel Path (Bus) */}
         <div className="absolute top-[3100px] left-0 w-full h-[100px] z-0 overflow-hidden">
-          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-amber-300/30" style={{ top: '50%' }} />
-          <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-7s', animationDuration: '24s' }}>
-            <div className="flex items-center justify-center text-amber-500 bg-white/75 backdrop-blur-sm p-2 rounded-xl shadow-md border border-amber-100 w-10 h-10">
-              <Bus size={20} />
+          <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-amber-400/45" style={{ top: '50%' }} />
+          <div className="absolute top-[10px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-3s', animationDuration: '22s' }}>
+            <div className="flex items-center justify-center text-amber-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-amber-500 w-12 h-12 relative">
+              <Bus size={26} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-amber-500 text-white font-bold text-[7px] rounded-full shadow-sm">CITY TOUR</span>
             </div>
           </div>
         </div>
 
-        {/* ⚓ Floating Swaying Anchored Visual Nodes (Swaying compasses / location pins in margins) */}
-        <div className="absolute top-[900px] left-[6%] z-10 animate-sway opacity-[0.7]" style={{ animationDelay: '0s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
-            <span className="text-xl">📍</span>
-            <span className="text-[10px] font-black text-slate-400">SEOUL</span>
+        {/* ⚓ [Y=3650px] Floating Swaying Visual Nodes (Explorer Map & Global Globe) */}
+        <div className="absolute top-[3650px] left-[6%] z-10 animate-sway opacity-100" style={{ animationDelay: '-3s', animationDuration: '10s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-green-400 shadow-xl">
+            <span className="text-2xl">🗺️</span>
+            <span className="text-[10px] font-black text-green-600">MAP</span>
           </div>
         </div>
-        <div className="absolute top-[1750px] right-[5%] z-10 animate-sway opacity-[0.75]" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
-            <span className="text-xl">🧭</span>
-            <span className="text-[10px] font-black text-indigo-400">ROUTE</span>
+        <div className="absolute top-[3700px] right-[4%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '8s' }}>
+          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-teal-400 shadow-xl">
+            <span className="text-2xl">🌐</span>
+            <span className="text-[10px] font-black text-teal-600">GLOBE</span>
           </div>
         </div>
-        <div className="absolute top-[2800px] left-[4%] z-10 animate-sway opacity-[0.7]" style={{ animationDelay: '-4s', animationDuration: '8s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white/80 backdrop-blur-md p-3 rounded-2xl border border-slate-100 shadow-md">
-            <span className="text-xl">🎫</span>
-            <span className="text-[10px] font-black text-rose-400">PASS</span>
+
+        {/* 🚇 [Y=4150px] Subway Rail Track (FAQ section) */}
+        <div className="absolute top-[4150px] left-0 w-full h-[100px] z-0 overflow-hidden">
+          <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-purple-400/40" style={{ top: '50%' }} />
+          <div className="absolute top-[15px] left-0 w-full h-full animate-train-glide" style={{ animationDelay: '-8s', animationDuration: '28s' }}>
+            <div className="flex items-center justify-center text-purple-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-purple-500 w-12 h-12 relative">
+              <Train size={24} />
+              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-purple-500 text-white font-bold text-[7px] rounded-full shadow-sm">SUBWAY</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ✈️ [Y=4750px] Diagonal Flight Path (Return Flight above Footer) */}
+        <div className="absolute top-[4700px] left-0 w-full h-[350px] z-0 overflow-hidden">
+          <svg className="absolute w-full h-full opacity-[0.24]" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 1300 300 C 950 200, 600 50, -100 -50" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeDasharray="8 8" />
+          </svg>
+          <div className="absolute top-0 left-0 w-full h-full animate-train-glide" style={{ animationDuration: '32s' }}>
+            <div className="flex flex-col items-center justify-center text-sky-600 bg-white p-3 rounded-2xl shadow-xl border-2 border-sky-400 w-14 h-14 relative">
+              <Plane size={28} className="rotate-225" style={{ transform: 'scaleX(-1) rotate(45deg)' }} />
+              <span className="absolute -top-3 -right-3 px-1.5 py-0.5 bg-sky-500 text-white font-bold text-[8px] rounded-full shadow-sm">FLY HOME</span>
+            </div>
           </div>
         </div>
       </div>
