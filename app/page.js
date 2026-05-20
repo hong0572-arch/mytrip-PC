@@ -576,139 +576,112 @@ export default function Home() {
           backgroundSize: '32px 32px'
         }} />
 
-        {/* ✈️ [Y=300px] Diagonal Flight Path (Airplane) */}
-        <div className="absolute top-[300px] left-0 w-full h-[500px] z-0 overflow-hidden">
+        {/* ✈️ [Y=5%] Diagonal Flight Path (Airplane) */}
+        <div className="absolute top-[5%] left-0 w-full h-[500px] z-0 overflow-hidden">
           <svg className="absolute w-full h-full opacity-[0.26]" xmlns="http://www.w3.org/2000/svg">
             <path d="M -100 400 C 250 300, 500 150, 1200 -50" fill="none" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="8 8" />
           </svg>
           <div className="absolute top-0 left-0 w-full h-full animate-fly-diagonal">
-            <div className="flex flex-col items-center justify-center text-indigo-600 bg-white p-3 rounded-2xl shadow-xl border-2 border-indigo-500 w-14 h-14 relative">
-              <Plane size={28} className="rotate-45" />
-              <span className="absolute -top-3 -right-3 px-1.5 py-0.5 bg-indigo-500 text-white font-bold text-[8px] rounded-full shadow-sm">DEPARTING</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Plane size={48} className="text-indigo-500 rotate-45 drop-shadow-[0_4px_8px_rgba(99,102,241,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* ⚓ [Y=900px] Floating Swaying Anchored Visual Nodes (Seoul MapPin & Route Compass) */}
-        <div className="absolute top-[900px] left-[6%] z-10 animate-sway opacity-100" style={{ animationDelay: '0s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-rose-400 shadow-xl">
-            <span className="text-2xl">📍</span>
-            <span className="text-[10px] font-black text-rose-600">SEOUL</span>
-          </div>
+        {/* ⚓ [Y=15%] Floating Swaying Anchored Visual Nodes (Seoul MapPin & Route Compass) */}
+        <div className="absolute top-[15%] left-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '0s' }}>
+          <MapPin size={36} className="text-rose-500 drop-shadow-md" />
         </div>
-        <div className="absolute top-[950px] right-[5%] z-10 animate-sway opacity-100" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-indigo-400 shadow-xl">
-            <span className="text-2xl">🧭</span>
-            <span className="text-[10px] font-black text-indigo-600">ROUTE</span>
-          </div>
+        <div className="absolute top-[18%] right-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
+          <Compass size={36} className="text-indigo-500 drop-shadow-md" />
         </div>
 
-        {/* 🚗 [Y=1350px] Horizontal Road Path (Car) */}
-        <div className="absolute top-[1350px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        {/* 🚗 [Y=25%] Horizontal Road Path (Car) */}
+        <div className="absolute top-[25%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-rose-400/40" style={{ top: '50%' }} />
           <div className="absolute top-[10px] left-0 w-full h-full animate-drive-horizontal">
-            <div className="flex items-center justify-center text-rose-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-rose-500 w-12 h-12 relative">
-              <Car size={26} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-rose-500 text-white font-bold text-[7px] rounded-full shadow-sm">ROADTRIP</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Car size={40} className="text-rose-500 drop-shadow-[0_4px_8px_rgba(244,63,94,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* ⚓ [Y=1750px] Floating Swaying Visual Nodes (Pass Ticket & Bicycle) */}
-        <div className="absolute top-[1750px] left-[4%] z-10 animate-sway opacity-100" style={{ animationDelay: '-4s', animationDuration: '8s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-amber-400 shadow-xl">
-            <span className="text-2xl">🎫</span>
-            <span className="text-[10px] font-black text-amber-600">PASS</span>
-          </div>
+        {/* ⚓ [Y=35%] Floating Swaying Visual Nodes (Pass Ticket & Bicycle) */}
+        <div className="absolute top-[32%] left-[6%] z-10 animate-sway opacity-100" style={{ animationDelay: '-4s', animationDuration: '8s' }}>
+          <Ticket size={36} className="text-amber-500 drop-shadow-md" />
         </div>
-        <div className="absolute top-[1800px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        <div className="absolute top-[38%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-emerald-400/30" style={{ top: '50%' }} />
           <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-5s', animationDuration: '28s' }}>
-            <div className="flex items-center justify-center text-emerald-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-emerald-500 w-12 h-12 relative">
-              <Bike size={24} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-emerald-500 text-white font-bold text-[7px] rounded-full shadow-sm">CYCLING</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Bike size={40} className="text-emerald-500 drop-shadow-[0_4px_8px_rgba(16,185,129,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* 🚆 [Y=2150px] Straight Rail Track (Train) */}
-        <div className="absolute top-[2150px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        {/* 🚆 [Y=48%] Straight Rail Track (Train) */}
+        <div className="absolute top-[48%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-teal-400/40" style={{ top: '50%' }} />
           <div className="absolute top-[10px] left-0 w-full h-full animate-train-glide">
-            <div className="flex items-center justify-center text-teal-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-teal-500 w-12 h-12 relative">
-              <Train size={26} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-teal-500 text-white font-bold text-[7px] rounded-full shadow-sm">EXPRESS</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Train size={40} className="text-teal-500 drop-shadow-[0_4px_8px_rgba(20,184,166,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* ⚓ [Y=2650px] Floating Swaying Visual Nodes (Luggage & Ocean Cruise Ship) */}
-        <div className="absolute top-[2650px] left-[5%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '9s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-orange-400 shadow-xl">
-            <span className="text-2xl">🧳</span>
-            <span className="text-[10px] font-black text-orange-600">LUGGAGE</span>
-          </div>
+        {/* ⚓ [Y=58%] Floating Swaying Visual Nodes (Luggage & Ocean Cruise Ship) */}
+        <div className="absolute top-[55%] left-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '9s' }}>
+          <Luggage size={36} className="text-orange-500 drop-shadow-md" />
         </div>
-        <div className="absolute top-[2700px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        <div className="absolute top-[60%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-sky-400/40" style={{ top: '50%' }} />
           <div className="absolute top-[15px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-10s', animationDuration: '26s' }}>
-            <div className="flex items-center justify-center text-sky-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-sky-500 w-12 h-12 relative">
-              <Ship size={24} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-sky-500 text-white font-bold text-[7px] rounded-full shadow-sm">CRUISE</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Ship size={40} className="text-sky-500 drop-shadow-[0_4px_8px_rgba(14,165,233,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* 🚌 [Y=3100px] Technical Travel Path (Bus) */}
-        <div className="absolute top-[3100px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        {/* 🚌 [Y=70%] Technical Travel Path (Bus) */}
+        <div className="absolute top-[70%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-amber-400/45" style={{ top: '50%' }} />
           <div className="absolute top-[10px] left-0 w-full h-full animate-drive-horizontal" style={{ animationDelay: '-3s', animationDuration: '22s' }}>
-            <div className="flex items-center justify-center text-amber-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-amber-500 w-12 h-12 relative">
-              <Bus size={26} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-amber-500 text-white font-bold text-[7px] rounded-full shadow-sm">CITY TOUR</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Bus size={40} className="text-amber-500 drop-shadow-[0_4px_8px_rgba(245,158,11,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* ⚓ [Y=3650px] Floating Swaying Visual Nodes (Explorer Map & Global Globe) */}
-        <div className="absolute top-[3650px] left-[6%] z-10 animate-sway opacity-100" style={{ animationDelay: '-3s', animationDuration: '10s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-green-400 shadow-xl">
-            <span className="text-2xl">🗺️</span>
-            <span className="text-[10px] font-black text-green-600">MAP</span>
-          </div>
+        {/* ⚓ [Y=80%] Floating Swaying Visual Nodes (Explorer Map & Global Globe) */}
+        <div className="absolute top-[80%] left-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '-3s', animationDuration: '10s' }}>
+          <Map size={36} className="text-green-500 drop-shadow-md" />
         </div>
-        <div className="absolute top-[3700px] right-[4%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '8s' }}>
-          <div className="flex flex-col items-center gap-1 bg-white p-3.5 rounded-2xl border-2 border-teal-400 shadow-xl">
-            <span className="text-2xl">🌐</span>
-            <span className="text-[10px] font-black text-teal-600">GLOBE</span>
-          </div>
+        <div className="absolute top-[83%] right-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '-1s', animationDuration: '8s' }}>
+          <Globe size={36} className="text-teal-500 drop-shadow-md" />
         </div>
 
-        {/* 🚇 [Y=4150px] Subway Rail Track (FAQ section) */}
-        <div className="absolute top-[4150px] left-0 w-full h-[100px] z-0 overflow-hidden">
+        {/* 🚇 [Y=88%] Subway Rail Track (FAQ section) */}
+        <div className="absolute top-[88%] left-0 w-full h-[100px] z-0 overflow-hidden">
           <div className="absolute left-0 w-full h-[2px] border-t border-dashed border-purple-400/40" style={{ top: '50%' }} />
           <div className="absolute top-[15px] left-0 w-full h-full animate-train-glide" style={{ animationDelay: '-8s', animationDuration: '28s' }}>
-            <div className="flex items-center justify-center text-purple-600 bg-white p-2.5 rounded-xl shadow-xl border-2 border-purple-500 w-12 h-12 relative">
-              <Train size={24} />
-              <span className="absolute -top-3 -right-2 px-1 py-0.5 bg-purple-500 text-white font-bold text-[7px] rounded-full shadow-sm">SUBWAY</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Train size={40} className="text-purple-500 drop-shadow-[0_4px_8px_rgba(168,85,247,0.5)]" />
             </div>
           </div>
         </div>
 
-        {/* ✈️ [Y=4750px] Diagonal Flight Path (Return Flight above Footer) */}
-        <div className="absolute top-[4700px] left-0 w-full h-[350px] z-0 overflow-hidden">
+        {/* ✈️ [Y=96%] Diagonal Flight Path (Return Flight above Footer) */}
+        <div className="absolute top-[96%] left-0 w-full h-[350px] z-0 overflow-hidden">
           <svg className="absolute w-full h-full opacity-[0.24]" xmlns="http://www.w3.org/2000/svg">
             <path d="M 1300 300 C 950 200, 600 50, -100 -50" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeDasharray="8 8" />
           </svg>
           <div className="absolute top-0 left-0 w-full h-full animate-train-glide" style={{ animationDuration: '32s' }}>
-            <div className="flex flex-col items-center justify-center text-sky-600 bg-white p-3 rounded-2xl shadow-xl border-2 border-sky-400 w-14 h-14 relative">
-              <Plane size={28} className="rotate-225" style={{ transform: 'scaleX(-1) rotate(45deg)' }} />
-              <span className="absolute -top-3 -right-3 px-1.5 py-0.5 bg-sky-500 text-white font-bold text-[8px] rounded-full shadow-sm">FLY HOME</span>
+            <div className="flex items-center justify-center w-16 h-16">
+              <Plane size={48} className="text-sky-500 drop-shadow-[0_4px_8px_rgba(14,165,233,0.5)]" style={{ transform: 'scaleX(-1) rotate(45deg)' }} />
             </div>
           </div>
         </div>
       </div>
-
       {/* 🔴 Header Background (Video + Fallback Image) */}
       <div className="absolute top-0 w-full h-[800px] z-0 overflow-hidden">
         {/* Soft overlay to ensure high text contrast and seamless fade into content */}
@@ -1090,7 +1063,7 @@ export default function Home() {
       </section>
 
       {/* 🔴 Footer */}
-      <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8 w-full">
+      <footer className="bg-slate-50/70 backdrop-blur-md border-t border-slate-200 pt-16 pb-8 w-full relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div className="flex items-center gap-2">
