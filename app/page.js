@@ -19,6 +19,7 @@ const LOCALE = {
     navFeatures: "핵심 기능",
     navHow: "이용 방법",
     navCommunity: "커뮤니티",
+    navGuide: "시작 가이드",
     mockTitle: "Service Image / Video Mockup",
     mockSub: "프로모션 비디오나 서비스 화면 목업 영역",
     featHeading: "핵심 기능 (Core Features)",
@@ -45,7 +46,50 @@ const LOCALE = {
     footerContact: "고객센터",
     footerTerms: "이용약관",
     footerPrivacy: "개인정보처리방침",
-    footerCopy: "Trip Maker AI (냥프로) All rights reserved."
+    footerCopy: "Trip Maker AI (냥프로) All rights reserved.",
+    
+    // Additional Onboarding & Guide Parity
+    onboardingTitle: "트립메이커 완벽 가이드",
+    onboardingSub: "나만의 여행 AI, Trip Maker AI(트립메이커 AI)에 오신 것을 환영합니다! 막막했던 계획부터 실시간 소통까지—이제 트립메이커 하나로 완벽해집니다.",
+    why1Title: "고민은 AI에게",
+    why1Desc: "취향만 말하면 동선까지 완벽한 일정을 짜줍니다.",
+    why2Title: "총무의 구원자",
+    why2Desc: "버튼 하나로 보내는 N빵 입금 알림.",
+    why3Title: "우리만의 아지트",
+    why3Desc: "일정표 안에서 바로 대화하는 동행자 라운지.",
+    iconDictTitle: "핵심 아이콘 사전 (Icon Dictionary)",
+    iconDictItem1_n: "설정/지갑",
+    iconDictItem1_d: "예산 세팅, 환전, 입금 관리",
+    iconDictItem2_n: "동행자 추가",
+    iconDictItem2_d: "친구 검색 및 초대 링크 생성",
+    iconDictItem3_n: "N빵 알림",
+    iconDictItem3_d: "자동 계산된 입금 요청 푸시",
+    iconDictItem4_n: "상세 지출",
+    iconDictItem4_d: "예상 경비 vs 실제 지출 가계부",
+    iconDictItem5_n: "라운지",
+    iconDictItem5_d: "팀 전용 실시간 소통 공간",
+    iconDictTip: "✨ Tip: 여행 중 예상치 못한 지출이 생기면 즉시 [상세 지출 보기]에서 기록하세요. 실시간 잔액을 보여줍니다.",
+    
+    hostTitle: "👑 방장 (Host)",
+    hostLi1: "✅ 여행 코스 생성 및 삭제 관리",
+    hostLi2: "✅ 모임통장 예산 설정 / N빵 푸시 알림",
+    hostLi3: "✅ 실시간 외화 환전 기록 실행",
+    hostLi4: "✅ 일정 수정 및 동행 소통 가능",
+    
+    memberTitle: "🙋 멤버 (Member)",
+    memberLi1: "✅ 일정 확인 및 함께 수정 편집",
+    memberLi2: "✅ 내 몫의 여행 경비(N빵) 입금하기",
+    memberLi3: "✅ 팀원 전용 라운지 실시간 참여",
+    memberLi4: "❌ 여행 삭제 / 예산 설정 등 불가",
+    
+    techTitle: "트립메이커 기술 스택 및 완성도",
+    techDesc: "단순한 여행 플래너를 넘어, 최신 웹 기술과 인공지능이 결합된 혁신적 플랫폼입니다.",
+    pwaTitle: "아이폰에서 트립메이커 앱 설치 방법",
+    pwaDesc: "모바일 브라우저(크롬, 사파리) 메뉴에서 '홈 화면에 추가(Add to Home Screen)'를 선택하면 일반 앱처럼 빠르고 쾌적하게 전체 화면으로 이용할 수 있습니다.",
+    pwaNote: "빠른시일 내에 앱 스토어에 등록하겠습니다.",
+    playStore: "플레이 스토어",
+    faqTitle: "자주 묻는 질문",
+    faqDesc: "서비스 이용에 대해 궁금한 점을 확인해보세요."
   },
   en: {
     titleMain: "Connecting every moment of travel",
@@ -58,6 +102,7 @@ const LOCALE = {
     navFeatures: "Core Features",
     navHow: "How it Works",
     navCommunity: "Community",
+    navGuide: "Quick Guide",
     mockTitle: "Service Image / Video Mockup",
     mockSub: "Promotional video or app UI mockup area.",
     featHeading: "Core Features",
@@ -84,11 +129,54 @@ const LOCALE = {
     footerContact: "Customer Center",
     footerTerms: "Terms of Service",
     footerPrivacy: "Privacy Policy",
-    footerCopy: "Trip Maker AI (NyangPro) All rights reserved."
+    footerCopy: "Trip Maker AI (NyangPro) All rights reserved.",
+    
+    // Additional Onboarding & Guide Parity
+    onboardingTitle: "Complete Guide to TripMaker",
+    onboardingSub: "Welcome to your own travel AI, TripMaker AI! From frustrating planning to live communication—TripMaker is all you need.",
+    why1Title: "Leave worries to AI",
+    why1Desc: "Just say your preferences and it generates a perfect route.",
+    why2Title: "Savior of the Treasurer",
+    why2Desc: "N-split deposit alerts sent with a single button tap.",
+    why3Title: "Our Own Hideout",
+    why3Desc: "A companion lounge where you can chat right inside the itinerary.",
+    iconDictTitle: "Core Icon Dictionary",
+    iconDictItem1_n: "Settings/Wallet",
+    iconDictItem1_d: "Budget setting, FX, deposit control",
+    iconDictItem2_n: "Add Companion",
+    iconDictItem2_d: "Search friends & generate invite links",
+    iconDictItem3_n: "N-Split Alert",
+    iconDictItem3_d: "Push notifications for auto-calculated deposits",
+    iconDictItem4_n: "Expense Details",
+    iconDictItem4_d: "Estimated budget vs actual expense book",
+    iconDictItem5_n: "Lounge",
+    iconDictItem5_d: "Real-time chat room exclusive to the team",
+    iconDictTip: "✨ Tip: If unexpected expenses occur during travel, record them instantly in [View Expense Details] to see real-time balance.",
+    
+    hostTitle: "👑 Host",
+    hostLi1: "✅ Manage trip course generation & deletion",
+    hostLi2: "✅ Set group budget / N-split push alerts",
+    hostLi3: "✅ Perform real-time foreign FX exchange",
+    hostLi4: "✅ Edit itinerary & communicate with companions",
+    
+    memberTitle: "🙋 Member",
+    memberLi1: "✅ View itinerary & edit together",
+    memberLi2: "✅ Deposit my own share of travel expenses",
+    memberLi3: "✅ Real-time participation in team lounge",
+    memberLi4: "❌ Deleting trips or setting budget is disabled",
+    
+    techTitle: "TripMaker Tech Stack & Competence",
+    techDesc: "Beyond a simple travel planner, it is an innovative platform combining state-of-the-art web tech and artificial intelligence.",
+    pwaTitle: "How to Install TripMaker on iPhone",
+    pwaDesc: "Choose 'Add to Home Screen' in your mobile browser (Chrome, Safari) menu to use it faster and cleaner in fullscreen like a native app.",
+    pwaNote: "We will publish to the App Store very soon.",
+    playStore: "Play Store",
+    faqTitle: "Frequently Asked Questions",
+    faqDesc: "Find answers to common questions about using the service."
   }
 };
 
-const GUIDE_DATA = [
+const GUIDE_DATA_KO = [
   {
     id: "home",
     title: "1. 🏠 메인 화면 (Home)",
@@ -195,7 +283,111 @@ const GUIDE_DATA = [
 
 ];
 
-const TECH_STACK_DATA = [
+const GUIDE_DATA_EN = [
+  {
+    id: "home",
+    title: "1. 🏠 Home Screen (Home)",
+    icon: <HomeIcon size={20} />,
+    items: [
+      {
+        subtitle: "1-1. Header Area & Global Auth",
+        details: [
+          { label: "Easy Login", desc: "Click the user icon on the top right or the login button on the screen to quickly log in with KakaoTalk." },
+          { label: "Top Banner (Travel News)", desc: "Cute greeting messages from NyangPro and the latest travel news are automatically displayed." },
+          { label: "App Install & Notifications", desc: "Download from Play Store. For iPhone, visit mytrip2.pro and add to home screen. Allow push notifications to receive D-Day and various alerts." }
+        ]
+      },
+      {
+        subtitle: "1-2. 🗓️ Secure Travel Tab (AI Planning)",
+        details: [
+          { label: "Destination Search", desc: "Enter via text or voice (microphone). Domestic or International shortcuts are available." },
+          { label: "Travel Settings", desc: "Select dates, companions, budget, and headcount (VIP unlimited budget supported)." },
+          { label: "Generate Route", desc: "Click the red button and AI generates a customized itinerary immediately with a loading message." }
+        ]
+      },
+      {
+        subtitle: "1-3. ✈️ My Flight Tickets Tab",
+        details: [
+          { label: "NyangPro Recommendation", desc: "High-quality, horizontal slide recommendation cards labeled 'HOT' or 'PREMIUM' are provided." },
+          { label: "Real-time Flight Tickets", desc: "Tap on your generated itinerary and a flight search overlay matches the lowest prices." },
+          { label: "Instant Reservation Links", desc: "Instant redirection to global booking sites via [Trip.com Lowest Price] and [Aviasales Booking] buttons." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "trip",
+    title: "2. 🗂 Itinerary Screen (Result)",
+    icon: <Map size={20} />,
+    items: [
+      {
+        subtitle: "2-1. Bottom Navigation Toolbar",
+        details: [
+          { label: "KakaoTalk Consult", desc: "Get real-time trip consults by tapping the KakaoTalk icon." },
+          { label: "Invite Friends", desc: "Share unique access URLs to friends via KakaoTalk and SNS." },
+          { label: "Save PDF", desc: "Download your completed itinerary as a PDF." }
+        ]
+      },
+      {
+        subtitle: "2-2. Daily Timeline Editing",
+        details: [
+          { label: "Route View & Edit ✏️", desc: "Estimated travel times between places are shown. Scroll up and down to view the timeline. Tap the pencil to edit." },
+          { label: "Search & Add Places", desc: "Tap the magnifying glass 🔎 to search and add local spots and restaurants directly." }
+        ]
+      },
+      {
+        subtitle: "2-3. Key Features",
+        details: [
+          { label: "🗺️ Map View", desc: "Displays daily routes via map pins and lines (driving, walking, transit) for quick, visual path finding." },
+          { label: "✨ Budget & Travel Tips", desc: "AI displays estimated expenses, recommended hotels, smart tips, and local weather." },
+          { label: "📍 Places & Activities", desc: "Instantly navigate to details and booking portals via bottom buttons." },
+          { label: "💬 Lounge", desc: "Tap the chat bubble to chat in real-time with travel companions." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "mypage",
+    title: "3. 👤 My Page Dashboard",
+    icon: <LayoutDashboard size={20} />,
+    items: [
+      {
+        subtitle: "3-1. Itinerary Tab",
+        details: [
+          { label: "View Routes", desc: "Tap view routes on the card to see the map-based itinerary." },
+          { label: "Invite Friends", desc: "Tap the ➕ button to search and invite friends into the itinerary." },
+          { label: "D-Day Push Notifications", desc: "Tap the 🔔 bell icon to set up daily 9:00 AM push alerts." }
+        ]
+      },
+      {
+        subtitle: "3-2. 👥 Companion Tab",
+        details: [
+          { label: "Profile Setup", desc: "Tap the profile icon to customize your nickname, profile pic, and 7 style tags (J-type, P-type, etc.)." },
+          { label: "Matching & Inbox", desc: "Send invitations to other users and meet AI-recommended travel mates." },
+          { label: "Trip Feed (Social)", desc: "Upload trip photos and reviews, and interact with other users via like (❤️) buttons." }
+        ]
+      },
+      {
+        subtitle: "3-3. 💰 Trip Money Tab",
+        details: [
+          { label: "Top-up Wallet", desc: "Top-up trip points and check real-time transaction history." },
+          { label: "Group Split Settlement", desc: "Enter total budget and tap 'Request Split' to send push alerts and deposit invoices to friends." },
+          { label: "100% Prime FX Exchange", desc: "Instantly convert Korean Won to foreign currencies inside the shared account with receipt generation (bank connection coming soon)." }
+        ]
+      },
+      {
+        subtitle: "3-4. 🗃️ Vault",
+        details: [
+          { label: "Reservations/Tickets", desc: "Securely store flight tickets, hotel reservations, and coupons." },
+          { label: "Coupons", desc: "Store various discount coupons needed during travel." },
+          { label: "Photo Gallery", desc: "Store and share photos taken during your trip." }
+        ]
+      }
+    ]
+  }
+];
+
+const TECH_STACK_DATA_KO = [
   {
     id: "techstack",
     title: "🚀 혁신적인 기술 스택",
@@ -241,7 +433,53 @@ const TECH_STACK_DATA = [
   }
 ];
 
-const FAQ_DATA = [
+const TECH_STACK_DATA_EN = [
+  {
+    id: "techstack",
+    title: "🚀 Innovative Tech Stack",
+    icon: <Code size={20} />,
+    items: [
+      {
+        subtitle: "1. 🧠 Giant AI Engine Integration",
+        details: [
+          { label: "Gemini 3.x Pro", desc: "Analyzes user preferences (J/P type, budget, companions) to render optimized route vectors." },
+          { label: "Complex Data Parsing", desc: "Advanced prompt engineering applies IATA airport codes, live currency mapping, and smart budgeting." }
+        ]
+      },
+      {
+        subtitle: "2. ⚡ Frontend Architecture",
+        details: [
+          { label: "Next.js & React 19", desc: "Hybrid SSR and SSG architecture maximizes performance while scoring 100 on SEO." },
+          { label: "Glassmorphism & Motion", desc: "Framer Motion powers 60fps micro-animations like sliding tabs and currency wallets." }
+        ]
+      },
+      {
+        subtitle: "3. 🔄 Real-time Sync (Serverless)",
+        details: [
+          { label: "Firestore Real-time Sync", desc: "Drag & drop updates and live lounges sync across devices in under 120ms." },
+          { label: "Cloud Functions", desc: "Scales daily 9:00 AM push notifications and heavy background image processing." }
+        ]
+      },
+      {
+        subtitle: "4. 📱 Native App & PWA",
+        details: [
+          { label: "Official TWA Deployment", desc: "Google Play Store deployment with full portrait-lock mode and standalone layout." },
+          { label: "PWA Offline Caching", desc: "Service Worker handles unstable flight environments, caching offline trip maps." },
+          { label: "FCM Push Notifications", desc: "Handles native browser permission prompts and background notifications." }
+        ]
+      },
+      {
+        subtitle: "5. 🌍 Global API Partnerships",
+        details: [
+          { label: "Flights & Tours Integration", desc: "Parses real-time lowest price airlines, directly matching Klook tour activities." },
+          { label: "Multi-Auth Systems", desc: "NextAuth and Firebase Auth combine Kakao Easy Login and Google Single Sign-On." }
+        ]
+      }
+    ]
+  }
+];
+
+const FAQ_DATA_KO = [
   {
     q: "트립메이커(Trip Maker)는 무엇인가요?",
     a: "트립메이커는 AI가 사용자의 취향, 예산, 여행 인원에 맞춰 최적화된 맞춤형 여행 일정을 1분 만에 생성해주는 AI 기반 여행 플래너입니다. 일정 생성부터 동행자 매칭, 실시간 소통, 1/N 지출 정산까지 한 번에 해결할 수 있습니다."
@@ -257,6 +495,25 @@ const FAQ_DATA = [
   {
     q: "어떤 기기에서 사용할 수 있나요?",
     a: "트립메이커는 웹(mytrip2.pro)에서 바로 접속할 수 있을 뿐만 아니라, 안드로이드 구글 플레이 스토어(pro.mytrip2.twa)에서 정식 앱을 다운받아 사용할 수도 있습니다. 모바일에 완벽하게 최적화된 세로 모드 UI를 제공합니다."
+  }
+];
+
+const FAQ_DATA_EN = [
+  {
+    q: "What is Trip Maker?",
+    a: "Trip Maker is an AI-powered travel planner that generates personalized travel itineraries based on your preferences, budget, and companions in just 1 minute. It handles planning, companion matching, live chatting, and shared bill settlements in one app."
+  },
+  {
+    q: "Can I plan trips with my friends?",
+    a: "Yes! Share a unique link to invite friends in 1 second via KakaoTalk. Everyone joins a shared group with sync'd real-time routes and a built-in companion lounge."
+  },
+  {
+    q: "How do group split settlements work?",
+    a: "Set up the total budget via the group wallet. Once the trip ends, tap a button to send automated N-split deposit invoices and push notifications to all companions."
+  },
+  {
+    q: "What devices are supported?",
+    a: "Trip Maker is available on mobile web (mytrip2.pro) and can be downloaded from the Google Play Store (pro.mytrip2.twa) with a fully responsive layout."
   }
 ];
 
@@ -709,7 +966,7 @@ export default function Home() {
           <span className="font-extrabold text-2xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-slate-800 font-bold text-sm drop-shadow-[0_2px_6px_rgba(255,255,255,0.95)]">
-          <a href="#onboarding" className="hover:text-blue-600 transition">시작 가이드</a>
+          <a href="#onboarding" className="hover:text-blue-600 transition">{t.navGuide}</a>
           <a href="#features" className="hover:text-rose-500 transition">{t.navFeatures}</a>
           <a href="#how" className="hover:text-rose-500 transition">{t.navHow}</a>
           <a href="#community" className="hover:text-rose-500 transition">{t.navCommunity}</a>
@@ -826,11 +1083,10 @@ export default function Home() {
           <div className="text-center mb-20">
             <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-black mb-4 uppercase tracking-widest animate-pulse">Onboarding</span>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight text-slate-900">
-              ✈️ <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-800">트립메이커 완벽 가이드</span>
+              ✈️ <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-800">{t.onboardingTitle}</span>
             </h2>
             <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto px-4">
-              나만의 여행 AI, <strong className="text-blue-500">Trip Maker AI(트립메이커 AI)</strong>에 오신 것을 환영합니다! <br />
-              막막했던 계획부터 실시간 소통까지—이제 트립메이커 하나로 완벽해집니다.
+              {t.onboardingSub}
             </p>
           </div>
 
@@ -838,24 +1094,24 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6 mb-32">
             <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
               <div className="text-3xl mb-4">🌟</div>
-              <h3 className="font-black text-slate-900 text-2xl mb-2">"고민은 AI에게"</h3>
-              <p className="text-slate-500 text-lg font-medium">취향만 말하면 동선까지 완벽한 일정을 짜줍니다.</p>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why1Title}"</h3>
+              <p className="text-slate-500 text-lg font-medium">{t.why1Desc}</p>
             </div>
             <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
               <div className="text-3xl mb-4">💰</div>
-              <h3 className="font-black text-slate-900 text-2xl mb-2">"총무의 구원자"</h3>
-              <p className="text-slate-500 text-lg font-medium">버튼 하나로 보내는 N빵 입금 알림.</p>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why2Title}"</h3>
+              <p className="text-slate-500 text-lg font-medium">{t.why2Desc}</p>
             </div>
             <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
               <div className="text-3xl mb-4">🏠</div>
-              <h3 className="font-black text-slate-900 text-2xl mb-2">"우리만의 아지트"</h3>
-              <p className="text-slate-500 text-lg font-medium">일정표 안에서 바로 대화하는 동행자 라운지.</p>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why3Title}"</h3>
+              <p className="text-slate-500 text-lg font-medium">{t.why3Desc}</p>
             </div>
           </div>
 
           {/* Vertical List Content */}
           <div className="space-y-40">
-            {GUIDE_DATA.map((section, sIdx) => (
+            {(lang === 'ko' ? GUIDE_DATA_KO : GUIDE_DATA_EN).map((section, sIdx) => (
               <div key={section.id} className="relative">
                 {/* Section Header */}
                 <div className="flex items-center gap-4 mb-16 pb-6 border-b-2 border-slate-200">
@@ -897,14 +1153,14 @@ export default function Home() {
 
           {/* Quick Icon Dictionary */}
           <div className="mt-40 bg-white rounded-[60px] p-12 border border-slate-100 shadow-2xl">
-            <h3 className="text-3xl font-black text-center text-slate-900 mb-12">🔍 핵심 아이콘 사전 (Icon Dictionary)</h3>
+            <h3 className="text-3xl font-black text-center text-slate-900 mb-12">🔍 {t.iconDictTitle}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {[
-                { i: '⚙️/💳', n: '설정/지갑', d: '예산 세팅, 환전, 입금 관리' },
-                { i: '➕', n: '동행자 추가', d: '친구 검색 및 초대 링크 생성' },
-                { i: '🔔', n: 'N빵 알림', d: '자동 계산된 입금 요청 푸시' },
-                { i: '📊', n: '상세 지출', d: '예상 경비 vs 실제 지출 가계부' },
-                { i: '💬', n: '라운지', d: '팀 전용 실시간 소통 공간' },
+                { i: '⚙️/💳', n: t.iconDictItem1_n, d: t.iconDictItem1_d },
+                { i: '➕', n: t.iconDictItem2_n, d: t.iconDictItem2_d },
+                { i: '🔔', n: t.iconDictItem3_n, d: t.iconDictItem3_d },
+                { i: '📊', n: t.iconDictItem4_n, d: t.iconDictItem4_d },
+                { i: '💬', n: t.iconDictItem5_n, d: t.iconDictItem5_d },
               ].map((item, idx) => (
                 <div key={idx} className="p-6 rounded-[32px] bg-slate-50 text-center border border-transparent hover:border-blue-200 transition-colors">
                   <div className="text-3xl mb-3">{item.i}</div>
@@ -914,7 +1170,7 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-12 text-center text-sm font-bold text-slate-400 italic">
-              ✨ Tip: 여행 중 예상치 못한 지출이 생기면 즉시 [상세 지출 보기]에서 기록하세요. 실시간 잔액을 보여줍니다.
+              {t.iconDictTip}
             </p>
           </div>
         </div>
@@ -923,21 +1179,21 @@ export default function Home() {
 
           <div className="mt-40 grid md:grid-cols-2 gap-8">
             <div className="bg-rose-500 text-white p-10 rounded-[50px] shadow-2xl">
-              <h4 className="text-3xl font-black italic mb-8">👑 방장 (Host)</h4>
+              <h4 className="text-3xl font-black italic mb-8">{t.hostTitle}</h4>
               <ul className="space-y-4 text-lg font-bold opacity-90">
-                <li>✅ 여행 코스 생성 및 삭제 관리</li>
-                <li>✅ 모임통장 예산 설정 / N빵 푸시 알림</li>
-                <li>✅ 실시간 외화 환전 기록 실행</li>
-                <li>✅ 일정 수정 및 동행 소통 가능</li>
+                <li>{t.hostLi1}</li>
+                <li>{t.hostLi2}</li>
+                <li>{t.hostLi3}</li>
+                <li>{t.hostLi4}</li>
               </ul>
             </div>
             <div className="bg-white border-4 border-slate-50 p-10 rounded-[50px] shadow-lg">
-              <h4 className="text-3xl font-black italic mb-8 text-slate-900">🙋 멤버 (Member)</h4>
+              <h4 className="text-3xl font-black italic mb-8 text-slate-900">{t.memberTitle}</h4>
               <ul className="space-y-4 text-lg font-bold text-slate-500">
-                <li>✅ 일정 확인 및 함께 수정 편집</li>
-                <li>✅ 내 몫의 여행 경비(N빵) 입금하기</li>
-                <li>✅ 팀원 전용 라운지 실시간 참여</li>
-                <li className="opacity-30 italic">❌ 여행 삭제 / 예산 설정 등 불가</li>
+                <li>{t.memberLi1}</li>
+                <li>{t.memberLi2}</li>
+                <li>{t.memberLi3}</li>
+                <li className="opacity-30 italic">{t.memberLi4}</li>
               </ul>
             </div>
           </div>
@@ -982,13 +1238,13 @@ export default function Home() {
           <div className="text-center mb-10">
             <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">Tech Stack</span>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-900">
-              💻 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-700">트립메이커 기술 스택 및 완성도</span>
+              💻 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-700">{t.techTitle}</span>
             </h2>
-            <p className="text-lg md:text-xl text-slate-500 font-medium">단순한 여행 플래너를 넘어, 최신 웹 기술과 인공지능이 결합된 혁신적 플랫폼입니다.</p>
+            <p className="text-lg md:text-xl text-slate-500 font-medium">{t.techDesc}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-            {TECH_STACK_DATA[0].items.map((item, dIdx) => (
+            {(lang === 'ko' ? TECH_STACK_DATA_KO : TECH_STACK_DATA_EN)[0].items.map((item, dIdx) => (
               <TechCard key={dIdx} item={item} index={dIdx} />
             ))}
           </div>
@@ -1002,17 +1258,16 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-black uppercase tracking-widest">Tip</span>
-                  <h4 className="text-2xl font-black">아이폰에서 트립메이커 앱 설치 방법</h4>
+                  <h4 className="text-2xl font-black">{t.pwaTitle}</h4>
                 </div>
                 <div className="text-blue-100 font-medium text-lg leading-relaxed">
-                  모바일 브라우저(크롬, 사파리) 메뉴에서 <strong>'홈 화면에 추가(Add to Home Screen)'</strong>를 선택하면 <br className="hidden md:block" />
-                  일반 앱처럼 빠르고 쾌적하게 전체 화면으로 이용할 수 있습니다.
-                  <p className="mt-2 text-blue-50/90 font-bold">빠른시일 내에 <strong>앱 스토어에</strong> 등록하겠습니다.</p>
+                  {t.pwaDesc}
+                  <p className="mt-2 text-blue-50/90 font-bold">{t.pwaNote}</p>
                 </div>
               </div>
             </div>
             <a href="https://play.google.com/store/apps/details?id=pro.mytrip2.twa" target="_blank" rel="noopener noreferrer" className="bg-white text-indigo-600 px-8 py-4 rounded-full font-black text-lg hover:bg-blue-50 transition-colors shrink-0 whitespace-nowrap">
-              플레이 스토어
+              {t.playStore}
             </a>
           </div>
         </div>
@@ -1024,13 +1279,13 @@ export default function Home() {
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">FAQ</span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-              자주 묻는 질문
+              {t.faqTitle}
             </h2>
-            <p className="text-lg text-slate-500 font-medium">서비스 이용에 대해 궁금한 점을 확인해보세요.</p>
+            <p className="text-lg text-slate-500 font-medium">{t.faqDesc}</p>
           </div>
 
           <div className="space-y-4">
-            {FAQ_DATA.map((faq, idx) => (
+            {(lang === 'ko' ? FAQ_DATA_KO : FAQ_DATA_EN).map((faq, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-100 rounded-[24px] p-6 hover:border-rose-200 transition-colors">
                 <h3 className="text-xl font-bold text-slate-900 mb-3 flex gap-3">
                   <span className="text-rose-400">Q.</span> {faq.q}
@@ -1050,7 +1305,7 @@ export default function Home() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              "mainEntity": FAQ_DATA.map(item => ({
+              "mainEntity": (lang === 'ko' ? FAQ_DATA_KO : FAQ_DATA_EN).map(item => ({
                 "@type": "Question",
                 "name": item.q,
                 "acceptedAnswer": {
