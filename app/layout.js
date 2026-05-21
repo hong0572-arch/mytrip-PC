@@ -32,7 +32,7 @@ export const metadata = {
     description: "AI가 제안하는 최적의 여행 코스! 지금 바로 나만의 여행을 만들어보세요.",
     url: "https://mytrip2.pro",
     siteName: "Trip Maker",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     locale: "ko_KR",
     type: "website",
   },
@@ -40,7 +40,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Trip Maker AI Travel Guide",
     description: "AI가 즉시 짜주는 맞춤형 여행 일정",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
   },
   other: {
     "geo.region": "KR",
