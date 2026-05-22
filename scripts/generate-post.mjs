@@ -101,16 +101,62 @@ coverImage: "/hero_background.png"
     const slug = `${dateStr}-${safeTopic || 'new-post'}`;
     const filename = `${slug}.md`;
     
+    // 1. AI에게 주제에 맞는 고품질 이미지 생성 영어 프롬프트 기획 요청
+    console.log(`⏳ AI 커버 이미지 생성을 위해 전용 프롬프트를 기획하고 있습니다...`);
+    const imgPromptText = `
+      당신은 여행 블로그의 전문 크리에이티브 디렉터입니다.
+      오늘 포스팅할 주제는 "${topic}" 입니다.
+      이 주제에 완벽히 매칭되며, 독자가 클릭하고 싶게 만드는 따뜻하고 아름다운 여행 사진(cover image)을 생성하기 위한 AI 프롬프트를 영어로 1문장만 작성해 주세요.
+      - 규칙 1: 인물(얼굴)보다는 아름다운 풍경, 도시 골목, 감성적인 여행 소품, 열차 창밖 풍경 등의 요소를 위주로 하세요.
+      - 규칙 2: 따뜻하고 부드러운 빛(warm lighting, soft focus, aesthetic travel photography, photorealistic, 8k, highly detailed) 분위기를 묘사하세요.
+      - 규칙 3: 오직 영어로 작성된 프롬프트 문장 딱 1줄만 출력하세요 (부가 설명, 인용부호 "" 절대 금지).
+    `;
+    
+    let coverImagePath = "/hero_background.png"; // 실패 시 기본 이미지 폴백
+    try {
+      const imgPromptResult = await model.generateContent(imgPromptText);
+      const imgPrompt = imgPromptResult.response.text().trim().replace(/^"|"$/g, '');
+      console.log(`🎨 기획된 이미지 프롬프트: "${imgPrompt}"`);
+      
+      // 2. Pollinations AI를 통해 이미지 다운로드
+      console.log(`📸 AI 커버 이미지를 생성하는 중입니다...`);
+      const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(imgPrompt)}?width=1024&height=768&nologo=true&private=true&seed=${Math.floor(Math.random() * 100000)}`;
+      
+      const imgResponse = await fetch(pollinationsUrl);
+      if (imgResponse.ok) {
+        const buffer = Buffer.from(await imgResponse.arrayBuffer());
+        const publicDir = path.join(process.cwd(), 'public/images/posts');
+        if (!fs.existsSync(publicDir)) {
+          fs.mkdirSync(publicDir, { recursive: true });
+        }
+        const imgFilename = `${slug}.jpg`;
+        fs.writeFileSync(path.join(publicDir, imgFilename), buffer);
+        coverImagePath = `/images/posts/${imgFilename}`;
+        console.log(`✅ AI 커버 이미지가 다운로드되어 저장되었습니다: ${coverImagePath}`);
+      } else {
+        console.warn(`⚠️ 이미지 생성 서버 응답 오류 (HTTP ${imgResponse.status}), 기본 이미지를 사용합니다.`);
+      }
+    } catch (imgError) {
+      console.error(`❌ AI 이미지 생성 중 오류 발생, 기본 커버이미지를 사용합니다:`, imgError);
+    }
+    
+    // 3. 생성된 본문의 coverImage 경로를 동적으로 치환
+    let postContent = responseText;
+    postContent = postContent.replace(/coverImage:\s*["']?\/hero_background\.png["']?/g, `coverImage: "${coverImagePath}"`);
+    
     const outputDir = path.join(process.cwd(), 'content/posts');
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
     
     const outputPath = path.join(outputDir, filename);
-    fs.writeFileSync(outputPath, responseText, 'utf8');
+    fs.writeFileSync(outputPath, postContent, 'utf8');
     
-    console.log(`✅ 포스팅 생성이 완료되었습니다!`);
-    console.log(`📂 저장 위치: content/posts/${filename}`);
+    console.log(`✅ 포스팅 및 AI 이미지 생성이 완벽히 완료되었습니다!`);
+    console.log(`📂 글 저장 위치: content/posts/${filename}`);
+    if (coverImagePath !== "/hero_background.png") {
+      console.log(`📂 이미지 저장 위치: public${coverImagePath}`);
+    }
   } catch (error) {
     console.error('❌ 포스팅 생성 중 오류가 발생했습니다:', error);
   }
