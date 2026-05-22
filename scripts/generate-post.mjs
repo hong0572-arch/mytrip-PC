@@ -21,8 +21,8 @@ const generatePost = async () => {
   const args = process.argv.slice(2);
   let topic = args[0];
 
-  // 가장 안정적이고 최신 모델인 gemini-1.5-pro-latest 사용
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+  // 가장 안정적이고 최신 모델인 gemini-1.5-flash 사용
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   if (!topic) {
     console.log(`🤖 주제가 지정되지 않아 AI 에디터가 트렌디한 주제를 스스로 기획 중입니다...`);
