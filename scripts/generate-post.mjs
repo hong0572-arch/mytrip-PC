@@ -10,9 +10,13 @@ dotenv.config({ path: '.env.local' });
 const API_KEY = process.env.GEMINI_API_KEY;
 
 if (!API_KEY) {
-  console.error('❌ GEMINI_API_KEY가 .env.local 파일에 설정되어 있지 않습니다.');
-  console.error('   루트 디렉토리의 .env.local 파일에 GEMINI_API_KEY=your_key_here 를 추가해주세요.');
+  console.error('❌ GEMINI_API_KEY가 설정되어 있지 않습니다.');
   process.exit(1);
+} else {
+  const maskedKey = API_KEY.length > 8
+    ? `${API_KEY.substring(0, 6)}...${API_KEY.substring(API_KEY.length - 4)}`
+    : 'INVALID_SHORT_KEY';
+  console.log(`🔑 사용 중인 API Key: ${maskedKey} (길이: ${API_KEY.length})`);
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
