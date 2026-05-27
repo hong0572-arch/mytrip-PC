@@ -37,7 +37,8 @@ export default async function BlogPost(props) {
     'content',
     'coverImage',
     'tags',
-    'description'
+    'description',
+    'language'
   ]);
 
   if (!post) {
@@ -72,7 +73,9 @@ export default async function BlogPost(props) {
           <span className="font-extrabold text-2xl tracking-tight text-slate-800">AI</span>
         </Link>
         <nav className="flex items-center gap-6 text-slate-800 font-bold text-sm">
-          <Link href="/blog" className="hover:text-rose-500 transition">&larr; 목록으로</Link>
+          <Link href="/blog" className="hover:text-rose-500 transition">
+            {post.language === 'en' ? '← Back to List' : '← 목록으로'}
+          </Link>
         </nav>
       </header>
 
@@ -91,7 +94,7 @@ export default async function BlogPost(props) {
           <div className="flex items-center text-slate-500 font-medium text-sm">
             <span>{post.date}</span>
             <span className="mx-2">•</span>
-            <span>트립메이커 에디터</span>
+            <span>{post.language === 'en' ? 'TripMaker Editor' : '트립메이커 에디터'}</span>
           </div>
         </div>
 

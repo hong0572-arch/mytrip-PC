@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllPosts } from '../../lib/markdown';
+import BlogList from '../../components/BlogList';
 
 export const metadata = {
   title: '트립메이커 블로그 | TripMaker Blog',
@@ -7,7 +8,7 @@ export const metadata = {
 };
 
 export default function BlogIndex() {
-  const posts = getAllPosts(['title', 'date', 'slug', 'description', 'coverImage', 'tags']);
+  const posts = getAllPosts(['title', 'date', 'slug', 'description', 'coverImage', 'tags', 'language']);
 
   return (
     <div className="min-h-screen flex flex-col font-sans relative bg-slate-50 selection:bg-rose-100 overflow-x-hidden">
@@ -33,44 +34,11 @@ export default function BlogIndex() {
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-4">
             트립메이커 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-indigo-600">블로그</span>
           </h1>
-          <p className="text-lg text-slate-500 font-medium">여성 여행자를 위한 실전 활용법과 꿀팁 모음집</p>
+          <p className="text-lg text-slate-500 font-medium">여성 여행자를 위한 실전 활용법과 꿀팁 모음집 (AI Editor Hub)</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="group block h-full">
-              <div className="bg-white/60 backdrop-blur-md border border-white/50 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
-                <div className="w-full h-48 bg-slate-200 relative overflow-hidden">
-                  <img 
-                    src={post.coverImage || '/hero_background.png'} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 flex gap-2 flex-wrap">
-                    {post.tags?.slice(0, 4).map(tag => (
-                      <span key={tag} className="px-2 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold rounded-md">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <p className="text-xs font-bold text-rose-500 mb-2">{post.date}</p>
-                  <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-rose-600 transition-colors line-clamp-2">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-slate-500 font-medium line-clamp-3 mb-4 flex-1 leading-relaxed">
-                    {post.description}
-                  </p>
-                  <span className="text-indigo-600 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                    글 읽기 &rarr;
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {/* Dynamic Interactive Blog List with Language Filter */}
+        <BlogList posts={posts} />
       </main>
 
       <footer className="bg-slate-50/70 backdrop-blur-md border-t border-slate-200 pt-16 pb-8 w-full relative z-10">

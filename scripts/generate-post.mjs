@@ -21,18 +21,17 @@ if (!API_KEY) {
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 
-const generatePost = async () => {
-  const args = process.argv.slice(2);
-  let topic = args[0];
-
+const generatePostForLang = async (lang) => {
+  console.log(`\n🌐 [${lang.toUpperCase()}] 자동 블로그 포스팅 생성을 시작합니다.`);
+  
   // 가장 안정적이고 최신 모델인 gemini-3.1-flash-lite 사용
   const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite' });
+  
+  let topic = "";
 
-  if (!topic) {
-    console.log(`🤖 주제가 지정되지 않아 AI 에디터가 트렌디한 주제를 스스로 기획 중입니다...`);
-    
-    // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열
-    const themes = [
+  if (lang === 'ko') {
+    // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (한국어)
+    const themesKo = [
       "국내/해외 가성비 여행 경비 절약 및 예산 계획",
       "복잡한 여행 동선 쉽게 짜는 법 및 일정 관리 꿀팁",
       "안전한 해외여행 숙소 고르는 기준 및 치안 팁",
@@ -41,7 +40,7 @@ const generatePost = async () => {
       "극P(즉흥적) 여행자도 실패 없는 스마트한 여행 어플/IT 기기 추천",
       "SNS 핫플 피하는 나만의 숨겨진 로컬 여행지 찾는 법"
     ];
-    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    const randomTheme = themesKo[Math.floor(Math.random() * themesKo.length)];
     
     const topicPrompt = `
       당신은 수백만 방문자를 보유한 트렌디한 여행 블로그의 수석 에디터입니다.
@@ -51,13 +50,38 @@ const generatePost = async () => {
       오직 주제 문장 딱 1줄만 출력하세요.
     `;
     const topicResult = await model.generateContent(topicPrompt);
-    topic = topicResult.response.text().trim();
+    topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
+  } else {
+    // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (영어)
+    const themesEn = [
+      "How to save travel budget & smart planning tips",
+      "Easy travel itinerary & route optimization guide",
+      "Choosing safe hotels & security tips for female travelers",
+      "Efficient short trip travel course (weekend getaway)",
+      "How to find safe travel companions & eat-buddies for solo travelers",
+      "Smart travel apps & tech devices for spontaneous travelers",
+      "How to find hidden local spots avoiding crowded tourist traps"
+    ];
+    const randomTheme = themesEn[Math.floor(Math.random() * themesEn.length)];
+    
+    const topicPrompt = `
+      You are the editor-in-chief of a trendy travel blog with millions of visitors.
+      Today's main theme is "[${randomTheme}]".
+      Based on this theme, suggest exactly ONE specific blog post topic/title that 2030 travelers are most likely to search for on Google (high CTR, long-tail keyword-based).
+      Example: "2-Day Tokyo Itinerary: How to Save Transportation Costs", "Solo Female Travel in Bangkok: Safest Hotel Areas Recommended"
+      Output only the topic sentence in English, exactly 1 line, without any quotes or explanations.
+    `;
+    const topicResult = await model.generateContent(topicPrompt);
+    topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
   }
 
-  console.log(`📝 기획된 오늘의 포스팅 주제: "${topic}"`);
+  console.log(`📝 [${lang.toUpperCase()}] 오늘의 포스팅 주제: "${topic}"`);
   console.log(`⏳ 본문 및 SEO/GEO 메타데이터를 생성 중입니다...`);
 
-  const prompt = `
+  let prompt = "";
+
+  if (lang === 'ko') {
+    prompt = `
 당신은 '트립메이커(TripMaker)' 앱의 메인 여행 블로그 에디터입니다.
 오늘의 블로그 주제는 "${topic}" 입니다.
 
@@ -84,12 +108,49 @@ description: "구글 검색 결과에 노출될 150자 이내의 요약 설명"
 date: "${format(new Date(), 'yyyy-MM-dd')}"
 tags: ["해외여행", "여행준비", "여행어플추천", "트립메이커", "태그5"]
 seoKeywords: "해외여행 일정 짜기, 여행 어플 추천, 트립메이커, 안전한 여행, 주제관련키워드1, 주제관련키워드2"
+language: "ko"
 coverImage: "/hero_background.png"
 ---
 
 [본문 작성]
 (HTML을 절대 쓰지 말고 오직 순수 Markdown 기호만 사용할 것. 친절하고 전문성 있는 여행 인플루언서의 문체 유지.)
 `;
+  } else {
+    prompt = `
+You are the main travel blog editor of 'TripMaker' app.
+Today's blog topic is "${topic}".
+
+[Goal]
+Provide rich, helpful travel information that readers will enjoy. Natural integration is key: **smoothly promote the TripMaker app in the middle and conclusion** as the ultimate app to solve their travel worries. Do not make it look like forced advertising; keep a warm, helpful, and professional tone.
+
+[TripMaker App Promotion Features (Use appropriate ones for the topic)]
+- AI Route Optimization: Automatically calculates walking distance and traffic to plan the best route based on Google Maps in one click.
+- Safety & 대로변 (Main Street) Hotel Filter: Helps find hotels located in safe areas, even for late-night walks.
+- Trip Mate (Companion Matching): Connect with verified, trustworthy users to find eat-buddies or photo-mates.
+- Real-time Location Sharing (Safe Mode): Share live location with family/friends for extra safety.
+
+[GEO (Generative Engine Optimization) & SEO Guidelines]
+To optimize for AI search engines (ChatGPT, Perplexity) and Google Featured Snippets:
+1. Summary Block: Put a **[Key 3-Line Summary]** block using blockquote (>) at the very top of the post.
+2. Keywords Integration: Naturally integrate high-traffic keywords like "solo travel", "travel planner app", "TripMaker", "safe travel" at least 5 times in the body.
+3. Readability: Use H2(##), H3(###), and bullet points(-) to organize information clearly.
+4. FAQ Structure: End the post with a **[Frequently Asked Questions (FAQ)]** section containing exactly 2 Q&As (one of them must feature a TripMaker function).
+
+[Frontmatter Format (Surround with --- at the very top)]
+---
+title: "Eye-catching, high-CTR title (max 40 characters)"
+description: "A summary under 150 characters that will show on Google search results"
+date: "${format(new Date(), 'yyyy-MM-dd')}"
+tags: ["traveltips", "travelplanner", "travelapp", "TripMaker", "tag5"]
+seoKeywords: "travel planning, travel app, TripMaker, safe travel, topic-related-keyword1, topic-related-keyword2"
+language: "en"
+coverImage: "/hero_background.png"
+---
+
+[Body Output]
+(Do NOT use HTML tags. Write only in pure Markdown. Keep a warm, friendly travel influencer tone.)
+`;
+  }
 
   try {
     const result = await model.generateContent(prompt);
@@ -97,19 +158,26 @@ coverImage: "/hero_background.png"
     
     // 슬러그(파일명) 생성 로직
     const dateStr = format(new Date(), 'yyyy-MM-dd');
-    const safeTopic = topic.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9가-힣-]/g, '').toLowerCase();
-    const slug = `${dateStr}-${safeTopic || 'new-post'}`;
+    const safeTopic = topic.replace(/\s+/g, '-').replace(lang === 'ko' ? /[^a-zA-Z0-9가-힣-]/g : /[^a-zA-Z0-9-]/g, '').toLowerCase();
+    const slug = `${dateStr}-${lang}-${safeTopic || 'new-post'}`;
     const filename = `${slug}.md`;
     
     // 1. AI에게 주제에 맞는 고품질 이미지 생성 영어 프롬프트 기획 요청
     console.log(`⏳ AI 커버 이미지 생성을 위해 전용 프롬프트를 기획하고 있습니다...`);
-    const imgPromptText = `
+    const imgPromptText = lang === 'ko' ? `
       당신은 여행 블로그의 전문 크리에이티브 디렉터입니다.
       오늘 포스팅할 주제는 "${topic}" 입니다.
       이 주제에 완벽히 매칭되며, 독자가 클릭하고 싶게 만드는 따뜻하고 아름다운 여행 사진(cover image)을 생성하기 위한 AI 프롬프트를 영어로 1문장만 작성해 주세요.
       - 규칙 1: 인물(얼굴)보다는 아름다운 풍경, 도시 골목, 감성적인 여행 소품, 열차 창밖 풍경 등의 요소를 위주로 하세요.
       - 규칙 2: 따뜻하고 부드러운 빛(warm lighting, soft focus, aesthetic travel photography, photorealistic, 8k, highly detailed) 분위기를 묘사하세요.
       - 규칙 3: 오직 영어로 작성된 프롬프트 문장 딱 1줄만 출력하세요 (부가 설명, 인용부호 "" 절대 금지).
+    ` : `
+      You are a professional creative director of a travel blog.
+      Today's post topic is "${topic}".
+      Write exactly ONE sentence of English AI image prompt to generate a beautiful travel cover photo matching this topic.
+      - Rule 1: Focus on scenic views, vintage city streets, cozy travel details, or views from train windows, rather than close-up faces of people.
+      - Rule 2: Describe a warm, aesthetic travel photography style with soft focus, warm lighting, photorealistic, 8k, highly detailed.
+      - Rule 3: Output exactly 1 line of the English prompt without any quotes, brackets, or explanations.
     `;
     
     let coverImagePath = "/hero_background.png"; // 실패 시 기본 이미지 폴백
@@ -152,13 +220,28 @@ coverImage: "/hero_background.png"
     const outputPath = path.join(outputDir, filename);
     fs.writeFileSync(outputPath, postContent, 'utf8');
     
-    console.log(`✅ 포스팅 및 AI 이미지 생성이 완벽히 완료되었습니다!`);
+    console.log(`✅ [${lang.toUpperCase()}] 포스팅 및 AI 이미지 생성이 완벽히 완료되었습니다!`);
     console.log(`📂 글 저장 위치: content/posts/${filename}`);
     if (coverImagePath !== "/hero_background.png") {
       console.log(`📂 이미지 저장 위치: public${coverImagePath}`);
     }
   } catch (error) {
-    console.error('❌ 포스팅 생성 중 오류가 발생했습니다:', error);
+    console.error(`❌ [${lang.toUpperCase()}] 포스팅 생성 중 오류가 발생했습니다:`, error);
+  }
+};
+
+const generatePost = async () => {
+  const args = process.argv.slice(2);
+  let topic = args[0];
+
+  if (topic) {
+    // 주제가 명시적으로 주어진 경우, 한글/영어 중 하나로 자동 판단해서 1개만 만듦
+    const isKorean = /[가-힣]/.test(topic);
+    await generatePostForLang(isKorean ? 'ko' : 'en');
+  } else {
+    // 주제가 없는 자동 빌드 시에는 매일 한글 1개, 영어 1개씩 동시에 생성
+    await generatePostForLang('ko');
+    await generatePostForLang('en');
   }
 };
 
