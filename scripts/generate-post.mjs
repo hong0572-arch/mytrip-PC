@@ -225,8 +225,94 @@ coverImage: "/hero_background.png"
     if (coverImagePath !== "/hero_background.png") {
       console.log(`📂 이미지 저장 위치: public${coverImagePath}`);
     }
+
+    // SNS (디스코드, 텔레그램) 채널로 자동 알림 전송
+    const cleanTitle = postContent.match(/title:\s*["']?(.*?)["']?\r?\n/)?.[1] || topic;
+    const cleanDesc = postContent.match(/description:\s*["']?(.*?)["']?\r?\n/)?.[1] || "TripMaker AI Editor Post";
+    await sendSnsAlerts(cleanTitle, slug, cleanDesc, lang, coverImagePath);
+    
   } catch (error) {
     console.error(`❌ [${lang.toUpperCase()}] 포스팅 생성 중 오류가 발생했습니다:`, error);
+  }
+};
+
+// 📡 디스코드 / 텔레그램 알림 전송 모듈
+const sendSnsAlerts = async (title, slug, description, lang, coverImagePath) => {
+  const baseUrl = 'https://mytrip2.pro';
+  const postUrl = `${baseUrl}/blog/${slug}`;
+  
+  // 1. 디스코드 웹훅 알림 (DISCORD_WEBHOOK_URL 환경변수 존재 시)
+  const discordUrl = process.env.DISCORD_WEBHOOK_URL;
+  if (discordUrl) {
+    try {
+      console.log(`📡 [Discord] 새 포스팅 알림 전송 중...`);
+      const payload = {
+        embeds: [{
+          title: lang === 'ko' ? `📝 새 블로그 포스팅: ${title}` : `📝 New Blog Post: ${title}`,
+          description: description,
+          url: postUrl,
+          color: 16001118, // Rose-500 (#F43F5E)
+          fields: [
+            { name: 'Language', value: lang === 'ko' ? '🇰🇷 한국어 (Korean)' : '🇺🇸 영어 (English)', inline: true },
+            { name: 'Link', value: `[Read Article](${postUrl})`, inline: true }
+          ],
+          image: {
+            url: coverImagePath.startsWith('http') ? coverImagePath : `${baseUrl}${coverImagePath}`
+          },
+          timestamp: new Date().toISOString(),
+          footer: {
+            text: 'TripMaker AI Editor Hub',
+            icon_url: `${baseUrl}/logo.png`
+          }
+        }]
+      };
+      
+      const res = await fetch(discordUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        console.log(`✅ [Discord] 알림 전송 성공!`);
+      } else {
+        console.warn(`⚠️ [Discord] 전송 실패 (HTTP ${res.status})`);
+      }
+    } catch (err) {
+      console.error(`❌ [Discord] 알림 전송 중 예외 발생:`, err);
+    }
+  }
+
+  // 2. 텔레그램 채널 알림 (TELEGRAM_BOT_TOKEN 및 TELEGRAM_CHAT_ID 환경변수 존재 시)
+  const tgToken = process.env.TELEGRAM_BOT_TOKEN;
+  const tgChatId = process.env.TELEGRAM_CHAT_ID;
+  if (tgToken && tgChatId) {
+    try {
+      console.log(`📡 [Telegram] 새 포스팅 알림 전송 중...`);
+      
+      // 마크다운 형식으로 포맷팅 (특수문자 이스케이프 주의)
+      const text = lang === 'ko'
+        ? `*📝 새 블로그 포스팅 발행*\n\n*제목:* ${title}\n*요약:* ${description}\n\n👉 [블로그에서 전체 읽기](${postUrl})`
+        : `*📝 New Blog Post Published*\n\n*Title:* ${title}\n*Summary:* ${description}\n\n👉 [Read Full Post on Blog](${postUrl})`;
+      
+      const tgUrl = `https://api.telegram.org/bot${tgToken}/sendMessage`;
+      const res = await fetch(tgUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: tgChatId,
+          text: text,
+          parse_mode: 'Markdown',
+          disable_web_page_preview: false
+        })
+      });
+      if (res.ok) {
+        console.log(`✅ [Telegram] 알림 전송 성공!`);
+      } else {
+        console.warn(`⚠️ [Telegram] 전송 실패 (HTTP ${res.status})`);
+      }
+    } catch (err) {
+      console.error(`❌ [Telegram] 알림 전송 중 예외 발생:`, err);
+    }
   }
 };
 
