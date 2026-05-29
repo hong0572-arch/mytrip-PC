@@ -591,13 +591,14 @@ const GuideItem = ({ item, sectionId, dIdx, reverse }) => {
   }, [activeIndex]);
 
   const prefixMap = {
+    safemode: 'sm',
     home: 'gh',
     trip: 'gt',
     mypage: 'gm',
     system: 'gs'
   };
   const prefix = prefixMap[sectionId] || sectionId;
-  const imgSrc = prefix === 'safemode' ? '/feature4.png' : `/${prefix}_${dIdx + 1}_${activeIndex + 1}.png`;
+  const imgSrc = `/${prefix}_${dIdx + 1}_${activeIndex + 1}.png`;
 
   return (
     <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
