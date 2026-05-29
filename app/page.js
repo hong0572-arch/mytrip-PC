@@ -49,16 +49,18 @@ const LOCALE = {
     footerTerms: "이용약관",
     footerPrivacy: "개인정보처리방침",
     footerCopy: "Trip Maker AI (냥프로) All rights reserved.",
-    
+
     // Additional Onboarding & Guide Parity
     onboardingTitle: "트립메이커 완벽 가이드",
-    onboardingSub: "나만의 여행 AI, Trip Maker AI(트립메이커 AI)에 오신 것을 환영합니다! 막막했던 계획부터 실시간 소통까지—이제 트립메이커 하나로 완벽해집니다.",
+    onboardingSub: "나만의 여행 AI, Trip Maker AI(트립메이커 AI)에 오신 것을 환영합니다! 막막했던 계획부터 실시간 소통까지—이제 트립메이커 하나로 안심여행이 완벽해집니다.",
     why1Title: "고민은 AI에게",
     why1Desc: "취향만 말하면 동선까지 완벽한 일정을 짜줍니다.",
     why2Title: "총무의 구원자",
     why2Desc: "버튼 하나로 보내는 N빵 입금 알림.",
     why3Title: "우리만의 아지트",
     why3Desc: "일정표 안에서 바로 대화하는 동행자 라운지.",
+    why4Title: "24시간 안심 귀가",
+    why4Desc: "실시간 위치 공유와 안심 타이머로 지켜주는 Safe Mode.",
     iconDictTitle: "핵심 아이콘 사전 (Icon Dictionary)",
     iconDictItem1_n: "설정/지갑",
     iconDictItem1_d: "예산 세팅, 환전, 입금 관리",
@@ -71,19 +73,19 @@ const LOCALE = {
     iconDictItem5_n: "라운지",
     iconDictItem5_d: "팀 전용 실시간 소통 공간",
     iconDictTip: "✨ Tip: 여행 중 예상치 못한 지출이 생기면 즉시 [상세 지출 보기]에서 기록하세요. 실시간 잔액을 보여줍니다.",
-    
+
     hostTitle: "👑 방장 (Host)",
     hostLi1: "✅ 여행 코스 생성 및 삭제 관리",
     hostLi2: "✅ 모임통장 예산 설정 / N빵 푸시 알림",
     hostLi3: "✅ 실시간 외화 환전 기록 실행",
     hostLi4: "✅ 일정 수정 및 동행 소통 가능",
-    
+
     memberTitle: "🙋 멤버 (Member)",
     memberLi1: "✅ 일정 확인 및 함께 수정 편집",
     memberLi2: "✅ 내 몫의 여행 경비(N빵) 입금하기",
     memberLi3: "✅ 팀원 전용 라운지 실시간 참여",
     memberLi4: "❌ 여행 삭제 / 예산 설정 등 불가",
-    
+
     techTitle: "트립메이커 기술 스택 및 완성도",
     techDesc: "단순한 여행 플래너를 넘어, 최신 웹 기술과 인공지능이 결합된 혁신적 플랫폼입니다.",
     pwaTitle: "아이폰에서 트립메이커 앱 설치 방법",
@@ -134,7 +136,7 @@ const LOCALE = {
     footerTerms: "Terms of Service",
     footerPrivacy: "Privacy Policy",
     footerCopy: "Trip Maker AI (NyangPro) All rights reserved.",
-    
+
     // Additional Onboarding & Guide Parity
     onboardingTitle: "Complete Guide to TripMaker",
     onboardingSub: "Welcome to your own travel AI, TripMaker AI! From frustrating planning to live communication—TripMaker is all you need.",
@@ -144,6 +146,8 @@ const LOCALE = {
     why2Desc: "N-split deposit alerts sent with a single button tap.",
     why3Title: "Our Own Hideout",
     why3Desc: "A companion lounge where you can chat right inside the itinerary.",
+    why4Title: "24h Safe Guard",
+    why4Desc: "Safe Mode protects you with real-time location sharing & smart timers.",
     iconDictTitle: "Core Icon Dictionary",
     iconDictItem1_n: "Settings/Wallet",
     iconDictItem1_d: "Budget setting, FX, deposit control",
@@ -156,19 +160,19 @@ const LOCALE = {
     iconDictItem5_n: "Lounge",
     iconDictItem5_d: "Real-time chat room exclusive to the team",
     iconDictTip: "✨ Tip: If unexpected expenses occur during travel, record them instantly in [View Expense Details] to see real-time balance.",
-    
+
     hostTitle: "👑 Host",
     hostLi1: "✅ Manage trip course generation & deletion",
     hostLi2: "✅ Set group budget / N-split push alerts",
     hostLi3: "✅ Perform real-time foreign FX exchange",
     hostLi4: "✅ Edit itinerary & communicate with companions",
-    
+
     memberTitle: "🙋 Member",
     memberLi1: "✅ View itinerary & edit together",
     memberLi2: "✅ Deposit my own share of travel expenses",
     memberLi3: "✅ Real-time participation in team lounge",
     memberLi4: "❌ Deleting trips or setting budget is disabled",
-    
+
     techTitle: "TripMaker Tech Stack & Competence",
     techDesc: "Beyond a simple travel planner, it is an innovative platform combining state-of-the-art web tech and artificial intelligence.",
     pwaTitle: "How to Install TripMaker on iPhone",
@@ -830,7 +834,7 @@ export default function Home() {
         <div className="absolute top-[2600px] left-[-20%] w-[65%] aspect-square bg-teal-100/30 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '11s' }} />
         <div className="absolute top-[3500px] right-[-10%] w-[55%] aspect-square bg-amber-100/25 blur-[110px] rounded-full animate-pulse" style={{ animationDuration: '9s' }} />
         <div className="absolute top-[4400px] left-[10%] w-[50%] aspect-square bg-rose-100/20 blur-[100px] rounded-full animate-pulse" style={{ animationDuration: '12s' }} />
-        
+
         {/* Global Technical Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
           backgroundImage: 'radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px)',
@@ -1106,7 +1110,7 @@ export default function Home() {
           </div>
 
           {/* Why Trip Maker? (Floating Bubbles) */}
-          <div className="grid md:grid-cols-3 gap-6 mb-32">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
             <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
               <div className="text-3xl mb-4">🌟</div>
               <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why1Title}"</h3>
@@ -1121,6 +1125,11 @@ export default function Home() {
               <div className="text-3xl mb-4">🏠</div>
               <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why3Title}"</h3>
               <p className="text-slate-500 text-lg font-medium">{t.why3Desc}</p>
+            </div>
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-[40px] border border-blue-100 shadow-xl shadow-blue-500/5 transition-transform hover:-translate-y-2">
+              <div className="text-3xl mb-4">🛡️</div>
+              <h3 className="font-black text-slate-900 text-2xl mb-2">"{t.why4Title}"</h3>
+              <p className="text-slate-500 text-lg font-medium">{t.why4Desc}</p>
             </div>
           </div>
 
