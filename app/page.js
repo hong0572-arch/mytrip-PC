@@ -186,6 +186,34 @@ const LOCALE = {
 
 const GUIDE_DATA_KO = [
   {
+    id: "safemode",
+    title: "0. 🛡️ 실시간 안심 귀가 (Safe Mode)",
+    icon: <ShieldCheck size={20} />,
+    items: [
+      {
+        subtitle: "0-1. 비상 안심 연락망 등록",
+        details: [
+          { label: "보호자 등록 및 검색", desc: "이메일이나 이름으로 서비스 가입자를 검색하여 비상 보호자로 등록하거나, 연락처 정보를 직접 입력할 수 있습니다." },
+          { label: "실시간 보호 시작", desc: "보호자가 등록되면 피보호자의 안전 상태 확인을 위한 비상 연락 연동이 자동 활성화됩니다." }
+        ]
+      },
+      {
+        subtitle: "0-2. 안심 약속 귀가 시간 설정",
+        details: [
+          { label: "스마트 타이머", desc: "이동 예상 시간에 맞춰 10분, 30분, 60분, 120분 등의 타이머를 설정합니다." },
+          { label: "타이머 만료 경보", desc: "약속 시간 내에 귀가 완료를 인증하지 않으면 고주파 사이렌과 경고가 작동하고 비상 연락망에 자동 통지됩니다." }
+        ]
+      },
+      {
+        subtitle: "0-3. 실시간 위치 공유 및 긴급 사이렌",
+        details: [
+          { label: "실시간 GPS 관제", desc: "15초 간격으로 최신 GPS 위치를 업데이트하여 전용 대시보드 링크와 함께 보호자에게 카카오톡/SMS로 전송합니다." },
+          { label: "비상 사이렌 및 진동", desc: "위급 상황 시 사이렌 버튼을 누르면 기기 최대 볼륨으로 오디오 경보음이 재생되고 화면 진동이 시작됩니다." }
+        ]
+      }
+    ]
+  },
+  {
     id: "home",
     title: "1. 🏠 메인 화면 (Home)",
     icon: <HomeIcon size={20} />,
@@ -292,6 +320,34 @@ const GUIDE_DATA_KO = [
 ];
 
 const GUIDE_DATA_EN = [
+  {
+    id: "safemode",
+    title: "0. 🛡️ Real-time Safe Return (Safe Mode)",
+    icon: <ShieldCheck size={20} />,
+    items: [
+      {
+        subtitle: "0-1. Register Emergency Contacts",
+        details: [
+          { label: "Guardian Lookup & Add", desc: "Search and select active users by email/name to set as your guardian, or manually enter phone details." },
+          { label: "Active Guard Status", desc: "Once a guardian is registered, the emergency alert communication channel becomes ready instantly." }
+        ]
+      },
+      {
+        subtitle: "0-2. Set Safe Return Smart Timer",
+        details: [
+          { label: "Smart Timer Interval", desc: "Configure a custom countdown timer (10, 30, 60, or 120 minutes) based on your transit route." },
+          { label: "Timer Expiry Warning", desc: "If safe check-in is not clicked within the limit, a loud siren triggers and an alert is sent to contacts." }
+        ]
+      },
+      {
+        subtitle: "0-3. Live GPS Sharing & Emergency Siren",
+        details: [
+          { label: "Real-time GPS Tracking", desc: "Sends live coordinates updated every 15 seconds to your guardian via SMS/KakaoTalk with a dedicated maps URL." },
+          { label: "Emergency Siren & Haptics", desc: "Tapping the siren button plays high-frequency square wave audio at maximum volume with active vibration." }
+        ]
+      }
+    ]
+  },
   {
     id: "home",
     title: "1. 🏠 Home Screen (Home)",
@@ -541,7 +597,7 @@ const GuideItem = ({ item, sectionId, dIdx, reverse }) => {
     system: 'gs'
   };
   const prefix = prefixMap[sectionId] || sectionId;
-  const imgSrc = `/${prefix}_${dIdx + 1}_${activeIndex + 1}.png`;
+  const imgSrc = prefix === 'safemode' ? '/feature4.png' : `/${prefix}_${dIdx + 1}_${activeIndex + 1}.png`;
 
   return (
     <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20`}>
