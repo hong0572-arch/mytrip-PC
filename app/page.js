@@ -30,6 +30,8 @@ const LOCALE = {
     f2Desc: "신뢰할 수 있는 여행 메이트. 성향 데이터를 통해 나와 70% 이상 일치하는 검증된 동행을 연결해 드립니다.",
     f3Title: "Travel Fund",
     f3Desc: "자금 준비부터 정산까지 스마트하게. 여행 전용 적금으로 목돈을 마련하고 1/N 정산까지 한 번에 끝내세요.",
+    f4Title: "Safe Mode",
+    f4Desc: "실시간 위치 공유와 안심 귀가 스마트 타이머. 지정한 시간 내에 무사 귀가를 입증하지 않으면 보호자와 동행에게 실시간 위치와 경보가 자동으로 전송됩니다.",
     howHeading: "작동 원리 (How It Works)",
     howSub: "단 3단계로 완벽한 여행이 준비됩니다.",
     how1Title: "취향 저격 AI 일정 체험",
@@ -113,6 +115,8 @@ const LOCALE = {
     f2Desc: "Reliable travel mates. We connect you with verified companions who match your profile by over 70%.",
     f3Title: "Travel Fund",
     f3Desc: "Smart funding to settlement. Save up with a travel savings account and easily split bills 1/N.",
+    f4Title: "Safe Mode",
+    f4Desc: "Real-time location sharing and secure return smart timer. Automatically alerts your guardian with live GPS maps if you don't check in within the limit.",
     howHeading: "How It Works",
     howSub: "Perfect travel prepared in just 3 steps.",
     how1Title: "Personalized AI Itinerary",
@@ -1033,7 +1037,7 @@ export default function Home() {
             <p className="text-lg md:text-xl text-slate-500 font-medium">{t.featSub}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {/* Feature 1 */}
             <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
               <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-rose-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -1065,6 +1069,17 @@ export default function Home() {
               <p className="text-slate-600 leading-relaxed font-medium">{t.f3Desc}</p>
               <div className="mt-8 w-full h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
                 <img src="/feature3.png" alt="Travel Fund" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            </div>
+            {/* Feature 4 */}
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <ShieldCheck size={28} />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f4Title}</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">{t.f4Desc}</p>
+              <div className="mt-8 w-full h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <img src="/feature4.png" alt="Safe Mode" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
             </div>
           </div>
