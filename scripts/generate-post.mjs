@@ -24,64 +24,65 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 const generatePostForLang = async (lang) => {
   console.log(`\n🌐 [${lang.toUpperCase()}] 자동 블로그 포스팅 생성을 시작합니다.`);
   
-  // 가장 안정적이고 최신 모델인 gemini-3.1-flash-lite 사용
-  const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite' });
-  
-  let topic = "";
-
-  if (lang === 'ko') {
-    // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (한국어)
-    const themesKo = [
-      "국내/해외 가성비 여행 경비 절약 및 예산 계획",
-      "복잡한 여행 동선 쉽게 짜는 법 및 일정 관리 꿀팁",
-      "안전한 해외여행 숙소 고르는 기준 및 치안 팁",
-      "짧은 일정(주말, 2박 3일 등)을 알차게 보내는 효율적인 여행 코스",
-      "혼행족을 위한 밥친구, 사진 친구 등 안전한 동행 구하는 방법",
-      "극P(즉흥적) 여행자도 실패 없는 스마트한 여행 어플/IT 기기 추천",
-      "SNS 핫플 피하는 나만의 숨겨진 로컬 여행지 찾는 법"
-    ];
-    const randomTheme = themesKo[Math.floor(Math.random() * themesKo.length)];
+  try {
+    // 가장 안정적이고 최신 모델인 gemini-3.1-flash-lite 사용
+    const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite' });
     
-    const topicPrompt = `
-      당신은 수백만 방문자를 보유한 트렌디한 여행 블로그의 수석 에디터입니다.
-      오늘 포스팅할 메인 테마는 "[${randomTheme}]" 입니다.
-      이 테마를 바탕으로, 현재 2030 여행자들이 구글에서 가장 많이 검색할 법한 '클릭률이 폭발하는 롱테일(Long-tail) 키워드 기반의 구체적인 글 주제'를 딱 1개만 제안해주세요.
-      예시: "2박 3일 삿포로 여행, 교통비 아끼는 효율적인 동선 짜는 법", "여자 혼자 방콕 여행, 밤에도 치안 걱정 없는 숙소 위치 추천"
-      오직 주제 문장 딱 1줄만 출력하세요.
-    `;
-    const topicResult = await model.generateContent(topicPrompt);
-    topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
-  } else {
-    // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (영어)
-    const themesEn = [
-      "How to save travel budget & smart planning tips",
-      "Easy travel itinerary & route optimization guide",
-      "Choosing safe hotels & security tips for female travelers",
-      "Efficient short trip travel course (weekend getaway)",
-      "How to find safe travel companions & eat-buddies for solo travelers",
-      "Smart travel apps & tech devices for spontaneous travelers",
-      "How to find hidden local spots avoiding crowded tourist traps"
-    ];
-    const randomTheme = themesEn[Math.floor(Math.random() * themesEn.length)];
-    
-    const topicPrompt = `
-      You are the editor-in-chief of a trendy travel blog with millions of visitors.
-      Today's main theme is "[${randomTheme}]".
-      Based on this theme, suggest exactly ONE specific blog post topic/title that 2030 travelers are most likely to search for on Google (high CTR, long-tail keyword-based).
-      Example: "2-Day Tokyo Itinerary: How to Save Transportation Costs", "Solo Female Travel in Bangkok: Safest Hotel Areas Recommended"
-      Output only the topic sentence in English, exactly 1 line, without any quotes or explanations.
-    `;
-    const topicResult = await model.generateContent(topicPrompt);
-    topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
-  }
+    let topic = "";
 
-  console.log(`📝 [${lang.toUpperCase()}] 오늘의 포스팅 주제: "${topic}"`);
-  console.log(`⏳ 본문 및 SEO/GEO 메타데이터를 생성 중입니다...`);
+    if (lang === 'ko') {
+      // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (한국어)
+      const themesKo = [
+        "국내/해외 가성비 여행 경비 절약 및 예산 계획",
+        "복잡한 여행 동선 쉽게 짜는 법 및 일정 관리 꿀팁",
+        "안전한 해외여행 숙소 고르는 기준 및 치안 팁",
+        "짧은 일정(주말, 2박 3일 등)을 알차게 보내는 효율적인 여행 코스",
+        "혼행족을 위한 밥친구, 사진 친구 등 안전한 동행 구하는 방법",
+        "극P(즉흥적) 여행자도 실패 없는 스마트한 여행 어플/IT 기기 추천",
+        "SNS 핫플 피하는 나만의 숨겨진 로컬 여행지 찾는 법"
+      ];
+      const randomTheme = themesKo[Math.floor(Math.random() * themesKo.length)];
+      
+      const topicPrompt = `
+        당신은 수백만 방문자를 보유한 트렌디한 여행 블로그의 수석 에디터입니다.
+        오늘 포스팅할 메인 테마는 "[${randomTheme}]" 입니다.
+        이 테마를 바탕으로, 현재 2030 여행자들이 구글에서 가장 많이 검색할 법한 '클릭률이 폭발하는 롱테일(Long-tail) 키워드 기반의 구체적인 글 주제'를 딱 1개만 제안해주세요.
+        예시: "2박 3일 삿포로 여행, 교통비 아끼는 효율적인 동선 짜는 법", "여자 혼자 방콕 여행, 밤에도 치안 걱정 없는 숙소 위치 추천"
+        오직 주제 문장 딱 1줄만 출력하세요.
+      `;
+      const topicResult = await model.generateContent(topicPrompt);
+      topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
+    } else {
+      // 더 넓고 다양한 타겟층 유입을 위한 랜덤 테마 배열 (영어)
+      const themesEn = [
+        "How to save travel budget & smart planning tips",
+        "Easy travel itinerary & route optimization guide",
+        "Choosing safe hotels & security tips for female travelers",
+        "Efficient short trip travel course (weekend getaway)",
+        "How to find safe travel companions & eat-buddies for solo travelers",
+        "Smart travel apps & tech devices for spontaneous travelers",
+        "How to find hidden local spots avoiding crowded tourist traps"
+      ];
+      const randomTheme = themesEn[Math.floor(Math.random() * themesEn.length)];
+      
+      const topicPrompt = `
+        You are the editor-in-chief of a trendy travel blog with millions of visitors.
+        Today's main theme is "[${randomTheme}]".
+        Based on this theme, suggest exactly ONE specific blog post topic/title that 2030 travelers are most likely to search for on Google (high CTR, long-tail keyword-based).
+        Example: "2-Day Tokyo Itinerary: How to Save Transportation Costs", "Solo Female Travel in Bangkok: Safest Hotel Areas Recommended"
+        Output only the topic sentence in English, exactly 1 line, without any quotes or explanations.
+      `;
+      const topicResult = await model.generateContent(topicPrompt);
+      topic = topicResult.response.text().trim().replace(/^"|"$/g, '');
+    }
 
-  let prompt = "";
+    console.log(`📝 [${lang.toUpperCase()}] 오늘의 포스팅 주제: "${topic}"`);
+    console.log(`⏳ 본문 및 SEO/GEO 메타데이터를 생성 중입니다...`);
 
-  if (lang === 'ko') {
-    prompt = `
+    let prompt = "";
+
+    if (lang === 'ko') {
+      prompt = `
 당신은 '트립메이커(TripMaker)' 앱의 메인 여행 블로그 에디터입니다.
 오늘의 블로그 주제는 "${topic}" 입니다.
 
@@ -115,8 +116,8 @@ coverImage: "/hero_background.png"
 [본문 작성]
 (HTML을 절대 쓰지 말고 오직 순수 Markdown 기호만 사용할 것. 친절하고 전문성 있는 여행 인플루언서의 문체 유지.)
 `;
-  } else {
-    prompt = `
+    } else {
+      prompt = `
 You are the main travel blog editor of 'TripMaker' app.
 Today's blog topic is "${topic}".
 
@@ -150,9 +151,8 @@ coverImage: "/hero_background.png"
 [Body Output]
 (Do NOT use HTML tags. Write only in pure Markdown. Keep a warm, friendly travel influencer tone.)
 `;
-  }
+    }
 
-  try {
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
     
@@ -233,6 +233,7 @@ coverImage: "/hero_background.png"
     
   } catch (error) {
     console.error(`❌ [${lang.toUpperCase()}] 포스팅 생성 중 오류가 발생했습니다:`, error);
+    throw error;
   }
 };
 
@@ -320,14 +321,19 @@ const generatePost = async () => {
   const args = process.argv.slice(2);
   let topic = args[0];
 
-  if (topic) {
-    // 주제가 명시적으로 주어진 경우, 한글/영어 중 하나로 자동 판단해서 1개만 만듦
-    const isKorean = /[가-힣]/.test(topic);
-    await generatePostForLang(isKorean ? 'ko' : 'en');
-  } else {
-    // 주제가 없는 자동 빌드 시에는 매일 한글 1개, 영어 1개씩 동시에 생성
-    await generatePostForLang('ko');
-    await generatePostForLang('en');
+  try {
+    if (topic) {
+      // 주제가 명시적으로 주어진 경우, 한글/영어 중 하나로 자동 판단해서 1개만 만듦
+      const isKorean = /[가-힣]/.test(topic);
+      await generatePostForLang(isKorean ? 'ko' : 'en');
+    } else {
+      // 주제가 없는 자동 빌드 시에는 매일 한글 1개, 영어 1개씩 동시에 생성
+      await generatePostForLang('ko');
+      await generatePostForLang('en');
+    }
+  } catch (err) {
+    console.error(`❌ 블로그 포스트 생성 프로세스가 실패했습니다:`, err);
+    process.exit(1);
   }
 };
 
