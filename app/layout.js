@@ -52,7 +52,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <script
@@ -60,17 +60,50 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "Trip Maker",
-              "operatingSystem": "Web, Android, iOS",
-              "applicationCategory": "TravelApplication",
-              "description": "AI-powered travel planner for personalized itineraries.",
-              "url": "https://tripmaker.tips",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "KRW"
-              }
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://tripmaker.tips/#organization",
+                  "name": "트립메이커 (Trip Maker)",
+                  "url": "https://tripmaker.tips",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://tripmaker.tips/logo.png"
+                  },
+                  "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "tripmaker@tripmaker.tips",
+                    "contactType": "customer support"
+                  }
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://tripmaker.tips/#website",
+                  "url": "https://tripmaker.tips",
+                  "name": "Trip Maker - AI 여행 플래너",
+                  "description": "AI가 즉시 짜주는 맞춤형 여행 일정 및 안심 동행 서비스",
+                  "publisher": {
+                    "@id": "https://tripmaker.tips/#organization"
+                  }
+                },
+                {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://tripmaker.tips/#application",
+                  "name": "Trip Maker",
+                  "operatingSystem": "Web, Android, iOS",
+                  "applicationCategory": "TravelApplication",
+                  "description": "AI-powered travel planner for personalized itineraries.",
+                  "url": "https://tripmaker.tips",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "KRW"
+                  },
+                  "publisher": {
+                    "@id": "https://tripmaker.tips/#organization"
+                  }
+                }
+              ]
             })
           }}
         />
