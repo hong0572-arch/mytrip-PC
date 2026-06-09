@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://mytrip2.pro/sitemap.xml',
+    sitemap: 'https://tripmaker.tips/sitemap.xml',
   }
 }

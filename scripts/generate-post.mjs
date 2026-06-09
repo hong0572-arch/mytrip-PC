@@ -239,7 +239,7 @@ coverImage: "/hero_background.png"
 
 // 📡 디스코드 / 텔레그램 알림 전송 모듈
 const sendSnsAlerts = async (title, slug, description, lang, coverImagePath) => {
-  const baseUrl = 'https://mytrip2.pro';
+  const baseUrl = 'https://tripmaker.tips';
   const postUrl = `${baseUrl}/blog/${slug}`;
   
   // 1. 디스코드 웹훅 알림 (DISCORD_WEBHOOK_URL 환경변수 존재 시)

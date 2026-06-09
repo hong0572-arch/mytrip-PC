@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://mytrip2.pro'),
+  metadataBase: new URL('https://tripmaker.tips'),
   title: {
     default: "Trip Maker - 내 손안의 AI 여행 가이드",
     template: `%s | Trip Maker`
@@ -21,16 +21,16 @@ export const metadata = {
   description: "일본, 유럽, 동남아 어디든! AI가 즉시 짜주는 맞춤형 여행 일정. Trip Maker와 함께 가장 안전하고 스마트한 여행을 계획하세요.",
   keywords: ["AI 여행 계획", "트립메이커", "Trip Maker", "여행 일정 짜기", "AI 플래너", "해외여행 코스", "나홀로 여행", "가족여행 계획"],
   alternates: {
-    canonical: 'https://mytrip2.pro',
+    canonical: 'https://tripmaker.tips',
     languages: {
-      'ko-KR': 'https://mytrip2.pro',
-      'en-US': 'https://mytrip2.pro/?lang=en',
+      'ko-KR': 'https://tripmaker.tips',
+      'en-US': 'https://tripmaker.tips/?lang=en',
     },
   },
   openGraph: {
     title: "Trip Maker - 내 손안의 AI 여행 가이드",
     description: "AI가 제안하는 최적의 여행 코스! 지금 바로 나만의 여행을 만들어보세요.",
-    url: "https://mytrip2.pro",
+    url: "https://tripmaker.tips",
     siteName: "Trip Maker",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     locale: "ko_KR",
@@ -65,7 +65,7 @@ export default function RootLayout({ children }) {
               "operatingSystem": "Web, Android, iOS",
               "applicationCategory": "TravelApplication",
               "description": "AI-powered travel planner for personalized itineraries.",
-              "url": "https://mytrip2.pro",
+              "url": "https://tripmaker.tips",
               "offers": {
                 "@type": "Offer",
                 "price": "0",

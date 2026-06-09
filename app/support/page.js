@@ -7,7 +7,7 @@ export default function Support() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("tripmaker@mytrip2.pro");
+    navigator.clipboard.writeText("tripmaker@tripmaker.tips");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -98,7 +98,7 @@ export default function Support() {
               className={`w-full font-black py-4 rounded-2xl text-center shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 border ${copied ? 'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600' : 'bg-slate-900 text-white border-slate-900 hover:bg-slate-800'}`}
             >
               {copied ? <CheckCircle size={18} /> : <Mail size={18} />}
-              {copied ? '이메일 주소 복사 완료!' : 'tripmaker@mytrip2.pro 복사'}
+              {copied ? '이메일 주소 복사 완료!' : 'tripmaker@tripmaker.tips 복사'}
             </button>
           </div>
 

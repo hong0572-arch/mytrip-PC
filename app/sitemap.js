@@ -1,7 +1,7 @@
 import { getAllPosts } from '../lib/markdown';
 
 export default function sitemap() {
-  const baseUrl = 'https://mytrip2.pro';
+  const baseUrl = 'https://tripmaker.tips';
 
   // 로컬 마크다운 포스트들을 모두 불러옵니다.
   const posts = getAllPosts(['slug', 'date']);

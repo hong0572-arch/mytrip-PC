@@ -224,7 +224,7 @@ const GUIDE_DATA_KO = [
         details: [
           { label: "간편 로그인", desc: "우측 상단 사람 아이콘이나 화면의 로그인 버튼을 눌러 카카오톡 연동으로 빠르게 접속합니다." },
           { label: "상단 배너 (여행 소식)", desc: "냥 프로의 귀여운 인사 멘트와 최신 여행 소식이 자동 전환되며 표시됩니다." },
-          { label: "앱 설치 및 알림 권한", desc: " 플레이 스토어에서 다운받으세요. 아이폰은 mytrip2.pro에 접속하시어 홈화면에 추가하세요. 설치 완료 후 푸시 알림 권한을 허용하면 D-Day 및 각종 알림을 받습니다." }
+          { label: "앱 설치 및 알림 권한", desc: " 플레이 스토어에서 다운받으세요. 아이폰은 tripmaker.tips에 접속하시어 홈화면에 추가하세요. 설치 완료 후 푸시 알림 권한을 허용하면 D-Day 및 각종 알림을 받습니다." }
         ]
       },
       {
@@ -359,7 +359,7 @@ const GUIDE_DATA_EN = [
         details: [
           { label: "Easy Login", desc: "Click the user icon on the top right or the login button on the screen to quickly log in with KakaoTalk." },
           { label: "Top Banner (Travel News)", desc: "Cute greeting messages from NyangPro and the latest travel news are automatically displayed." },
-          { label: "App Install & Notifications", desc: "Download from Play Store. For iPhone, visit mytrip2.pro and add to home screen. Allow push notifications to receive D-Day and various alerts." }
+          { label: "App Install & Notifications", desc: "Download from Play Store. For iPhone, visit tripmaker.tips and add to home screen. Allow push notifications to receive D-Day and various alerts." }
         ]
       },
       {
@@ -559,7 +559,7 @@ const FAQ_DATA_KO = [
   },
   {
     q: "어떤 기기에서 사용할 수 있나요?",
-    a: "트립메이커는 웹(mytrip2.pro)에서 바로 접속할 수 있을 뿐만 아니라, 안드로이드 구글 플레이 스토어(pro.mytrip2.twa)에서 정식 앱을 다운받아 사용할 수도 있습니다. 모바일에 완벽하게 최적화된 세로 모드 UI를 제공합니다."
+    a: "트립메이커는 웹(tripmaker.tips)에서 바로 접속할 수 있을 뿐만 아니라, 안드로이드 구글 플레이 스토어(pro.mytrip2.twa)에서 정식 앱을 다운받아 사용할 수도 있습니다. 모바일에 완벽하게 최적화된 세로 모드 UI를 제공합니다."
   }
 ];
 
@@ -578,7 +578,7 @@ const FAQ_DATA_EN = [
   },
   {
     q: "What devices are supported?",
-    a: "Trip Maker is available on mobile web (mytrip2.pro) and can be downloaded from the Google Play Store (pro.mytrip2.twa) with a fully responsive layout."
+    a: "Trip Maker is available on mobile web (tripmaker.tips) and can be downloaded from the Google Play Store (pro.mytrip2.twa) with a fully responsive layout."
   }
 ];
 

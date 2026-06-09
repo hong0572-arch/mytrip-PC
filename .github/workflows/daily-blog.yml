@@ -42,7 +42,7 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git config --global user.name "TripMaker AI Editor"
-          git config --global user.email "bot@tripmaker.ai"
+          git config --global user.email "bot@tripmaker.tips"
           git add content/posts/ public/images/posts/
           # 생성된 파일이 있을 경우에만 커밋
           git commit -m "docs(blog): auto-generate daily SEO blog post" || echo "No changes to commit"

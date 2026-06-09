@@ -52,7 +52,7 @@ export default async function BlogPost(props) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.description,
-    image: post.coverImage || 'https://mytrip-pc.vercel.app/hero_background.png',
+    image: post.coverImage || 'https://tripmaker.tips/hero_background.png',
     datePublished: post.date,
     author: {
       '@type': 'Organization',

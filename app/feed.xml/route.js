@@ -1,7 +1,7 @@
 import { getAllPosts } from '../../lib/markdown';
 
 export async function GET() {
-  const baseUrl = 'https://mytrip2.pro';
+  const baseUrl = 'https://tripmaker.tips';
   
   // 마크다운 포스트들을 모두 불러옵니다.
   const posts = getAllPosts(['title', 'date', 'slug', 'description', 'language']);
