@@ -663,10 +663,10 @@ const TechCard = ({ item, index }) => {
 
   const config = [
     {
-      icon: <Sparkles className="text-rose-500" size={28} />,
-      color: "from-rose-500 to-pink-500",
-      bgLight: "bg-rose-50",
-      border: "border-rose-100",
+      icon: <Sparkles className="text-blue-600" size={28} />,
+      color: "from-blue-600 to-sky-500",
+      bgLight: "bg-blue-50",
+      border: "border-blue-100",
       completion: 95,
       terminal: {
         engine: "Gemini 3.x Pro & GPT-5x",
@@ -887,11 +887,11 @@ export default function Home() {
 
       {/* 🌌 Ultra-Premium Floating Liquid Auras & Dot-Mesh Backdrop */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[800px] left-[-15%] w-[60%] aspect-square bg-rose-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[800px] left-[-15%] w-[60%] aspect-square bg-sky-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
         <div className="absolute top-[1600px] right-[-15%] w-[60%] aspect-square bg-indigo-200/30 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
         <div className="absolute top-[2600px] left-[-20%] w-[65%] aspect-square bg-teal-100/30 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '11s' }} />
         <div className="absolute top-[3500px] right-[-10%] w-[55%] aspect-square bg-amber-100/25 blur-[110px] rounded-full animate-pulse" style={{ animationDuration: '9s' }} />
-        <div className="absolute top-[4400px] left-[10%] w-[50%] aspect-square bg-rose-100/20 blur-[100px] rounded-full animate-pulse" style={{ animationDuration: '12s' }} />
+        <div className="absolute top-[4400px] left-[10%] w-[50%] aspect-square bg-blue-100/20 blur-[100px] rounded-full animate-pulse" style={{ animationDuration: '12s' }} />
 
         {/* Global Technical Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
@@ -913,7 +913,7 @@ export default function Home() {
 
         {/* ⚓ [Y=15%] Floating Swaying Anchored Visual Nodes (Seoul MapPin & Route Compass) */}
         <div className="absolute top-[15%] left-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '0s' }}>
-          <MapPin size={36} className="text-rose-500 drop-shadow-md" />
+          <MapPin size={36} className="text-blue-600 drop-shadow-md" />
         </div>
         <div className="absolute top-[18%] right-[8%] z-10 animate-sway opacity-100" style={{ animationDelay: '-2s', animationDuration: '7s' }}>
           <Compass size={36} className="text-indigo-500 drop-shadow-md" />
@@ -921,10 +921,10 @@ export default function Home() {
 
         {/* 🚗 [Y=25%] Horizontal Road Path (Car) */}
         <div className="absolute top-[25%] left-0 w-full h-[100px] z-0 overflow-hidden">
-          <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-rose-400/40" style={{ top: '50%' }} />
+          <div className="absolute left-0 w-full h-[2.5px] border-t border-dashed border-blue-400/40" style={{ top: '50%' }} />
           <div className="absolute top-[10px] left-0 w-full h-full animate-drive-horizontal">
             <div className="flex items-center justify-center w-16 h-16">
-              <Car size={40} className="text-rose-500 drop-shadow-[0_4px_8px_rgba(244,63,94,0.5)]" />
+              <Car size={40} className="text-blue-600 drop-shadow-[0_4px_8px_rgba(37,99,235,0.5)]" />
             </div>
           </div>
         </div>
@@ -1028,15 +1028,15 @@ export default function Home() {
       </div>
       <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[28px] md:h-8 object-contain" />
-          <span className="font-extrabold text-2xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
+          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-slate-800 font-bold text-sm drop-shadow-[0_2px_6px_rgba(255,255,255,0.95)]">
           <a href="#onboarding" className="hover:text-blue-600 transition">{t.navGuide}</a>
-          <a href="#features" className="hover:text-rose-500 transition">{t.navFeatures}</a>
-          <a href="#how" className="hover:text-rose-500 transition">{t.navHow}</a>
-          <a href="#community" className="hover:text-rose-500 transition">{t.navCommunity}</a>
-          <a href="/blog" className="text-rose-600 hover:text-rose-500 transition">블로그</a>
+          <a href="#features" className="hover:text-blue-600 transition">{t.navFeatures}</a>
+          <a href="#how" className="hover:text-blue-600 transition">{t.navHow}</a>
+          <a href="#community" className="hover:text-blue-600 transition">{t.navCommunity}</a>
+          <a href="/blog" className="text-blue-600 hover:text-blue-500 transition">블로그</a>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <div className="flex bg-white/90 p-1 rounded-full text-sm font-bold shadow-md border border-slate-200/80 backdrop-blur-sm">
@@ -1062,7 +1062,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)]">
             {t.titleMain}
           </h2>
-          <h1 className="text-5xl md:text-[80px] lg:text-[100px] font-black tracking-tighter mb-8 leading-none text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600 drop-shadow-[0_4px_16px_rgba(255,255,255,0.95)]">
+          <h1 className="text-5xl md:text-[80px] lg:text-[100px] font-black tracking-tighter mb-8 leading-none text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-sky-500 drop-shadow-[0_4px_16px_rgba(255,255,255,0.95)]">
             {t.titleSub}
           </h1>
 
@@ -1075,7 +1075,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 mb-16 px-4 w-full justify-center">
-            <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} className="bg-rose-400 hover:bg-rose-500 text-white rounded-full px-8 py-4 font-bold text-lg transition-all active:scale-95 shadow-xl flex justify-center items-center gap-2">
+            <button onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-4 font-bold text-lg transition-all active:scale-95 shadow-xl flex justify-center items-center gap-2">
               <Navigation size={20} fill="currentColor" /> {t.btnPlan}
             </button>
             <button onClick={() => document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' })} className="bg-white hover:bg-blue-50 border border-slate-200 text-slate-800 rounded-full px-8 py-4 font-bold text-lg transition-all active:scale-95 shadow-md flex justify-center items-center gap-2">
@@ -1088,8 +1088,8 @@ export default function Home() {
       <section id="features" className="py-24 bg-white/30 backdrop-blur-[2px] relative w-full border-t border-slate-100 overflow-hidden">
         {/* Background Decorative Auras */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-rose-300/30 blur-[120px] rounded-full"></div>
-          <div className="absolute bottom-[5%] right-[-10%] w-[45%] h-[45%] bg-pink-300/30 blur-[130px] rounded-full"></div>
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-200/20 blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-[5%] right-[-10%] w-[45%] h-[45%] bg-sky-200/30 blur-[130px] rounded-full"></div>
           <div className="absolute top-[20%] right-[5%] w-[30%] h-[30%] bg-amber-200/40 blur-[100px] rounded-full"></div>
         </div>
 
@@ -1101,8 +1101,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {/* Feature 1 */}
-            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
-              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-rose-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Globe size={28} />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f1Title}</h3>
@@ -1112,8 +1112,8 @@ export default function Home() {
               </div>
             </div>
             {/* Feature 2 */}
-            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
-              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-pink-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+              <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-sky-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Users size={28} />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-3">{t.f2Title}</h3>
@@ -1123,7 +1123,7 @@ export default function Home() {
               </div>
             </div>
             {/* Feature 3 */}
-            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
               <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-fuchsia-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Wallet size={28} />
               </div>
@@ -1134,7 +1134,7 @@ export default function Home() {
               </div>
             </div>
             {/* Feature 4 */}
-            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-rose-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
+            <div className="bg-slate-50 border border-slate-100 p-8 rounded-[32px] hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-1 transition-all duration-300 group cursor-default">
               <div className="w-14 h-14 bg-white shadow-sm border border-slate-100 text-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <ShieldCheck size={28} />
               </div>
@@ -1260,7 +1260,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 relative z-10">
 
           <div className="mt-40 grid md:grid-cols-2 gap-8">
-            <div className="bg-rose-500 text-white p-10 rounded-[50px] shadow-2xl">
+            <div className="bg-blue-600 text-white p-10 rounded-[50px] shadow-2xl">
               <h4 className="text-3xl font-black italic mb-8">{t.hostTitle}</h4>
               <ul className="space-y-4 text-lg font-bold opacity-90">
                 <li>{t.hostLi1}</li>
@@ -1290,11 +1290,11 @@ export default function Home() {
 
 
       {/* 🔴 Bottom CTA */}
-      <section id="cta" className="py-24 bg-rose-50 w-full relative overflow-hidden">
+      <section id="cta" className="py-24 bg-blue-50 w-full relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-rose-700 tracking-tight mb-6">{t.ctaHeading}</h2>
+          <h2 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-blue-700 tracking-tight mb-6">{t.ctaHeading}</h2>
           <p className="text-lg md:text-xl text-slate-500 font-medium mb-12">{t.ctaSub}</p>
-          <div className="bg-white p-2 rounded-full shadow-2xl shadow-rose-900/10 border border-slate-200 max-w-4xl w-full flex flex-col md:flex-row gap-2">
+          <div className="bg-white p-2 rounded-full shadow-2xl shadow-blue-900/10 border border-slate-200 max-w-4xl w-full flex flex-col md:flex-row gap-2">
             <div className="flex-1 flex items-center px-6 py-4 md:py-2 gap-3 group">
               <MapPin className="text-gray-400" size={24} />
               <input type="text" placeholder={t.searchPlaceholder} value={destination} onChange={(e) => setDestination(e.target.value)} className="bg-transparent w-full outline-none text-slate-800 font-semibold text-lg" />
@@ -1304,7 +1304,7 @@ export default function Home() {
               <CalendarIcon className="text-gray-400" size={24} />
               <DatePicker selectsRange startDate={startDate} endDate={endDate} onChange={handleDateChange} minDate={new Date()} locale={lang === 'ko' ? ko : enUS} dateFormat="yyyy.MM.dd" placeholderText={t.datePlaceholder} className="bg-transparent w-full outline-none text-slate-800 font-semibold text-lg cursor-pointer" />
             </div>
-            <button onClick={generatePlan} disabled={loading} className="bg-rose-400 hover:bg-rose-500 text-white rounded-full px-8 py-4 font-bold text-lg shadow-xl flex justify-center items-center gap-2 shrink-0 md:w-auto w-full mt-2 md:mt-0">
+            <button onClick={generatePlan} disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-4 font-bold text-lg shadow-xl flex justify-center items-center gap-2 shrink-0 md:w-auto w-full mt-2 md:mt-0">
               {loading ? <Loader2 size={24} className="animate-spin text-white" /> : <><Navigation size={20} fill="currentColor" /> {t.ctaBtn}</>}
             </button>
           </div>
@@ -1318,7 +1318,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
 
           <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">Tech Stack</span>
+            <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-black mb-4 uppercase tracking-widest">Tech Stack</span>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-900">
               💻 <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-700">{t.techTitle}</span>
             </h2>
@@ -1359,7 +1359,7 @@ export default function Home() {
       <section id="faq" className="py-24 bg-white/40 backdrop-blur-[2px] relative w-full overflow-hidden border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1 rounded-full bg-rose-100 text-rose-600 text-sm font-black mb-4 uppercase tracking-widest">FAQ</span>
+            <span className="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-black mb-4 uppercase tracking-widest">FAQ</span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
               {t.faqTitle}
             </h2>
@@ -1368,9 +1368,9 @@ export default function Home() {
 
           <div className="space-y-4">
             {(lang === 'ko' ? FAQ_DATA_KO : FAQ_DATA_EN).map((faq, idx) => (
-              <div key={idx} className="bg-slate-50 border border-slate-100 rounded-[24px] p-6 hover:border-rose-200 transition-colors">
+              <div key={idx} className="bg-slate-50 border border-slate-100 rounded-[24px] p-6 hover:border-blue-200 transition-colors">
                 <h3 className="text-xl font-bold text-slate-900 mb-3 flex gap-3">
-                  <span className="text-rose-400">Q.</span> {faq.q}
+                  <span className="text-blue-500">Q.</span> {faq.q}
                 </h3>
                 <p className="text-slate-600 leading-relaxed font-medium flex gap-3">
                   <span className="text-slate-300 font-bold">A.</span> {faq.a}
@@ -1405,14 +1405,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Logo" className="h-6 object-contain grayscale opacity-60" />
-              <span className="font-extrabold text-xl text-slate-500 tracking-tighter">AI</span>
+              <img src="/logo.png" alt="Logo" className="h-[36px] object-contain grayscale opacity-60" />
+              <span className="font-extrabold text-2xl text-slate-500 tracking-tighter">AI</span>
             </div>
             <div className="flex gap-6 text-sm font-bold text-slate-500">
-              <a href="/blog" className="text-rose-500 hover:text-rose-600 transition">블로그</a>
-              <a href="/support" className="hover:text-rose-500 transition">{t.footerContact}</a>
-              <a href="/terms" className="hover:text-rose-500 transition">{t.footerTerms}</a>
-              <a href="/privacy" className="hover:text-rose-500 transition">{t.footerPrivacy}</a>
+              <a href="/blog" className="text-blue-600 hover:text-blue-500 transition">블로그</a>
+              <a href="/support" className="hover:text-blue-600 transition">{t.footerContact}</a>
+              <a href="/terms" className="hover:text-blue-600 transition">{t.footerTerms}</a>
+              <a href="/privacy" className="hover:text-blue-600 transition">{t.footerPrivacy}</a>
             </div>
           </div>
           <div className="border-t border-slate-200 mt-8 pt-8 text-slate-400 font-medium text-xs text-center md:text-left">
@@ -1423,7 +1423,7 @@ export default function Home() {
 
       {/* Floating App Button */}
       <div className="hidden lg:flex fixed right-8 bottom-8 z-50">
-        <a href="https://play.google.com/store/apps/details?id=pro.mytrip2.twa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-950 border border-slate-900 text-white px-6 py-3 rounded-2xl transition-all hover:-translate-y-1 shadow-2xl hover:shadow-rose-500/20 group">
+        <a href="https://play.google.com/store/apps/details?id=pro.mytrip2.twa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-slate-950 border border-slate-900 text-white px-6 py-3 rounded-2xl transition-all hover:-translate-y-1 shadow-2xl hover:shadow-blue-500/20 group">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
             {/* Left Blue Quadrant */}
             <path d="M3.2 2.2C3.1 2.4 3 2.7 3 3.1V20.9C3 21.3 3.1 21.6 3.2 21.8L12.7 12.3L3.2 2.2Z" fill="#00D7FF" />

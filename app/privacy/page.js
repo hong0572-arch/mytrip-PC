@@ -48,8 +48,8 @@ export default function Privacy() {
           <span>메인으로 돌아가기</span>
         </a>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-6 object-contain" />
-          <span className="font-extrabold text-lg text-slate-800 tracking-tight">AI</span>
+          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </div>
       </header>
 
@@ -101,7 +101,7 @@ export default function Privacy() {
         {/* Footer Love */}
         <div className="bg-slate-100 rounded-[28px] p-6 border border-slate-200/50 flex gap-4 items-center justify-between flex-col md:flex-row text-center md:text-left">
           <div className="flex gap-3 items-center">
-            <div className="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">
               <Heart size={14} fill="currentColor" />
             </div>
             <p className="text-sm text-slate-600 font-black">

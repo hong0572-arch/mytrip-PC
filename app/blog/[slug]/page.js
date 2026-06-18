@@ -61,7 +61,7 @@ export default async function BlogPost(props) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-white selection:bg-rose-100 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col font-sans bg-white selection:bg-blue-100 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -69,11 +69,11 @@ export default async function BlogPost(props) {
       
       <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[28px] md:h-8 object-contain" />
-          <span className="font-extrabold text-2xl tracking-tight text-slate-800">AI</span>
+          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </Link>
         <nav className="flex items-center gap-6 text-slate-800 font-bold text-sm">
-          <Link href="/blog" className="hover:text-rose-500 transition">
+          <Link href="/blog" className="hover:text-blue-600 transition">
             {post.language === 'en' ? '← Back to List' : '← 목록으로'}
           </Link>
         </nav>
@@ -83,7 +83,7 @@ export default async function BlogPost(props) {
         <div className="mb-8">
           <div className="flex gap-2 mb-6 flex-wrap">
             {post.tags?.map(tag => (
-              <span key={tag} className="px-3 py-1 bg-rose-50 text-rose-500 text-xs font-black rounded-full tracking-wide">
+              <span key={tag} className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-black rounded-full tracking-wide">
                 #{tag}
               </span>
             ))}
@@ -112,8 +112,8 @@ export default async function BlogPost(props) {
           [&>p]:mb-6
           [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-2 [&>ul]:mb-6
           [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:space-y-2 [&>ol]:mb-6
-          [&>blockquote]:border-l-4 [&>blockquote]:border-rose-400 [&>blockquote]:bg-rose-50 [&>blockquote]:py-3 [&>blockquote]:px-6 [&>blockquote]:rounded-r-xl [&>blockquote]:text-slate-800 [&>blockquote]:mb-6 [&>blockquote]:font-bold
-          [&>a]:text-rose-500 [&>a]:underline hover:[&>a]:text-rose-600
+          [&>blockquote]:border-l-4 [&>blockquote]:border-blue-400 [&>blockquote]:bg-blue-50 [&>blockquote]:py-3 [&>blockquote]:px-6 [&>blockquote]:rounded-r-xl [&>blockquote]:text-slate-800 [&>blockquote]:mb-6 [&>blockquote]:font-bold
+          [&>a]:text-blue-600 [&>a]:underline hover:[&>a]:text-blue-700
           [&>strong]:text-slate-900 [&>strong]:font-black"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />

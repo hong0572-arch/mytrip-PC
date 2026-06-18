@@ -158,9 +158,9 @@ export default function AIResult({ data, userInfo, onReset }) {
                         <h1 className="text-3xl font-black text-gray-900 mb-2">{tripPlan.tripTitle}</h1>
                         <div className="flex flex-wrap gap-2 mb-6">
                             <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><MapPin size={14} /> {userInfo?.destination}</span>
-                            <span className="bg-rose-50 text-rose-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><Calendar size={14} /> {userInfo?.startDate}</span>
+                            <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1"><Calendar size={14} /> {userInfo?.startDate}</span>
                         </div>
-                        <h3 className="font-bold text-gray-700 mb-2 border-b pb-2">💰 예상 경비: <span className="text-rose-500">{tripPlan.estimatedCost}</span></h3>
+                        <h3 className="font-bold text-gray-700 mb-2 border-b pb-2">💰 예상 경비: <span className="text-blue-600">{tripPlan.estimatedCost}</span></h3>
                         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
                             {tripPlan.budgetBreakdown?.map((item, idx) => <li key={idx}>{item}</li>)}
                         </ul>
@@ -178,7 +178,7 @@ export default function AIResult({ data, userInfo, onReset }) {
                                             <p className="text-xs text-gray-500">{hotel.description}</p>
                                         </div>
                                         <div className="text-right">
-                                            <span className="text-rose-500 font-bold text-sm block">{hotel.priceRange}</span>
+                                            <span className="text-blue-600 font-bold text-sm block">{hotel.priceRange}</span>
                                             <Search size={14} className="inline text-gray-400" />
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@ export default function AIResult({ data, userInfo, onReset }) {
                                             <div className="flex gap-2">
                                                 <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-blue-100 transition"><ExternalLink size={12} /> 구글 지도</button>
                                                 {!place.category?.includes("Restaurant") && !place.category?.includes("음식점") && (
-                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-rose-50 text-rose-500 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-rose-100 transition">🎟️ 티켓 확인</button>
+                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-blue-100 transition">🎟️ 티켓 확인</button>
                                                 )}
                                             </div>
                                         </div>

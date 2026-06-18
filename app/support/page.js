@@ -17,7 +17,7 @@ export default function Support() {
       {/* 🌌 Premium Liquid Aura & Dot-Mesh Backdrop */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[60%] aspect-square bg-blue-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] aspect-square bg-rose-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] aspect-square bg-sky-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
         
         {/* Technical Blueprint Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
@@ -33,8 +33,8 @@ export default function Support() {
           <span>메인으로 돌아가기</span>
         </a>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-6 object-contain" />
-          <span className="font-extrabold text-lg text-slate-800 tracking-tight">AI</span>
+          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </div>
       </header>
 
@@ -107,7 +107,7 @@ export default function Support() {
         {/* Operating Hours Info */}
         <div className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-xl flex flex-col md:flex-row items-center gap-6 justify-between mb-16">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 shrink-0">
+            <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shrink-0">
               <Clock size={24} />
             </div>
             <div>

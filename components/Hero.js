@@ -14,7 +14,7 @@ export default function Hero() {
     return (
         <section className="relative h-screen w-full overflow-hidden bg-gray-900 text-white">
             {/* Background Gradient/Image Placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-sky-500 to-indigo-700 opacity-80" />
             <div className="absolute inset-0 bg-black/30" /> {/* Overlay */}
 
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
@@ -40,7 +40,7 @@ export default function Hero() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={scrollToForm}
-                        className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-semibold text-purple-600 shadow-lg transition-colors hover:bg-gray-100"
+                        className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-semibold text-blue-600 shadow-lg transition-colors hover:bg-gray-100"
                     >
                         여행 견적 받기
                         <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

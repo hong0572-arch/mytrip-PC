@@ -30,7 +30,7 @@ export default function BlogList({ posts }) {
           <button
             onClick={() => setSelectedLang('ko')}
             className={`px-6 py-2.5 rounded-xl font-black text-sm tracking-tight transition-all duration-300 relative z-10 ${
-              selectedLang === 'ko' ? 'text-rose-600' : 'text-slate-500 hover:text-slate-700'
+              selectedLang === 'ko' ? 'text-blue-600' : 'text-slate-500 hover:text-slate-700'
             }`}
           >
             {selectedLang === 'ko' && (
@@ -46,7 +46,7 @@ export default function BlogList({ posts }) {
           <button
             onClick={() => setSelectedLang('en')}
             className={`px-6 py-2.5 rounded-xl font-black text-sm tracking-tight transition-all duration-300 relative z-10 ${
-              selectedLang === 'en' ? 'text-rose-600' : 'text-slate-500 hover:text-slate-700'
+              selectedLang === 'en' ? 'text-blue-600' : 'text-slate-500 hover:text-slate-700'
             }`}
           >
             {selectedLang === 'en' && (
@@ -96,8 +96,8 @@ export default function BlogList({ posts }) {
                       </div>
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <p className="text-xs font-bold text-rose-500 mb-2">{post.date}</p>
-                      <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-rose-600 transition-colors line-clamp-2">
+                      <p className="text-xs font-bold text-blue-600 mb-2">{post.date}</p>
+                      <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
                         {post.title}
                       </h2>
                       <p className="text-sm text-slate-500 font-medium line-clamp-3 mb-4 flex-1 leading-relaxed">

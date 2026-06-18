@@ -36,7 +36,7 @@ export default function Terms() {
       {/* 🌌 Premium Liquid Aura & Dot-Mesh Backdrop */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] right-[-10%] w-[60%] aspect-square bg-indigo-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[60%] aspect-square bg-pink-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[60%] aspect-square bg-sky-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
         
         {/* Technical Blueprint Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
@@ -52,8 +52,8 @@ export default function Terms() {
           <span>메인으로 돌아가기</span>
         </a>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-6 object-contain" />
-          <span className="font-extrabold text-lg text-slate-800 tracking-tight">AI</span>
+          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </div>
       </header>
 
@@ -69,7 +69,7 @@ export default function Terms() {
             <span className="px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-black uppercase tracking-wider">Terms of Service</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-slate-950 mb-4 tracking-tight leading-tight">
-            서비스 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-rose-500">이용약관</span>
+            서비스 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">이용약관</span>
           </h1>
           <p className="text-slate-500 font-bold text-sm">최종 개정일: 2026년 5월 19일</p>
         </div>
@@ -88,7 +88,7 @@ export default function Terms() {
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-4">
               <h3 className="text-2xl font-black text-slate-900 flex items-center gap-3">
-                <span className="w-2 h-6 bg-gradient-to-b from-indigo-500 to-rose-500 rounded-full shrink-0" />
+                <span className="w-2 h-6 bg-gradient-to-b from-indigo-500 to-blue-500 rounded-full shrink-0" />
                 {section.title}
               </h3>
               <p className="text-slate-600 font-medium leading-loose text-base whitespace-pre-line pl-5">

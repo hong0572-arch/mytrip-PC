@@ -153,7 +153,7 @@ export default function TravelQuiz({ aiQuizData }) {
                     <div className="text-center py-8">
                         {score === activeQuiz.length ? (
                             <>
-                                <Gift size={64} className="mx-auto text-pink-500 mb-4 animate-bounce" />
+                                <Gift size={64} className="mx-auto text-sky-500 mb-4 animate-bounce" />
                                 <h3 className="text-2xl font-bold text-gray-900">축하합니다! 만점! 🎉</h3>
                                 <p className="text-gray-600 mt-2 mb-6">{user ? `${REWARD_POINTS} 포인트가 적립되었습니다.` : "로그인하고 포인트를 받으세요!"}</p>
                                 {!user && <p className="text-xs text-red-500 font-bold">* 포인트 적립을 위해 로그인이 필요합니다.</p>}

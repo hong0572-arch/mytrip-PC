@@ -286,9 +286,9 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
                         <h1 className="text-5xl font-black text-gray-900 mb-2">{tripPlan.tripTitle}</h1>
                         <div className="flex flex-wrap gap-2 mb-6">
                             <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-lg font-bold flex items-center gap-1"><MapPin size={18} /> {userInfo?.destination}</span>
-                            <span className="bg-rose-50 text-rose-600 px-3 py-1 rounded-full text-lg font-bold flex items-center gap-1"><Calendar size={18} /> {userInfo?.startDate}</span>
+                            <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-lg font-bold flex items-center gap-1"><Calendar size={18} /> {userInfo?.startDate}</span>
                         </div>
-                        <h3 className="font-black text-gray-800 text-2xl mb-2 border-b pb-2">💰 {t.result.budget_summary}: <span className="text-rose-500">{tripPlan.estimatedCost}</span></h3>
+                        <h3 className="font-black text-gray-800 text-2xl mb-2 border-b pb-2">💰 {t.result.budget_summary}: <span className="text-blue-600">{tripPlan.estimatedCost}</span></h3>
                         <ul className="text-lg text-gray-600 space-y-1 list-disc list-inside">
                             {tripPlan.budgetBreakdown?.map((item, idx) => <li key={idx}>{item}</li>)}
                         </ul>
@@ -306,7 +306,7 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
                                             <p className="text-base text-gray-500">{hotel.description}</p>
                                         </div>
                                         <div className="text-right">
-                                            <span className="text-rose-500 font-bold text-lg block">{hotel.priceRange}</span>
+                                            <span className="text-blue-600 font-bold text-lg block">{hotel.priceRange}</span>
                                             <Search size={18} className="inline text-gray-400" />
                                         </div>
                                     </div>
@@ -334,7 +334,7 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
                                             <div className="flex gap-2">
                                                 <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-base font-bold flex items-center gap-1 hover:bg-blue-100 transition"><ExternalLink size={16} /> {t.result.google_maps}</button>
                                                 {!place.category?.includes("Restaurant") && !place.category?.includes("음식점") && (
-                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-rose-50 text-rose-500 rounded-lg text-base font-bold flex items-center gap-1 hover:bg-rose-100 transition">🎟️ {t.result.tickets}</button>
+                                                    <button onClick={(e) => { e.stopPropagation(); window.open(`https://www.klook.com/ko/search?query=${encodeURIComponent(place.name)}`, '_blank'); }} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-base font-bold flex items-center gap-1 hover:bg-blue-100 transition">🎟️ {t.result.tickets}</button>
                                                 )}
                                             </div>
                                         </div>
@@ -403,7 +403,7 @@ export default function AIResult({ data, userInfo, onReset, language = 'ko' }) {
                                         {day.places.map((place, pIndex) => (
                                             <div key={pIndex} className="pdf-item bg-gray-50 p-4 rounded-xl mb-3 border border-gray-100 relative">
                                                 <h4 className="font-bold text-gray-800 text-base">
-                                                    <span className="text-rose-500 mr-2">{pIndex + 1}.</span>
+                                                    <span className="text-blue-600 mr-2">{pIndex + 1}.</span>
                                                     {place.name}
                                                 </h4>
                                                 <p className="text-xs text-gray-500 mt-1">{place.description}</p>
