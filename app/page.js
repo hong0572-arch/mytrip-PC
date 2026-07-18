@@ -9,9 +9,9 @@ import AIResult from '../src/components/AIResult';
 
 const LOCALE = {
   ko: {
-    titleMain: "여행의 모든 순간을 연결하다",
-    titleSub: "트립메이커 AI",
-    subText: "초개인화 AI 안심 일정부터 안전한 동행 매칭, 스마트한 자금 마련까지. 냥프로와 함께 설레는 여행을 시작하세요.",
+    titleMain: "여행의 모든 순간",
+    titleSub: "트립메이커, Timmy",
+    subText: "초개인화 AI 안심 일정부터 안전한 동행 매칭, 스마트한 자금 마련까지. Timmy와 함께 설레는 여행을 시작하세요.",
     searchPlaceholder: "어디로 떠나시나요?",
     datePlaceholder: "언제 떠나시나요?",
     btnPlan: "여행 일정 만들기",
@@ -25,7 +25,7 @@ const LOCALE = {
     featHeading: "핵심 기능 (Core Features)",
     featSub: "여행의 시작부터 끝까지, 필요한 모든 것을 스마트하게.",
     f1Title: "AI Planner",
-    f1Desc: "대한민국, 전세계 어디나 1분 만에 완성되는 나만의 동선. 냥프로가 당신의 취향과 예산을 분석해 최적의 경로를 제안합니다.",
+    f1Desc: "대한민국, 전세계 어디나 1분 만에 완성되는 나만의 동선. Timmy가 당신의 취향과 예산을 분석해 최적의 경로를 제안합니다.",
     f2Title: "Social Network",
     f2Desc: "신뢰할 수 있는 여행 메이트. 성향 데이터를 통해 나와 70% 이상 일치하는 검증된 동행을 연결해 드립니다.",
     f3Title: "Travel Fund",
@@ -43,12 +43,12 @@ const LOCALE = {
     comHeading: "커뮤니티 및 자랑하기",
     comSub: "실제 유저들이 생성한 베스트 여행 카드 및 실시간 공유 피드",
     ctaHeading: "새로운 여행을 떠날 준비가 되셨나요?",
-    ctaSub: "초개인화 AI 일정부터 안전한 동행 매칭까지, 냥프로와 함께 시작하세요.",
+    ctaSub: "초개인화 AI 일정부터 안전한 동행 매칭까지, Timmy와 함께 시작하세요.",
     ctaBtn: "여행 일정 만들기",
     footerContact: "고객센터",
     footerTerms: "이용약관",
     footerPrivacy: "개인정보처리방침",
-    footerCopy: "Trip Maker AI (냥프로) All rights reserved.",
+    footerCopy: "Trip Maker AI (Timmy) All rights reserved.",
 
     // Additional Onboarding & Guide Parity
     onboardingTitle: "트립메이커 완벽 가이드",
@@ -97,7 +97,7 @@ const LOCALE = {
   },
   en: {
     titleMain: "Connecting every moment of travel",
-    titleSub: "Trip Maker AI",
+    titleSub: "Trip Maker, Timmy",
     subText: "From hyper-personalized AI secure itineraries to safe companion matching and smart funding. Start your exciting journey with NyangPro.",
     searchPlaceholder: "Where are you heading?",
     datePlaceholder: "Select your dates",
@@ -238,7 +238,7 @@ const GUIDE_DATA_KO = [
       {
         subtitle: "1-3. ✈️ 내 일정 항공권 탭",
         details: [
-          { label: "냥프로 안심 추천!", desc: "'HOT', 'PREMIUM' 딱지가 붙은 고화질 추천 여행지 카드가 가로 슬라이드로 제공됩니다." },
+          { label: "Timmy 안심 추천!", desc: "'HOT', 'PREMIUM' 딱지가 붙은 고화질 추천 여행지 카드가 가로 슬라이드로 제공됩니다." },
           { label: "실시간 항공권 (내 일정)", desc: "내가 생성한 일정을 터치하면 항공권 검색 오버레이가 올라오며 최저가 리스트를 매칭해 줍니다." },
           { label: "즉시 예약 링크", desc: "[Trip.com 최저가] 및 [Aviasales 예약] 버튼을 통해 글로벌 항공권 예약 페이지로 즉시 연결됩니다." }
         ]
@@ -1028,8 +1028,8 @@ export default function Home() {
       </div>
       <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
-          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
+          <img src="/logotm.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+
         </div>
         <div className="hidden md:flex items-center gap-8 text-slate-800 font-bold text-sm drop-shadow-[0_2px_6px_rgba(255,255,255,0.95)]">
           <a href="#onboarding" className="hover:text-blue-600 transition">{t.navGuide}</a>
@@ -1067,7 +1067,7 @@ export default function Home() {
           </h1>
 
           <div className="flex items-center w-full max-w-[280px] mb-8">
-            <img src="/cat.png" alt="NyangPro" className="h-38 mx-4 drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]" />
+            <img src="/timmy.png" alt="Timmy" className="h-38 mx-4 drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]" />
           </div>
 
           <p className="text-lg md:text-2xl font-bold leading-relaxed mb-12 max-w-3xl px-4 tracking-tight break-keep text-slate-800 drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)]">
@@ -1405,8 +1405,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Logo" className="h-[36px] object-contain grayscale opacity-60" />
-              <span className="font-extrabold text-2xl text-slate-500 tracking-tighter">AI</span>
+              <img src="/logotm.png" alt="Logo" className="h-[36px] object-contain grayscale opacity-60" />
+
             </div>
             <div className="flex gap-6 text-sm font-bold text-slate-500">
               <a href="/blog" className="text-blue-600 hover:text-blue-500 transition">블로그</a>

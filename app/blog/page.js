@@ -20,8 +20,8 @@ export default function BlogIndex() {
 
       <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
-          <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800 drop-shadow-[0_2px_4px_rgba(255,255,255,0.95)]">AI</span>
+          <img src="/logotm.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+
         </Link>
         <nav className="flex items-center gap-6 text-slate-800 font-bold text-sm">
           <Link href="/" className="hover:text-blue-600 transition">홈으로</Link>

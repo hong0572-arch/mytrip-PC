@@ -37,7 +37,7 @@ export default function Terms() {
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] right-[-10%] w-[60%] aspect-square bg-indigo-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
         <div className="absolute bottom-[-10%] left-[-10%] w-[60%] aspect-square bg-sky-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
-        
+
         {/* Technical Blueprint Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
           backgroundImage: 'radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px)',
@@ -52,14 +52,14 @@ export default function Terms() {
           <span>메인으로 돌아가기</span>
         </a>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <img src="/logotm.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
           <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 pt-10 pb-24 relative z-10">
-        
+
         {/* Title Glass Card */}
         <div className="bg-white/80 backdrop-blur-md rounded-[40px] p-8 md:p-12 border border-slate-200/50 shadow-2xl mb-12 relative overflow-hidden">
           <div className="flex items-center gap-4 mb-4">
@@ -76,7 +76,7 @@ export default function Terms() {
 
         {/* Legal Sections */}
         <div className="bg-white rounded-[40px] p-8 md:p-12 border border-slate-100 shadow-xl space-y-12 mb-12">
-          
+
           {/* Preface */}
           <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100 text-slate-600 font-medium text-sm leading-relaxed">
             트립메이커 AI 서비스를 이용해 주셔서 진심으로 감사드립니다. 본 이용약관은 서비스를 이용하는 과정에서 발생하는 권리와 책임, 그리고 서비스 이용을 위한 기본적인 규범들을 아주 투명하게 공개하고 설명하고 있습니다. 서비스를 계속 이용하시는 경우, 본 약관 전체에 동의하시는 것으로 간주됩니다.

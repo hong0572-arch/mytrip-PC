@@ -11,8 +11,8 @@ export const translations = {
             error_pdf: "PDF 생성 중 오류가 발생했습니다.",
         },
         hero: {
-            title: "AI 냥프로 플래너",
-            subtitle: "스마트한 고양이 냥프로와 함께 떠나는 맞춤형 여행",
+            title: "AI Timmy 플래너",
+            subtitle: "스마트한 고양이 Timmy와 함께 떠나는 맞춤형 여행",
             input_placeholder: "어디로 떠나고 싶으신가요? (예: 도쿄, 파리, 제주도)",
             start_date: "출발일",
             end_date: "도착일",
@@ -37,7 +37,7 @@ export const translations = {
             budget_detail: "예산 상세",
         },
         planner: {
-            modal_title: "AI 냥프로 맞춤 플래너",
+            modal_title: "AI Timmy 맞춤 플래너",
             where_to: "어디로 떠나시나요?",
             city_placeholder: "국가 또는 도시명 입력",
             select_dates: "일정 선택",

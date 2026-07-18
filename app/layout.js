@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
                   "url": "https://tripmaker.tips",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://tripmaker.tips/logo.png"
+                    "url": "https://tripmaker.tips/logotm.png"
                   },
                   "contactPoint": {
                     "@type": "ContactPoint",

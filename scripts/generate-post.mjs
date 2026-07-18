@@ -23,11 +23,11 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 
 const generatePostForLang = async (lang) => {
   console.log(`\n🌐 [${lang.toUpperCase()}] 자동 블로그 포스팅 생성을 시작합니다.`);
-  
+
   try {
     // 가장 안정적이고 최신 모델인 gemini-3.1-flash-lite 사용
     const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite' });
-    
+
     let topic = "";
 
     if (lang === 'ko') {
@@ -42,7 +42,7 @@ const generatePostForLang = async (lang) => {
         "SNS 핫플 피하는 나만의 숨겨진 로컬 여행지 찾는 법"
       ];
       const randomTheme = themesKo[Math.floor(Math.random() * themesKo.length)];
-      
+
       const topicPrompt = `
         당신은 수백만 방문자를 보유한 트렌디한 여행 블로그의 수석 에디터입니다.
         오늘 포스팅할 메인 테마는 "[${randomTheme}]" 입니다.
@@ -64,7 +64,7 @@ const generatePostForLang = async (lang) => {
         "How to find hidden local spots avoiding crowded tourist traps"
       ];
       const randomTheme = themesEn[Math.floor(Math.random() * themesEn.length)];
-      
+
       const topicPrompt = `
         You are the editor-in-chief of a trendy travel blog with millions of visitors.
         Today's main theme is "[${randomTheme}]".
@@ -155,13 +155,13 @@ coverImage: "/hero_background.png"
 
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
-    
+
     // 슬러그(파일명) 생성 로직
     const dateStr = format(new Date(), 'yyyy-MM-dd');
     const safeTopic = topic.replace(/\s+/g, '-').replace(lang === 'ko' ? /[^a-zA-Z0-9가-힣-]/g : /[^a-zA-Z0-9-]/g, '').toLowerCase();
     const slug = `${dateStr}-${lang}-${safeTopic || 'new-post'}`;
     const filename = `${slug}.md`;
-    
+
     // 1. AI에게 주제에 맞는 고품질 이미지 생성 영어 프롬프트 기획 요청
     console.log(`⏳ AI 커버 이미지 생성을 위해 전용 프롬프트를 기획하고 있습니다...`);
     const imgPromptText = lang === 'ko' ? `
@@ -179,17 +179,17 @@ coverImage: "/hero_background.png"
       - Rule 2: Describe a warm, aesthetic travel photography style with soft focus, warm lighting, photorealistic, 8k, highly detailed.
       - Rule 3: Output exactly 1 line of the English prompt without any quotes, brackets, or explanations.
     `;
-    
+
     let coverImagePath = "/hero_background.png"; // 실패 시 기본 이미지 폴백
     try {
       const imgPromptResult = await model.generateContent(imgPromptText);
       const imgPrompt = imgPromptResult.response.text().trim().replace(/^"|"$/g, '');
       console.log(`🎨 기획된 이미지 프롬프트: "${imgPrompt}"`);
-      
+
       // 2. Pollinations AI를 통해 이미지 다운로드
       console.log(`📸 AI 커버 이미지를 생성하는 중입니다...`);
       const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(imgPrompt)}?width=1024&height=768&nologo=true&private=true&seed=${Math.floor(Math.random() * 100000)}`;
-      
+
       const imgResponse = await fetch(pollinationsUrl);
       if (imgResponse.ok) {
         const buffer = Buffer.from(await imgResponse.arrayBuffer());
@@ -207,19 +207,19 @@ coverImage: "/hero_background.png"
     } catch (imgError) {
       console.error(`❌ AI 이미지 생성 중 오류 발생, 기본 커버이미지를 사용합니다:`, imgError);
     }
-    
+
     // 3. 생성된 본문의 coverImage 경로를 동적으로 치환
     let postContent = responseText;
     postContent = postContent.replace(/coverImage:\s*["']?\/hero_background\.png["']?/g, `coverImage: "${coverImagePath}"`);
-    
+
     const outputDir = path.join(process.cwd(), 'content/posts');
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
-    
+
     const outputPath = path.join(outputDir, filename);
     fs.writeFileSync(outputPath, postContent, 'utf8');
-    
+
     console.log(`✅ [${lang.toUpperCase()}] 포스팅 및 AI 이미지 생성이 완벽히 완료되었습니다!`);
     console.log(`📂 글 저장 위치: content/posts/${filename}`);
     if (coverImagePath !== "/hero_background.png") {
@@ -230,7 +230,7 @@ coverImage: "/hero_background.png"
     const cleanTitle = postContent.match(/title:\s*["']?(.*?)["']?\r?\n/)?.[1] || topic;
     const cleanDesc = postContent.match(/description:\s*["']?(.*?)["']?\r?\n/)?.[1] || "TripMaker AI Editor Post";
     await sendSnsAlerts(cleanTitle, slug, cleanDesc, lang, coverImagePath);
-    
+
   } catch (error) {
     console.error(`❌ [${lang.toUpperCase()}] 포스팅 생성 중 오류가 발생했습니다:`, error);
     throw error;
@@ -241,7 +241,7 @@ coverImage: "/hero_background.png"
 const sendSnsAlerts = async (title, slug, description, lang, coverImagePath) => {
   const baseUrl = 'https://tripmaker.tips';
   const postUrl = `${baseUrl}/blog/${slug}`;
-  
+
   // 1. 디스코드 웹훅 알림 (DISCORD_WEBHOOK_URL 환경변수 존재 시)
   const discordUrl = process.env.DISCORD_WEBHOOK_URL;
   if (discordUrl) {
@@ -263,11 +263,11 @@ const sendSnsAlerts = async (title, slug, description, lang, coverImagePath) => 
           timestamp: new Date().toISOString(),
           footer: {
             text: 'TripMaker AI Editor Hub',
-            icon_url: `${baseUrl}/logo.png`
+            icon_url: `${baseUrl}/logotm.png`
           }
         }]
       };
-      
+
       const res = await fetch(discordUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -289,12 +289,12 @@ const sendSnsAlerts = async (title, slug, description, lang, coverImagePath) => 
   if (tgToken && tgChatId) {
     try {
       console.log(`📡 [Telegram] 새 포스팅 알림 전송 중...`);
-      
+
       // 마크다운 형식으로 포맷팅 (특수문자 이스케이프 주의)
       const text = lang === 'ko'
         ? `*📝 새 블로그 포스팅 발행*\n\n*제목:* ${title}\n*요약:* ${description}\n\n👉 [블로그에서 전체 읽기](${postUrl})`
         : `*📝 New Blog Post Published*\n\n*Title:* ${title}\n*Summary:* ${description}\n\n👉 [Read Full Post on Blog](${postUrl})`;
-      
+
       const tgUrl = `https://api.telegram.org/bot${tgToken}/sendMessage`;
       const res = await fetch(tgUrl, {
         method: 'POST',

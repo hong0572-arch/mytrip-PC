@@ -33,7 +33,7 @@ export default function Privacy() {
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[60%] aspect-square bg-emerald-200/25 blur-[120px] rounded-full animate-pulse" style={{ animationDuration: '10s' }} />
         <div className="absolute bottom-[-10%] right-[-10%] w-[60%] aspect-square bg-blue-200/20 blur-[130px] rounded-full animate-pulse" style={{ animationDuration: '14s' }} />
-        
+
         {/* Technical Blueprint Map Grid */}
         <div className="absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{
           backgroundImage: 'radial-gradient(circle, #cbd5e1 1.2px, transparent 1.2px)',
@@ -48,7 +48,7 @@ export default function Privacy() {
           <span>메인으로 돌아가기</span>
         </a>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <img src="/logotm.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
           <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </div>
       </header>

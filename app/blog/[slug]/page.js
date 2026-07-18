@@ -4,7 +4,7 @@ import Link from 'next/link';
 export async function generateMetadata(props) {
   const params = await props.params;
   const post = getPostBySlug(params.slug, ['title', 'description', 'seoKeywords', 'coverImage']);
-  
+
   if (!post) {
     return { title: 'Post Not Found' };
   }
@@ -66,10 +66,10 @@ export default async function BlogPost(props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
+
       <header className="w-full p-4 md:px-8 flex justify-between items-center z-[100] relative bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
+          <img src="/logotm.png" alt="Logo" className="h-[48px] md:h-[56px] object-contain" />
           <span className="font-extrabold text-3xl md:text-4xl tracking-tight text-slate-800">AI</span>
         </Link>
         <nav className="flex items-center gap-6 text-slate-800 font-bold text-sm">
@@ -105,7 +105,7 @@ export default async function BlogPost(props) {
         )}
 
         {/* Custom Styled Markdown Content */}
-        <article 
+        <article
           className="max-w-none text-slate-700 leading-loose text-lg font-medium space-y-6
           [&>h2]:text-2xl [&>h2]:font-black [&>h2]:text-slate-900 [&>h2]:mt-12 [&>h2]:mb-4
           [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-slate-800 [&>h3]:mt-8 [&>h3]:mb-3
