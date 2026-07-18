@@ -1067,7 +1067,7 @@ export default function Home() {
           </h1>
 
           <div className="flex items-center w-full max-w-[280px] mb-8">
-            <img src="/timmy.png" alt="Timmy" className="h-38 mx-4 drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]" />
+            <img src="/Timmy.png" alt="Timmy" className="h-38 mx-4 drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]" />
           </div>
 
           <p className="text-lg md:text-2xl font-bold leading-relaxed mb-12 max-w-3xl px-4 tracking-tight break-keep text-slate-800 drop-shadow-[0_2px_8px_rgba(255,255,255,0.95)]">
